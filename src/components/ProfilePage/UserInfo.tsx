@@ -4,14 +4,25 @@ interface Props {
 }
 
 const UserInfo = ({ id }: Props) => {
-	return <div className="userDetails">UserInfo</div>;
+	return (
+		<div>
+			<div className="userDetails">UserInfo</div>
+			<div className="userDetailsAdvanced">asd</div>
+		</div>
+	);
 
 	//Стата:
 	//Акка
 	//место в мире
 	//Сыгранные матчи
 	//Винрейт
+	//Средний матчкост
 	//последние два за последние два месяца
+
+	//Детальная стата по картам
+	//Количество пиков карт по модам
+	//сколько из них выиграно/проиграно
+	//
 };
 
 export default UserInfo;

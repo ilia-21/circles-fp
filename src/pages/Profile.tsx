@@ -4,6 +4,7 @@ import UserCardFull from "../components/ProfilePage/UserCardFull";
 import UserInfo from "../components/ProfilePage/UserInfo";
 import "./Profile.css";
 import Bannertop from "../components/ProfilePage/Bannertop";
+import OptoutPage from "../components/ProfilePage/OptoutPage";
 
 interface Props {
 	loggedInUser?: any;
@@ -15,7 +16,7 @@ const Profile = ({ loggedInUser }: Props) => {
 	useEffect(() => {
 		const id = uid || loggedInUser?.id;
 		if (id) {
-			fetch(`http://localhost:3000/user/${id}`, {
+			fetch(`http://${import.meta.env.VITE_API_URL}/user/${id}`, {
 				credentials: "include",
 			})
 				.then((response) => response.json())
@@ -38,14 +39,27 @@ const Profile = ({ loggedInUser }: Props) => {
 	if (loading) {
 		return (
 			<div className="profilePage">
-				<div>Loading...</div>
+				<div className="profilePageThe2st">
+					<div>Loading...</div>
+				</div>
 			</div>
 		);
 	}
 	if (!user) {
 		return (
 			<div className="profilePage">
-				<div>User not found.</div>
+				<div className="profilePageThe2st">
+					<div>User not found.</div>
+				</div>
+			</div>
+		);
+	}
+	if (user.optout) {
+		return (
+			<div className="profilePage">
+				<div className="profilePageThe2st">
+					<OptoutPage id={uid || loggedInUser?.id} />
+				</div>
 			</div>
 		);
 	}
@@ -54,7 +68,7 @@ const Profile = ({ loggedInUser }: Props) => {
 			<Bannertop banner={user.cover_url} />
 
 			<div className="profilePageThe2st">
-				<UserCardFull username={user.username} avatar={user.avatar_url} roles={user.cfp.roles} country={user.country.name} />
+				<UserCardFull user={user} />
 				<UserInfo id={user.id} />
 			</div>
 			{/* <UserInfo /> */}

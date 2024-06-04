@@ -1,2 +1,3 @@
 # circles-fp
-Your homepage for osu! tournaments, matches and stats!
+
+Your homepage for [osu!](https://osu.ppy.sh) tournaments, matches and stats!

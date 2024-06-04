@@ -40,14 +40,19 @@ p {
 }
 .tourneyCardNews > div {
 	width: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
-.tourneyCardNews > div > p {
+.tourneyCardNews > div > a {
 	text-align: center;
 	cursor: pointer;
 	color: #8fbb96;
 	margin: 0px 2em;
 	padding: 0.5em;
 	border-bottom: #ffffff10 1px solid;
+	position: relative;
+	display: block;
 }
 .tourneyCardNews > div:nth-child(1) {
 	border-right: #ffffff10 1px solid;

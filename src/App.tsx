@@ -11,7 +11,7 @@ function App() {
 	const [currentPage, setcurrentPage] = useState(-1);
 
 	useEffect(() => {
-		fetch("http://localhost:3000/api/session", {
+		fetch(`http://${import.meta.env.VITE_API_URL}/api/session`, {
 			credentials: "include",
 		})
 			.then((response) => response.json())

@@ -1,30 +1,63 @@
+import { Player } from "../../types/Player";
+import { Team } from "../../types/Team";
 import "./MatchSmall.css";
 interface Props {
 	id: number;
-	team1: String;
-	team2: String;
+	first: Team | Player;
+	second: Team | Player;
 	content: "upcoming" | "score";
-	upcoming?: String;
+	upcoming?: String[];
 	score?: number[];
 }
 
-const MatchSmall = (Props: Props) => {
+const MatchSmall = ({ id, first, second, content, upcoming, score }: Props) => {
+	console.log(upcoming);
+	let getTimeZone = () => {
+		let offset = new Date().getTimezoneOffset(),
+			o = Math.abs(offset);
+		let bs: number = parseInt(("00" + Math.floor(o / 60)).slice(-2));
+		return offset < 0 ? 0 + bs : 0 - bs;
+	};
 	let createContent = () => {
-		if (Props.content == "score" && Props.score) {
+		if (content == "score" && score) {
 			return (
 				<p>
-					{Props.score[0]} - {Props.score[1]}
+					{score[0]} - {score[1]}
 				</p>
 			);
-		} else {
-			return <p>{Props.upcoming}</p>;
+		} else if (upcoming) {
+			let timePart = upcoming[1].slice(0, 8);
+			let combinedDateTimeString = `${timePart}${upcoming[1].slice(8, 10)}T${upcoming[0].slice(0, 11)}:00`;
+			const timestamp = new Date(combinedDateTimeString);
+			const localizedTimeString = new Intl.DateTimeFormat("en-US", {
+				hour: "2-digit",
+				minute: "2-digit",
+			}).format(timestamp);
+			return <p>{`${localizedTimeString}`}</p>;
 		}
 	};
+
+	let createLink = (who: Team | Player) => {
+		if (first as Player) {
+			return (
+				<a href="">
+					<img src={`${(who as Player).avatar_url}`} alt="" />
+				</a>
+			);
+		} else {
+			return (
+				<a href="">
+					<img src={`/src/assets/flags/${who}.png`} alt="NO TEAM AVATARS CURRENTLY" />
+				</a>
+			);
+		}
+	};
+
 	return (
 		<div className="matchSmall">
-			<img src={`/src/assets/flags/${Props.team1}.png`} alt="" />
+			{createLink(first)}
 			{createContent()}
-			<img src={`/src/assets/flags/${Props.team2}.png`} alt="" />
+			{createLink(second)}
 		</div>
 	);
 };

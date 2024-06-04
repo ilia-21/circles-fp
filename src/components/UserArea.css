@@ -1,0 +1,64 @@
+.userArea {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	cursor: pointer;
+	flex-basis: 15%;
+}
+
+.userInfo {
+	display: flex;
+	align-items: center;
+}
+
+.userInfo img {
+	border-radius: 50%;
+	max-width: 5vw;
+	max-height: 5vh;
+	margin-right: 10px;
+}
+
+.userInfo p {
+	margin: 0;
+	font-size: 2vh;
+}
+
+.userMenu {
+	position: absolute;
+	top: 100%;
+	right: 0;
+	background-color: #171c18;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+	z-index: 10;
+	display: flex;
+	flex-direction: column;
+	min-width: 150px;
+	border-radius: 10px;
+}
+
+.userMenu a {
+	text-decoration: none;
+	color: white;
+	transition: background-color 0.3s;
+	font-family: "Raleway", sans-serif;
+	font-size: 1.75vh;
+	border-radius: 5px;
+	margin: 0.45vh 0.5vw;
+	padding: 0.25vh 2vw;
+	position: relative;
+}
+.userMenu a:hover::before {
+	background-color: #66ff7f;
+	border-radius: 10px;
+	content: "";
+	height: 1em;
+	left: 10px;
+	position: absolute;
+	top: 7px;
+	width: 3px;
+}
+.userMenu a:hover {
+	background-color: #2e3830;
+	text-decoration: none;
+}

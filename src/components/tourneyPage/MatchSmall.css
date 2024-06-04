@@ -1,0 +1,17 @@
+.matchSmall {
+	display: flex;
+	height: 2.5em;
+	justify-content: space-around;
+	align-items: center;
+	margin: 1.5em 0;
+}
+.matchSmall > img {
+	height: auto;
+	max-width: 4vw;
+	max-height: 5vh;
+}
+.matchSmall > p {
+	width: auto;
+	font-size: 2.3vh;
+	margin: 0 1em;
+}

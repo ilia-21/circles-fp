@@ -1,0 +1,57 @@
+p {
+	color: white;
+}
+.tourneyCard {
+	background: #2e3830;
+	padding: 1em;
+	width: 80%;
+	margin: 2em 0;
+}
+.tourneyCardTitle {
+	font-size: large;
+	font-weight: bolder;
+}
+.tourneyCard > img {
+	width: 100%;
+}
+.tourneyCardButtons {
+	border-top: 1px #ffffff10 solid;
+	display: flex;
+	justify-content: center;
+}
+.tourneyCardButtons > a {
+	cursor: pointer;
+	color: #8fbb96;
+	text-decoration: none;
+	padding: 10px;
+	width: 50%;
+	text-align: center;
+}
+.tourneyCardButtons > a:nth-child(1) {
+	border-right: #ffffff10 1px solid;
+}
+.tourneyCardButtons > a:hover {
+	text-decoration: underline;
+}
+.tourneyCardNews {
+	display: flex;
+	justify-content: center;
+	border-top: 1px #ffffff10 solid;
+}
+.tourneyCardNews > div {
+	width: 50%;
+}
+.tourneyCardNews > div > p {
+	text-align: center;
+	cursor: pointer;
+	color: #8fbb96;
+	margin: 0px 2em;
+	padding: 0.5em;
+	border-bottom: #ffffff10 1px solid;
+}
+.tourneyCardNews > div:nth-child(1) {
+	border-right: #ffffff10 1px solid;
+}
+.tourneyCardNews > div > p:hover {
+	text-decoration: underline;
+}

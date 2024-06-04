@@ -1,0 +1,32 @@
+.badge {
+	background-color: #1f2721;
+	border-radius: 100vh;
+	text-align: center;
+	width: 7vw;
+	height: 3vh;
+	position: relative;
+	color: white;
+	font-size: min(2vh, 2vw);
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+.badge > p {
+	margin: 0;
+}
+/* .badge:hover .tooltip {
+	visibility: visible;
+} */
+.tooltip {
+	position: absolute;
+	background-color: #000000a0;
+	color: white;
+	visibility: hidden;
+	font-size: 1.5vh;
+	padding: 1vh;
+	border-radius: 1vh;
+	bottom: 5vh;
+	left: 5vh;
+	max-height: 1vh;
+	max-width: 20vw;
+}

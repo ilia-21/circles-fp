@@ -1,0 +1,21 @@
+.leftPane,
+.rightPane {
+	background-color: #2e3830;
+	padding: 0.5em;
+	flex-basis: 22%;
+}
+.leftPane > div,
+.rightPane > div {
+	text-align: center;
+	border-bottom: 1px solid #ffffff10;
+}
+.leftPane {
+}
+.centerPane {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	flex-basis: 56%;
+}
+.rightPane {
+}

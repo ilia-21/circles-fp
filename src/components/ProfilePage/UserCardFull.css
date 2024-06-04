@@ -1,0 +1,43 @@
+.userCardFull {
+	background-color: #39463c;
+	z-index: 9;
+	position: relative;
+}
+.banner {
+	width: 100%;
+}
+.avatar {
+	max-width: 20vw;
+	max-height: 20vh;
+}
+.username {
+	padding: 0.5vh 0;
+	margin: 0;
+	font-size: min(5vw, 5vh);
+}
+.profileContainer {
+	display: flex;
+	position: relative;
+	padding: 2vh;
+	flex-direction: column-reverse;
+	flex-wrap: wrap;
+	height: 20vh;
+	gap: 2vh;
+	align-content: start;
+}
+.yetAnotherContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+}
+.yetAnotherContainer > img {
+	height: 4vh;
+	width: max-content;
+}
+.badgeContainer {
+	padding: 0.5vh;
+	margin: 0;
+	display: flex;
+	align-items: center;
+	gap: 1vw;
+}

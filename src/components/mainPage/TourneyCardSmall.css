@@ -1,0 +1,38 @@
+.tourneyCardSmall {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	flex-wrap: wrap;
+	gap: 5%;
+	align-items: center;
+	position: relative;
+	max-height: 10vh;
+}
+.tourneyCardSmall > a {
+	color: #8fbb96;
+	text-decoration: none;
+}
+.tourneyCardSmall > a:hover {
+	text-decoration: underline;
+}
+.tourneyCardSmall > p,
+.tourneyCardSmall > a {
+	text-align: left;
+	margin: 0;
+	width: 62%;
+	font-size: 1.727vh;
+
+	/* overflow bullshit */
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.tourneyCardSmall > img {
+	margin: 2.5em 0;
+	height: auto;
+	max-width: 7vw;
+	max-height: 7vh;
+}
+.tourneyCardSmall-date {
+	font-size: smaller;
+}

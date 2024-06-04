@@ -1,0 +1,16 @@
+.footer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.footer > * {
+	margin: 0 1em;
+}
+
+a {
+	color: #8fbb96;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}

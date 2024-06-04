@@ -1,0 +1,11 @@
+.bannerTop {
+	position: absolute;
+	width: 100vw;
+	margin: 0;
+	top: 10%;
+	mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 50%);
+}
+.bannerTop > img {
+	width: 100vw;
+	margin: 0;
+}

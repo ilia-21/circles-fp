@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
+.navBar {
+	top: 0px;
+	width: 100%;
+	height: 10%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	position: fixed;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #171c18;
+	z-index: 9;
+}
+
+.logo {
+	height: 40px;
+}
+.navBar > a {
+	flex-basis: 15%;
+}
+
+.links {
+	display: flex;
+	gap: 5em;
+}
+
+.navBarLink {
+	font-family: "Raleway", sans-serif;
+	color: white;
+	text-decoration: none;
+	position: relative;
+	font-size: 2vh;
+}
+.navBarLink:last-child {
+	text-align: end;
+	height: 50%;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+.navBarLink:last-child:hover {
+	color: white;
+	filter: brightness(69%);
+}
+.navBarLink > img {
+	max-height: 6vh;
+	filter: invert(100%);
+}
+.navBarLinkUnderline {
+	border-radius: 10px;
+	display: block;
+	height: 3px;
+	margin-top: 5px;
+	position: absolute;
+	top: 100%;
+	width: 100%;
+	background-color: white;
+}
+
+.navBarLink:hover {
+	color: #575757;
+}
+
+.selected {
+	font-weight: bold;
+}

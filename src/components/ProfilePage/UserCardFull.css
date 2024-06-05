@@ -5,6 +5,11 @@
 	z-index: 9;
 	position: relative;
 	display: flex;
+	color: white;
+}
+.userCardFull > div {
+	margin: 1em;
+	color: white;
 }
 .banner {
 	width: 100%;

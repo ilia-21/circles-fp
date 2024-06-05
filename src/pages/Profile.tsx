@@ -49,7 +49,11 @@ const Profile = ({ loggedInUser }: Props) => {
 		return (
 			<div className="profilePage">
 				<div className="profilePageThe2st">
-					<div>User not found.</div>
+					<div className="userCardFull">
+						<div>
+							User not found, or you are not logged in. <a href="https://osu.ppy.sh/docs/#get-user">osu!api requires a token to get information about players</a>. Circles Front Page will cache this user's profile when someone who is logged in opens it.
+						</div>
+					</div>
 				</div>
 			</div>
 		);

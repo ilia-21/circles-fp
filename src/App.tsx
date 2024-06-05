@@ -5,10 +5,12 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
 import MainPage from "./pages/Main";
+import Tourney from "./pages/Tourney";
+import Tourneys from "./pages/Tourneys";
 
 function App() {
 	const [user, setUser] = useState(null);
-	const [currentPage, setcurrentPage] = useState(-1);
+	const [currentPage] = useState(-1);
 
 	useEffect(() => {
 		fetch(`http://${import.meta.env.VITE_API_URL}/api/session`, {
@@ -35,7 +37,8 @@ function App() {
 				<Route path="/" element={<MainPage />} />
 				<Route path="/profile" element={<Profile loggedInUser={user} />} />
 				<Route path="/profile/:uid" element={<Profile />} />
-				{/* Add other routes here */}
+				<Route path="/tourneys" element={<Tourneys />} />
+				<Route path="/tourney/:id" element={<Tourney />} />
 			</Routes>
 			<Footer />
 		</Router>

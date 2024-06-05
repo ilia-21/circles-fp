@@ -1,19 +1,22 @@
-import React from "react";
 import "./TourneyCardSmall.css";
+import { Tourney } from "../../types/Tourney";
 interface Props {
-	id: number;
-	title: string;
-	date: string;
-	icon: string;
+	tourney: Tourney;
 }
 
-const TourneycardSmall = ({ id, title, date, icon }: Props) => {
+const TourneycardSmall = ({ tourney }: Props) => {
 	//if (title.length > 10) title = title.slice(0, 10) + "...";
+	let longLocalizedTimeString;
+	if (tourney.ongoing) {
+		longLocalizedTimeString = "Live";
+	} else {
+		longLocalizedTimeString = new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric" }).format(new Date(tourney.datestart + ":00"));
+	}
 	return (
 		<div className="tourneyCardSmall">
-			<img src={icon} alt="" />
-			<a href={`/tournaments/${id}`}>{title}</a>
-			<p className="tourneyCardSmall-date">{date}</p>
+			<img src={tourney.data.icon} alt="" />
+			<a href={`/tourney/${tourney.id}`}>{tourney.title}</a>
+			<p className="tourneyCardSmall-date">{longLocalizedTimeString}</p>
 		</div>
 	);
 };

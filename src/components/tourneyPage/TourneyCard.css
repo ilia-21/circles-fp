@@ -26,9 +26,10 @@ p {
 	padding: 10px;
 	width: 50%;
 	text-align: center;
+	border-right: #ffffff10 1px solid;
 }
 .tourneyCardButtons > a:nth-child(1) {
-	border-right: #ffffff10 1px solid;
+	border-left: #ffffff10 1px solid;
 }
 .tourneyCardButtons > a:hover {
 	text-decoration: underline;
@@ -43,6 +44,7 @@ p {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	border-right: #ffffff10 1px solid;
 }
 .tourneyCardNews > div > a {
 	text-align: center;
@@ -55,7 +57,7 @@ p {
 	display: block;
 }
 .tourneyCardNews > div:nth-child(1) {
-	border-right: #ffffff10 1px solid;
+	border-left: #ffffff10 1px solid;
 }
 .tourneyCardNews > div > p:hover {
 	text-decoration: underline;

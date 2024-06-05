@@ -4,6 +4,7 @@ interface Props {
 }
 
 const UserInfo = ({ id }: Props) => {
+	id;
 	return (
 		<div>
 			<div className="userDetails">UserInfo</div>

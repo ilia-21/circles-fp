@@ -1,3 +1,5 @@
+tests
+*.code-workspace
 attribution
 .env
 # Logs

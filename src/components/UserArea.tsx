@@ -8,6 +8,7 @@ interface Props {
 }
 
 const UserArea = ({ avatar, name, userid, onLogout }: Props) => {
+	userid = userid;
 	const [menuVisible, setMenuVisible] = useState(false);
 	const toggleMenu = () => {
 		setMenuVisible(!menuVisible);

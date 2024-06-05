@@ -1,0 +1,58 @@
+.playerCardSmall {
+	visibility: hidden;
+	opacity: 0;
+	position: absolute;
+	width: 30vw;
+	height: 15vh;
+	background-color: #171c18;
+	bottom: 7vh;
+	border-radius: 15px;
+	display: flex;
+	align-items: center;
+	z-index: 9;
+	justify-content: space-between;
+	transition: opacity 0.1s;
+}
+.dacontainer {
+	display: flex;
+	align-content: center;
+	align-items: center;
+}
+.dacontainer > img {
+	width: 20%;
+	max-width: 20%;
+	margin: min(1.5vh, 1.5vw);
+	z-index: 2;
+}
+.playerCardSmall > img:nth-child(1) {
+	position: absolute;
+	width: 100%;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 50%);
+	z-index: 1;
+	top: 0;
+}
+.dacontainer > div > p {
+	z-index: 2;
+	margin: 0;
+	text-shadow: 1px 1px 5px black;
+	font-size: min(2.5vh, 2.5vw);
+}
+.dacontainer > div {
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+}
+.dacontainer > div > img {
+	width: 40%;
+}
+.playerCardSmallRank {
+	margin: 0 1vw 0vw 0;
+	font-size: min(2.5vh, 2.5vw);
+	z-index: 2;
+}
+*:has(> .playerCardSmall):hover .playerCardSmall {
+	visibility: visible;
+	opacity: 1;
+}

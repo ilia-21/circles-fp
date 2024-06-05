@@ -7,9 +7,8 @@ interface Props {
 
 const OptoutPage = ({ id }: Props) => {
 	let username = "Opted out";
-	let avatar = "/src/assets/detedUser.png";
 	let roles: any = [];
-	let country = "none";
+
 	function printRoles() {
 		if (roles && Object.keys(roles).length != 0)
 			for (let role of Object.keys(roles)) {

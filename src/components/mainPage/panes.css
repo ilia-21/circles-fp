@@ -17,5 +17,8 @@
 	flex-direction: column;
 	flex-basis: 56%;
 }
-.rightPane {
+.rightPane > div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }

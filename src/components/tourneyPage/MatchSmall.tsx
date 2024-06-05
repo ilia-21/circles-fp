@@ -1,23 +1,21 @@
 import { Player } from "../../types/Player";
 import { Team } from "../../types/Team";
+import PlayerCardSmall from "../mainPage/PlayerCardSmall";
 import "./MatchSmall.css";
 interface Props {
 	id: number;
 	first: Team | Player;
 	second: Team | Player;
 	content: "upcoming" | "score";
-	upcoming?: String[];
+	upcoming?: string | Date;
 	score?: number[];
 }
 
 const MatchSmall = ({ id, first, second, content, upcoming, score }: Props) => {
-	console.log(upcoming);
-	let getTimeZone = () => {
-		let offset = new Date().getTimezoneOffset(),
-			o = Math.abs(offset);
-		let bs: number = parseInt(("00" + Math.floor(o / 60)).slice(-2));
-		return offset < 0 ? 0 + bs : 0 - bs;
+	let openMatchPage = (id: number) => {
+		window.open(`/matches/${id}`, "_blank");
 	};
+
 	let createContent = () => {
 		if (content == "score" && score) {
 			return (
@@ -26,22 +24,30 @@ const MatchSmall = ({ id, first, second, content, upcoming, score }: Props) => {
 				</p>
 			);
 		} else if (upcoming) {
-			let timePart = upcoming[1].slice(0, 8);
-			let combinedDateTimeString = `${timePart}${upcoming[1].slice(8, 10)}T${upcoming[0].slice(0, 11)}:00`;
-			const timestamp = new Date(combinedDateTimeString);
-			const localizedTimeString = new Intl.DateTimeFormat("en-US", {
+			let timestamp = new Date(upcoming);
+			let shortLocalizedTimeString = new Intl.DateTimeFormat("en-US", {
 				hour: "2-digit",
 				minute: "2-digit",
 			}).format(timestamp);
-			return <p>{`${localizedTimeString}`}</p>;
+			let longLocalizedTimeString = new Intl.DateTimeFormat("en-US", {
+				dateStyle: "full",
+				timeStyle: "long",
+			}).format(timestamp);
+			return (
+				<p>
+					{`${shortLocalizedTimeString}`}
+					<span className="tooltip">{`${longLocalizedTimeString}`}</span>
+				</p>
+			);
 		}
 	};
 
 	let createLink = (who: Team | Player) => {
 		if (first as Player) {
 			return (
-				<a href="">
+				<a href={`profile/${(who as Player).id}`}>
 					<img src={`${(who as Player).avatar_url}`} alt="" />
+					<PlayerCardSmall player={who as Player} />
 				</a>
 			);
 		} else {
@@ -54,7 +60,7 @@ const MatchSmall = ({ id, first, second, content, upcoming, score }: Props) => {
 	};
 
 	return (
-		<div className="matchSmall">
+		<div className="matchSmall" onClick={() => openMatchPage(id)}>
 			{createLink(first)}
 			{createContent()}
 			{createLink(second)}

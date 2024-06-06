@@ -15,7 +15,7 @@ const TourneycardSmall = ({ tourney }: Props) => {
 	return (
 		<div className="tourneyCardSmall">
 			<img src={tourney.data.icon} alt="" />
-			<a href={`/tourney/${tourney.id}`}>{tourney.title}</a>
+			<a href={`/#/tourney/${tourney.id}`}>{tourney.title}</a>
 			<p className="tourneyCardSmall-date">{longLocalizedTimeString}</p>
 		</div>
 	);

@@ -8,7 +8,7 @@ const RightPane = () => {
 	useEffect(() => {
 		const fetchMatches = async () => {
 			try {
-				const response = await fetch(`http://${import.meta.env.VITE_API_URL}/matches`, {
+				const response = await fetch(`${import.meta.env.VITE_API_URL}/matches`, {
 					headers: {
 						"x-api-key": import.meta.env.VITE_API_KEY,
 					},

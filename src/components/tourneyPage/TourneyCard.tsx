@@ -24,16 +24,16 @@ const TourneyCard = ({ tourney }: Props) => {
 			<img src={tourney.data.banner} alt="" />
 			<p className="tourneyCardTitle">{tourney.title}</p>
 			<div className="tourneyCardButtons">
-				<a href={`/tourney/${tourney.id}`}>Info</a>
-				<a href={`/tourney/${tourney.id}/stats`}>Stats</a>
+				<a href={`/#/tourney/${tourney.id}`}>Info</a>
+				<a href={`/#/tourney/${tourney.id}/stats`}>Stats</a>
 			</div>
 			<div className="tourneyCardNews">
 				<div>
-					<a href={`/tourney/${tourney.id}/results`}>Recents</a>
+					<a href={`/#/tourney/${tourney.id}/results`}>Recents</a>
 					{generateMatches("score")}
 				</div>
 				<div>
-					<a href={`/tourney/${tourney.id}/matches`}>Upcoming</a>
+					<a href={`/#/tourney/${tourney.id}/matches`}>Upcoming</a>
 					{generateMatches("upcoming")}
 				</div>
 			</div>

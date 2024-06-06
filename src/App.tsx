@@ -1,6 +1,6 @@
 // App.tsx
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
@@ -13,7 +13,7 @@ function App() {
 	const [currentPage] = useState(-1);
 
 	useEffect(() => {
-		fetch(`http://${import.meta.env.VITE_API_URL}/api/session`, {
+		fetch(`${import.meta.env.VITE_API_URL}/api/session`, {
 			credentials: "include",
 		})
 			.then((response) => response.json())
@@ -24,9 +24,9 @@ function App() {
 			});
 	}, []);
 	let links = [
-		{ title: "Tournaments", location: "/tourneys" },
-		{ title: "Matches", location: "/matches" },
-		{ title: "Stats", location: "/stats" },
+		{ title: "Tournaments", location: "/#/tourneys" },
+		{ title: "Matches", location: "/#/matches" },
+		{ title: "Stats", location: "/#/stats" },
 	];
 
 	return (

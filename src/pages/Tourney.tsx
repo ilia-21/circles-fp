@@ -11,7 +11,7 @@ const Tourney = () => {
 	useEffect(() => {
 		const fetchTourneys = async () => {
 			try {
-				const response = await fetch(`http://${import.meta.env.VITE_API_URL}/tourney/${id}`, {
+				const response = await fetch(`${import.meta.env.VITE_API_URL}/tourney/${id}`, {
 					headers: {
 						"x-api-key": import.meta.env.VITE_API_KEY,
 					},

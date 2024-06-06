@@ -22,10 +22,10 @@ const UserArea = ({ avatar, name, userid, onLogout }: Props) => {
 			</div>
 			{menuVisible && (
 				<div className="userMenu">
-					<a href={`/profile`}>My Profile</a>
-					<a href={`/tourneys`}>My Tournaments</a>
-					<a href={`/stats`}>My Stats</a>
-					<a href={`/matches`}>My Matches</a>
+					<a href={`/#/profile`}>My Profile</a>
+					<a href={`/#/tourneys`}>My Tournaments</a>
+					<a href={`/#/stats`}>My Stats</a>
+					<a href={`/#/matches`}>My Matches</a>
 					<a onClick={onLogout}>Logout</a>
 				</div>
 			)}

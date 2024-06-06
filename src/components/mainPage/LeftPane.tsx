@@ -9,7 +9,7 @@ const LeftPane = () => {
 	useEffect(() => {
 		const fetchTourneys = async () => {
 			try {
-				const response = await fetch(`http://${import.meta.env.VITE_API_URL}/tourneys`, {
+				const response = await fetch(`${import.meta.env.VITE_API_URL}/tourneys`, {
 					headers: {
 						"x-api-key": import.meta.env.VITE_API_KEY,
 					},

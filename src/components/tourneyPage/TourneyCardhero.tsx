@@ -31,7 +31,7 @@ const TourneyCardhero = ({ tourney }: Props) => {
 				<div>
 					<p>
 						Hosted by:{" "}
-						<a href={`/profile/${host.id}`} style={{ position: "relative" }}>
+						<a href={`/#/profile/${host.id}`} style={{ position: "relative" }}>
 							{host.username}
 							<PlayerCardSmall player={host} />
 						</a>{" "}

@@ -38,7 +38,10 @@ function App() {
 				<Route path="/profile" element={<Profile loggedInUser={user} />} />
 				<Route path="/profile/:uid" element={<Profile />} />
 				<Route path="/tourneys" element={<Tourneys />} />
-				<Route path="/tourney/:id" element={<Tourney />} />
+				<Route path="/tourney/:id" element={<Tourney page="info" />} />
+				<Route path="/tourney/:id/matches" element={<Tourney page="upcoming" />} />
+				<Route path="/tourney/:id/results" element={<Tourney page="results" />} />
+				<Route path="/tourney/:id/stats" element={<Tourney page="stats" />} />
 			</Routes>
 			<Footer />
 		</Router>

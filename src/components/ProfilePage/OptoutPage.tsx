@@ -20,7 +20,7 @@ const OptoutPage = ({ id }: Props) => {
 			<div className="profileContainer">
 				<div className="yetAnotherContainer">
 					<h1 className="username">{username}</h1>
-					<p>This user has opted out of showing their data on CircleFP</p>
+					<p>This user has opted out of showing their data on Circles Front Page</p>
 					<a href={`https://osu.ppy.sh/users/${id}`}>Open profile page on osu!website</a>
 				</div>
 				<div className="badgeContainer">{printRoles()}</div>

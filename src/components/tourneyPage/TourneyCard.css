@@ -2,7 +2,7 @@ p {
 	color: white;
 }
 .tourneyCard {
-	background: #2e3830;
+	background: var(--cfp-bg-tertiary);
 	padding: 1em;
 	width: 80%;
 	margin: 2em 0;
@@ -21,7 +21,7 @@ p {
 }
 .tourneyCardButtons > a {
 	cursor: pointer;
-	color: #8fbb96;
+	color: var(--cfp-accent);
 	text-decoration: none;
 	padding: 10px;
 	width: 50%;
@@ -49,7 +49,7 @@ p {
 .tourneyCardNews > div > a {
 	text-align: center;
 	cursor: pointer;
-	color: #8fbb96;
+	color: var(--cfp-accent);
 	margin: 0px 2em;
 	padding: 0.5em;
 	border-bottom: #ffffff10 1px solid;

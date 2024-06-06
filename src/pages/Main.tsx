@@ -3,7 +3,7 @@ import CenterPane from "../components/mainPage/CenterPane";
 import LeftPane from "../components/mainPage/LeftPane";
 import RightPane from "../components/mainPage/RightPane";
 import { useEffect, useState } from "react";
-import Bannertop from "../components/ProfilePage/Bannertop";
+import Bannertop from "../components/universal/Bannertop";
 import { Tourney } from "../types/Tourney";
 
 const Main = () => {

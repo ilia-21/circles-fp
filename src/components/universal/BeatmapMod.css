@@ -1,0 +1,10 @@
+.BeatmapMod {
+	padding: 1vh 1vw;
+	border-radius: 5vw;
+}
+.BeatmapMod > p {
+	color: var(--cfp-bg-secondary);
+	margin: 0;
+	text-align: center;
+	font-weight: bold;
+}

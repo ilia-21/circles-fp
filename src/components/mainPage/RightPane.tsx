@@ -32,7 +32,7 @@ const RightPane = () => {
 		<div className="rightPane">
 			<div>
 				<p>Upcoming matches</p>
-				{loading ? <p>Please wait...</p> : matchData.map((match) => <MatchSmall key={match.id} id={match.id} first={match.first} second={match.second} content="upcoming" upcoming={match.timestamp} />)}
+				{loading ? <p>Please wait...</p> : matchData.map((match) => <MatchSmall key={match.id} match={match} content="upcoming" />)}
 			</div>
 		</div>
 	);

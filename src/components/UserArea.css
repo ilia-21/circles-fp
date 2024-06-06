@@ -28,7 +28,7 @@
 	position: absolute;
 	top: 100%;
 	right: 0;
-	background-color: #171c18;
+	background: var(--cfp-bg);
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 	z-index: 10;
 	display: flex;
@@ -58,10 +58,10 @@
 	position: absolute;
 	top: 0.6vh;
 	width: 0.4vw;
-	box-shadow: #66ff7f00 0px 0px 0px;
+	box-shadow: var(--cfp-accent) 00 0px 0px 0px;
 }
 .userMenu a:hover::before {
-	background-color: #66ff7f;
+	background: var(--cfp-accent);
 	border-radius: 100px;
 	content: "";
 	height: 2vh;
@@ -69,9 +69,9 @@
 	position: absolute;
 	top: 0.6vh;
 	width: 0.4vw;
-	box-shadow: #66ff7f 0px 0px 10px;
+	box-shadow: var(--cfp-accent) 0px 0px 10px;
 }
 .userMenu a:hover {
-	background-color: #2e3830;
+	background: var(--cfp-bg-tertiary);
 	text-decoration: none;
 }

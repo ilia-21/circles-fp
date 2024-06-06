@@ -1,6 +1,6 @@
 .leftPane,
 .rightPane {
-	background-color: #2e3830;
+	background: var(--cfp-bg-tertiary);
 	padding: 0.5em;
 	flex-basis: 22%;
 }

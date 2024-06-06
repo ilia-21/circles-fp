@@ -1,0 +1,22 @@
+.BeatMapCardMed {
+	height: 10vh;
+	width: calc(95% - 1wv);
+	background-color: var(--cfp-bg-secondary);
+	padding: 1vw;
+	border-radius: 1vh;
+	margin: 1vh 0;
+}
+.BeatMapDataCont {
+	display: flex;
+	flex-direction: column;
+	width: 80%;
+}
+.BeatMapStatsCont {
+	display: flex;
+	justify-content: space-between;
+	width: 50%;
+}
+.BeatMapModsCont {
+	display: flex;
+	align-items: center;
+}

@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
 
 .userCardFull {
-	background-color: #39463c;
+	background: var(--cfp-bg-secondary);
 	z-index: 9;
 	position: relative;
 	display: flex;

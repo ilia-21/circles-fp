@@ -1,4 +1,40 @@
 :root {
+	/* catppucchin mocha colors */
+	--rosewater: #f5e0dc;
+	--flamingo: #f2cdcd;
+	--pink: #f5c2e7;
+	--mauve: #cba6f7;
+	--red: #f38ba8;
+	--maroon: #eba0ac;
+	--peach: #fab387;
+	--yellow: #f9e2af;
+	--green: #a6e3a1;
+	--teal: #94e2d5;
+	--sky: #89dceb;
+	--sapphire: #74c7ec;
+	--blue: #89b4fa;
+	--lavender: #b4befe;
+	--text: #cdd6f4;
+	--subtext-0: #a6adc8;
+	--subtext-1: #bac2de;
+	--overlay-0: #6c7086;
+	--overlay-1: #7f849c;
+	--overlay-2: #9399b2;
+	--surface-0: #45475a;
+	--surface-1: #313244;
+	--surface-2: #585b70;
+	--base: #1e1e2e;
+	--mantle: #181825;
+	--crust: #11111b;
+
+	/* CFP styles */
+	--cfp-bg-dark: var(--crust);
+	--cfp-bg: var(--crust);
+	--cfp-bg-secondary: var(--mantle);
+	--cfp-bg-tertiary: var(--base);
+	--cfp-accent: var(--blue); /* here comes the customizablity! */
+
+	/* whatever react/vite left here */
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
@@ -10,7 +46,7 @@
 }
 
 body {
-	background: #171c18;
+	background: var(--cfp-bg);
 	margin: 0;
 	overflow-x: hidden;
 }

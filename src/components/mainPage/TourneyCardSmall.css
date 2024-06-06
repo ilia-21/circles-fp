@@ -9,7 +9,7 @@
 	max-height: 10vh;
 }
 .tourneyCardSmall > a {
-	color: #8fbb96;
+	color: var(--cfp-accent);
 	text-decoration: none;
 }
 .tourneyCardSmall > a:hover {

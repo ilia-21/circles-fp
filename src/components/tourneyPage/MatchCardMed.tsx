@@ -2,23 +2,25 @@ import { Match } from "../../types/Match";
 import { Player } from "../../types/Player";
 import { Team } from "../../types/Team";
 import PlayerCardSmall from "../mainPage/PlayerCardSmall";
-import "./MatchSmall.css";
+import "./MatchCardMed.css";
+
 interface Props {
 	match: Match;
 	content: "upcoming" | "score";
 }
 
-const MatchSmall = ({ match, content }: Props) => {
-	let openMatchPage = (id: number) => {
-		window.open(`/#/matches/${id}`, "_blank");
-	};
+const MatchCardMed = ({ match, content }: Props) => {
 	if ((content == "upcoming" && new Date(match.timestamp) < new Date(Date.now())) || (content == "score" && new Date(match.timestamp) > new Date(Date.now()))) return;
 	const score = match.result;
 	const upcoming = match.timestamp || null;
 	const first = match.first;
 	const second = match.second;
 	const id = match.id;
-	let createContent = () => {
+	const openMatchPage = (id: number) => {
+		window.open(`/#/matches/${id}`, "_blank");
+	};
+
+	const createContent = () => {
 		if (content == "score") {
 			return <p>{score ? `${score[0]} - ${score[1]}` : "Score not found"}</p>;
 		} else if (content == "upcoming") {
@@ -59,14 +61,14 @@ const MatchSmall = ({ match, content }: Props) => {
 		} else {
 			return (
 				<a href="">
-					<img src={`/src/assets/flags/${who}.png`} alt="team avatars are still under development" />
+					<img src={`/src/assets/flags/${who}.png`} alt="NO TEAM AVATARS CURRENTLY" />
 				</a>
 			);
 		}
 	};
 
 	return (
-		<div className="matchSmall" onClick={() => openMatchPage(id)}>
+		<div className="matchMed" onClick={() => openMatchPage(id)}>
 			{createLink(first)}
 			{createContent()}
 			{createLink(second)}
@@ -74,4 +76,4 @@ const MatchSmall = ({ match, content }: Props) => {
 	);
 };
 
-export default MatchSmall;
+export default MatchCardMed;

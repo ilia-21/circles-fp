@@ -8,17 +8,19 @@ interface Props {
 
 const TourneyCard = ({ tourney }: Props) => {
 	let generateMatches = (which: "upcoming" | "score") => {
-		if (tourney.matches.length <= 0) return <p>No matches availabale</p>;
-		for (let match of tourney.matches) {
-			//let cont: "upcoming" | "score";
-			if (match.result && which == "score") {
-				return <MatchSmall id={match.id} first={match.first} second={match.second} content="score" score={match.result} />;
-			} else if (!match.result && which == "upcoming") {
-				return <MatchSmall id={match.id} first={match.first} second={match.second} content="upcoming" upcoming={match.timestamp} />;
+		const matchesToRender = tourney.matches.map((match) => {
+			if (match.result && which === "score") {
+				return <MatchSmall key={match.id} match={match} content="score" />;
+			} else if (!match.result && which === "upcoming") {
+				return <MatchSmall key={match.id} match={match} content="upcoming" />;
 			} else {
+				return null;
 			}
-		}
+		});
+
+		return matchesToRender;
 	};
+
 	return (
 		<div className="tourneyCard">
 			<img src={tourney.data.banner} alt="" />

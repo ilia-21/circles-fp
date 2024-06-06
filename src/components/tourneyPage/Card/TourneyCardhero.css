@@ -1,15 +1,16 @@
 .tourneyCardhero {
-	width: 80%;
-	background-color: #2e3830;
-	margin: 0 auto;
-	padding: 1vh 1vw;
 }
 .tourneyCardhero > img {
 	width: 100%;
 }
 .tourneyInfoShort {
 	display: flex;
+	flex-wrap: wrap;
 }
 .tourneyInfoShort > div {
-	flex: 0 0 51%;
+	flex: 0 0 49%;
+}
+.tourneyNews > div {
+	display: flex;
+	justify-content: space-around;
 }

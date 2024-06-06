@@ -10,25 +10,30 @@ interface Props {
 	tourney: Tourney;
 }
 const cfpTheme = createTheme({
-	textColor: { main: "#FFFFFF", highlighted: "#A6D8AD", dark: "#FFFFFF90" },
-	matchBackground: { wonColor: "#2D3830", lostColor: "#212923" },
+	textColor: { main: "var(--text)", highlighted: "var(--cfp-accent)", dark: "var(--surface-1)" },
+	// seperate colors for score and username are not allowed sadly
+	matchBackground: { wonColor: "var(--cfp-bg-tertiary)", lostColor: "var(--cfp-bg-secondary)" },
 	score: {
-		background: { wonColor: "#39473c", lostColor: "#2e3830" },
-		text: { highlightedWonColor: "#FFFFFF", highlightedLostColor: "#FFFFFF" },
+		background: { wonColor: "var(--cfp-bg-secondary)", lostColor: "var(--cfp-bg)" },
+		text: { highlightedWonColor: "var(--cfp-accent)", highlightedLostColor: "var(--cfp-accent)" },
 	},
 	border: {
 		color: "#CED1F200",
-		highlightedColor: "#CED1F2",
+		highlightedColor: "#CED1F250",
 	},
 	connectorColor: "rgb(47, 0, 0)",
-	connectorColorHighlight: "#A6D8AD",
+	connectorColorHighlight: "var(--base)",
 
 	roundHeaders: {
-		background: "#2D3830",
+		background: "var(--cfp-bg-secondary)",
 	},
 });
 
 const BracketCard = ({ tourney }: Props) => {
+	if (!tourney.data.bracket) {
+		console.log(tourney.data);
+		return <p>{tourney.title} doesn't have a bracket</p>;
+	}
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [width, setWidth] = useState<number>(0);
 
@@ -84,7 +89,7 @@ const BracketCard = ({ tourney }: Props) => {
 				)}
 				theme={cfpTheme}
 				svgWrapper={({ children, ...props }: any) => (
-					<SVGViewer SVGBackground="#161B17" width={finalWidth} height={1000} {...props}>
+					<SVGViewer SVGBackground="var(--cfp-bg)" width={finalWidth} height={500} {...props}>
 						{children}
 					</SVGViewer>
 				)}

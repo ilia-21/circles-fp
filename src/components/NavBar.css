@@ -8,7 +8,7 @@
 	position: fixed;
 	left: 50%;
 	transform: translateX(-50%);
-	background-color: #171c18;
+	background: var(--cfp-bg-secondary);
 	z-index: 9;
 }
 

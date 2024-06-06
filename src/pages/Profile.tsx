@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import UserCardFull from "../components/ProfilePage/UserCardFull";
 import UserInfo from "../components/ProfilePage/UserInfo";
 import "./Profile.css";
-import Bannertop from "../components/ProfilePage/Bannertop";
+import Bannertop from "../components/universal/Bannertop";
 import OptoutPage from "../components/ProfilePage/OptoutPage";
 
 interface Props {

@@ -4,7 +4,7 @@
 	position: absolute;
 	width: 30vw;
 	height: 15vh;
-	background-color: #171c18;
+	background: var(--cfp-bg);
 	bottom: 7vh;
 	border-radius: 15px;
 	display: flex;

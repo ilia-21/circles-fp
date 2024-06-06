@@ -1,33 +1,47 @@
-.matchSmall {
+.matchMed {
 	display: flex;
-	height: 2.5em;
 	justify-content: space-between;
 	align-items: center;
-	margin: 1vh 0;
-	width: 89%;
+	margin: 0.5vh 0;
+	width: 30vw;
 	cursor: pointer;
+	background-color: #3f4e43;
+	padding: min(1.5vh, 1.5vw);
+	border-radius: 5px;
+	transition: all 0.1s;
 }
-.matchSmall > a {
+.matchMed:hover {
+	box-shadow: 0 0 10px #00000050;
+}
+
+.matchMed > a {
+	width: 20%;
+	height: 7vh;
+	max-width: 100%;
+	max-height: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	position: relative;
 }
-.matchSmall > a > img {
-	height: auto;
-	max-width: 4vw;
-	max-height: 5vh;
+
+.matchMed > a > img {
+	width: auto;
+	height: 100%;
+	max-width: auto;
+	max-height: 100%;
+	object-fit: cover; /* Adjust this based on your preference: contain, cover, or scale-down */
 }
 
-.matchSmall > p {
+.matchMed > p {
 	width: auto;
 	font-size: min(2vh, 2vw);
 	margin: 0 1em;
 	position: relative;
 }
 
-.matchSmall > p .tooltip {
+.matchMed > p .tooltip {
 	visibility: hidden;
 	opacity: 0;
 	width: 15vw;
@@ -48,7 +62,7 @@
 	transition: opacity 0.2s;
 }
 
-.matchSmall > p .tooltip::after {
+.matchMed > p .tooltip::after {
 	content: "";
 	position: absolute;
 	top: 100%;
@@ -59,7 +73,7 @@
 	border-color: black transparent transparent transparent;
 }
 
-.matchSmall > p:hover .tooltip {
+.matchMed > p:hover .tooltip {
 	visibility: visible;
 	opacity: 1;
 }

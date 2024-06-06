@@ -4,4 +4,5 @@
 	margin-top: 10%;
 	display: flex;
 	gap: 10px;
+	min-height: 50vh;
 }

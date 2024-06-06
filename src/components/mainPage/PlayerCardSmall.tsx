@@ -15,7 +15,6 @@ const PlayerCardSmall = ({ player }: Props) => {
 			const rect = playerCardRef.current.getBoundingClientRect();
 			if (rect.right > window.innerWidth) {
 				setPosition({ left: "auto", right: "0", transform: "translateX(0)" });
-				console.log(position);
 			} else if (rect.left < 0) {
 				setPosition({ left: "0", right: "auto", transform: "translateX(0)" });
 			}

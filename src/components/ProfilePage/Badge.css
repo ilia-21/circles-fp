@@ -1,5 +1,5 @@
 .badge {
-	background-color: #1f2721;
+	background-color: var(--cfp-bg);
 	border-radius: 100vh;
 	text-align: center;
 	width: 7vw;

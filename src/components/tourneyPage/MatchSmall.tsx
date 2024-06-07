@@ -2,6 +2,7 @@ import { Match } from "../../types/Match";
 import { Player } from "../../types/Player";
 import { Team } from "../../types/Team";
 import PlayerCardSmall from "../mainPage/PlayerCardSmall";
+import TeamCardSmall from "../mainPage/TeamCardSmall";
 import "./MatchSmall.css";
 interface Props {
 	match: Match;
@@ -49,7 +50,7 @@ const MatchSmall = ({ match, content }: Props) => {
 	};
 
 	const createLink = (who: Team | Player) => {
-		if ((first as Player).avatar_url) {
+		if (match.type == "1v1") {
 			return (
 				<a href={`profile/${(who as Player).id}`}>
 					<img src={(who as Player).avatar_url} alt="" />
@@ -59,7 +60,8 @@ const MatchSmall = ({ match, content }: Props) => {
 		} else {
 			return (
 				<a href="">
-					<img src={`/src/assets/flags/${who}.png`} alt="team avatars are still under development" />
+					<img src={`/src/assets/flags/${who}.png`} alt="tpfp" />
+					<TeamCardSmall team={who as Team} />
 				</a>
 			);
 		}

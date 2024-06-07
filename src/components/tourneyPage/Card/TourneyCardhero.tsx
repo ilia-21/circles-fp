@@ -2,8 +2,8 @@ import "./TourneyCardhero.css";
 import { Tourney } from "../../../types/Tourney";
 import BracketCard from "../BracketCard";
 import BeatMapCardMed from "./BeatMapCardMed";
-import UserLink from "../../universal/UserLink";
-import genRanHex from "../../../functions/getRanHex";
+import PlayerLink from "../../universal/PlayerLink";
+import genRanHex from "../../../functions/GetRanHex";
 interface Props {
 	tourney: Tourney;
 }
@@ -55,7 +55,7 @@ const TourneyCardhero = ({ tourney }: Props) => {
 				<div>
 					<p>
 						Hosted by:
-						<UserLink user={host} />
+						<PlayerLink user={host} />
 					</p>
 					<p>Prize: {tourney.data.prize}</p>
 				</div>

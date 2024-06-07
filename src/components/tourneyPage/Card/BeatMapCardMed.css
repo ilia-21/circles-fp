@@ -1,10 +1,15 @@
 .BeatMapCardMed {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	gap: 1em;
 	height: 7.5em;
 	width: calc(95% - 1wv);
 	background-color: var(--cfp-bg-secondary);
 	padding: 1em;
 	border-radius: 0.75em;
 	margin: 1em 0;
+	align-items: center;
 }
 .BeatMapCardMed p {
 	margin: 0;
@@ -14,6 +19,9 @@
 	flex-direction: column;
 	justify-content: space-around;
 	width: 70%;
+}
+.BeatMapDataCont > a {
+	font-size: 1.5em;
 }
 .BeatMapCardMed > img {
 	max-width: 10%;
@@ -30,4 +38,13 @@
 	width: 10%;
 	display: flex;
 	align-items: center;
+}
+.BeatMapid {
+	color: var(--cfp-accent);
+	cursor: pointer;
+}
+.BeatMapSlot {
+	font-size: 2em;
+	width: 10%;
+	text-align: center;
 }

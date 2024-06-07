@@ -1,0 +1,16 @@
+.somethingWentWrong {
+	margin: 15%;
+	padding: 1em;
+	background-color: var(--cfp-bg-secondary);
+	color: var(--cfp-text);
+}
+.somethingWentWrong-details {
+	background-color: var(--crust);
+	color: var(--red);
+	font-family: monospace;
+	padding: 1em;
+	border-radius: 0.5em;
+}
+.somethingWentWrong-details > * {
+	color: var(--red);
+}

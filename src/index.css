@@ -36,6 +36,7 @@
 	--cfp-bg-secondary: var(--mantle);
 	--cfp-bg-tertiary: var(--base);
 	--cfp-accent: var(--blue); /* here comes the customizablity! */
+	--cfp-text: var(--text);
 
 	/* whatever react/vite left here */
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

@@ -5,6 +5,9 @@ import TourneyCardhero from "../components/tourneyPage/Card/TourneyCardhero";
 import type { Tourney } from "../types/Tourney";
 import Bannertop from "../components/universal/Bannertop";
 import NavBar from "../components/tourneyPage/Card/NavBar";
+import TourneyResultsPage from "../components/tourneyPage/Results/TourneyResultsPage";
+import TourneySchedulePage from "../components/tourneyPage/Schedule/TourneySchedulePage";
+import TourneyStatsPage from "../components/tourneyPage/Stats/TourneyStatsPage";
 interface Props {
 	page: "info" | "upcoming" | "results" | "stats";
 }
@@ -14,7 +17,7 @@ const Tourney = ({ page }: Props) => {
 	const [loading, setLoading] = useState<boolean>(true);
 	const [tourneyData, setTourneyData] = useState<Tourney>();
 	useEffect(() => {
-		const fetchTourneys = async () => {
+		const fetchOneTourney = async () => {
 			try {
 				const response = await fetch(`${import.meta.env.VITE_API_URL}/tourney/${id}`, {
 					headers: {
@@ -34,7 +37,7 @@ const Tourney = ({ page }: Props) => {
 			}
 		};
 
-		fetchTourneys();
+		fetchOneTourney();
 	}, []);
 	if (loading) {
 		return (
@@ -48,14 +51,14 @@ const Tourney = ({ page }: Props) => {
 			case "info":
 				return <TourneyCardhero tourney={tourneyData as Tourney} />;
 				break;
+			case "upcoming":
+				return <TourneySchedulePage tourney={tourneyData as Tourney} />;
+				break;
 			case "results":
-				return <p>results</p>;
+				return <TourneyResultsPage tourney={tourneyData as Tourney} />;
 				break;
 			case "stats":
-				return <p>stats</p>;
-				break;
-			case "upcoming":
-				return <p>upcoming</p>;
+				return <TourneyStatsPage tourney={tourneyData as Tourney} />;
 				break;
 		}
 	};

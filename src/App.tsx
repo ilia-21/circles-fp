@@ -1,12 +1,16 @@
 // App.tsx
 import { useEffect, useState } from "react";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
+import { ErrorBoundary } from "react-error-boundary";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
 import MainPage from "./pages/Main";
 import Tourney from "./pages/Tourney";
 import Tourneys from "./pages/Tourneys";
+import SomethingWentWrong from "./pages/SomethingWentWrong";
+import Page404 from "./pages/Page404";
+import TeamPage from "./pages/TeamPage";
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -32,18 +36,21 @@ function App() {
 	return (
 		<Router>
 			<NavBar selected={currentPage} links={links} user={user} />
-
-			<Routes>
-				<Route path="/" element={<MainPage />} />
-				<Route path="/profile" element={<Profile loggedInUser={user} />} />
-				<Route path="/profile/:uid" element={<Profile />} />
-				<Route path="/tourneys" element={<Tourneys />} />
-				<Route path="/tourney/:id" element={<Tourney page="info" />} />
-				<Route path="/tourney/:id/matches" element={<Tourney page="upcoming" />} />
-				<Route path="/tourney/:id/results" element={<Tourney page="results" />} />
-				<Route path="/tourney/:id/stats" element={<Tourney page="stats" />} />
-			</Routes>
-			<Footer />
+			<ErrorBoundary fallbackRender={SomethingWentWrong}>
+				<Routes>
+					<Route path="/" element={<MainPage />} />
+					<Route path="/profile" element={<Profile loggedInUser={user} />} />
+					<Route path="/profile/:uid" element={<Profile />} />
+					<Route path="/tourneys" element={<Tourneys />} />
+					<Route path="/tourney/:id" element={<Tourney page="info" />} />
+					<Route path="/tourney/:id/matches" element={<Tourney page="upcoming" />} />
+					<Route path="/tourney/:id/results" element={<Tourney page="results" />} />
+					<Route path="/tourney/:id/stats" element={<Tourney page="stats" />} />
+					<Route path="/team/:id" element={<TeamPage />} />
+					<Route path="*" element={<Page404 />} />
+				</Routes>
+				<Footer />
+			</ErrorBoundary>
 		</Router>
 	);
 }

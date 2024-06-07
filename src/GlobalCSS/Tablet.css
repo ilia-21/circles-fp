@@ -45,9 +45,12 @@
 	.BeatmapMod {
 		padding: 0.5em;
 		border-radius: 2.5em;
-		min-width: 2em;
+		min-width: 2.5em;
 	}
 	.BeatmapMod > p {
+		font-size: 1.25em;
+	}
+	.BeatMapDataCont > a {
 		font-size: 1em;
 	}
 	/* usermenu */
@@ -69,5 +72,12 @@
 	}
 	.userCardFull {
 		flex-wrap: wrap;
+	}
+	.BeatMapid {
+		display: none;
+	}
+	.BeatMapSlot {
+		font-size: 1.5em;
+		width: 9%;
 	}
 }

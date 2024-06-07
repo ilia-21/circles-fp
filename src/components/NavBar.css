@@ -26,7 +26,7 @@
 
 .navBarLink {
 	font-family: "Raleway", sans-serif;
-	color: white;
+	color: var(--cfp-text);
 	text-decoration: none;
 	position: relative;
 	font-size: 1em;
@@ -39,7 +39,7 @@
 	cursor: pointer;
 }
 .navBarLink:last-child:hover {
-	color: white;
+	color: var(--cfp-text);
 	filter: brightness(69%);
 }
 .navBarLink > img {
@@ -54,7 +54,7 @@
 	position: absolute;
 	top: 100%;
 	width: 100%;
-	background-color: white;
+	color: var(--cfp-accent);
 }
 
 .navBarLink:hover {

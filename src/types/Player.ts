@@ -66,27 +66,37 @@ export interface Player {
 	unranked_beatmapset_count: number;
 	cfp: Cfp;
 }
+export interface PlayerLite {
+	avatar_url: string;
+	id: number;
+	username: string;
+	statistics: Statistics;
+	cover_url: string;
+	country: Country;
+	cover: Cover;
+	cfp: Cfp;
+}
 
-export interface Cfp {
+interface Cfp {
 	roles: Roles;
 }
 
-export interface Roles {
+interface Roles {
 	[name: string]: string[];
 }
 
-export interface Country {
+interface Country {
 	code: string;
 	name: string;
 }
 
-export interface Cover {
+interface Cover {
 	custom_url: string;
 	url: string;
 	id: null;
 }
 
-export interface Group {
+interface Group {
 	colour: string;
 	has_listing: boolean;
 	has_playmodes: boolean;
@@ -98,32 +108,32 @@ export interface Group {
 	playmodes: null;
 }
 
-export interface Kudosu {
+interface Kudosu {
 	available: number;
 	total: number;
 }
 
-export interface Count {
+interface Count {
 	start_date: Date;
 	count: number;
 }
 
-export interface Page {
+interface Page {
 	html: string;
 	raw: string;
 }
 
-export interface RankHistory {
+interface RankHistory {
 	mode: string;
 	data: number[];
 }
 
-export interface RankHighest {
+interface RankHighest {
 	rank: number;
 	updated_at: Date;
 }
 
-export interface Statistics {
+interface Statistics {
 	count_100: number;
 	count_300: number;
 	count_50: number;
@@ -147,7 +157,7 @@ export interface Statistics {
 	rank: Rank;
 }
 
-export interface GradeCounts {
+interface GradeCounts {
 	ss: number;
 	ssh: number;
 	s: number;
@@ -155,16 +165,16 @@ export interface GradeCounts {
 	a: number;
 }
 
-export interface Level {
+interface Level {
 	current: number;
 	progress: number;
 }
 
-export interface Rank {
+interface Rank {
 	country: number;
 }
 
-export interface UserAchievement {
+interface UserAchievement {
 	achieved_at: Date;
 	achievement_id: number;
 }

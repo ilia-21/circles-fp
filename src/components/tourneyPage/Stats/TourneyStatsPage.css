@@ -1,0 +1,12 @@
+.TourneyStatsPageSection:nth-child(even) {
+	background-color: var(--cfp-bg);
+}
+.TourneyStatsPageSection:nth-child(odd) {
+	background-color: var(--cfp-bg-secondary);
+}
+.TourneyStatsPageSection {
+	padding: 1em;
+}
+.TourneyStatsPageSection > h3 {
+	color: var(--cfp-text);
+}

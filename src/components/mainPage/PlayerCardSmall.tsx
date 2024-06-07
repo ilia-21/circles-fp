@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import "./PlayerCardSmall.css";
-import { Player } from "../../types/Player";
+import { Player, PlayerLite } from "../../types/Player";
 interface Props {
-	player: Player;
+	player: Player | PlayerLite;
 }
 
 const PlayerCardSmall = ({ player }: Props) => {
+	console.log(player);
 	const playerCardRef = useRef<HTMLDivElement>(null);
 	const [position, setPosition] = useState({ left: "50%", right: "0", transform: "translateX(-50%)" });
 

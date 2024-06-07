@@ -28,40 +28,44 @@ Very-very early alpha version of the website: [circlesfrontpage.iii.cl](https://
 ├─┬─ Finish tounrmanent page
 │ ├─ Fix bracket (if possible)
 │ ├─┬─ Add pages           <-- we are here
-│ │ ├── All match results
-│ │ ├── All upcoming matches
-│ │ └── Stats (I don't know which stats exactly for now)
+│ │ ├─ All match results
+│ │ ├─ All upcoming matches
+│ │ └─ Stats (I don't know which stats exactly for now)
 │ └─┬─ Add sections on the main page
 │   ├─ Participants
 │   └─ Mappol for each stage
 │
+├─┬─ Add support for teams
+│ ├─ Add support for team matches in tornaments
+│ └─ Add team pages
+│
 ├─┬─ Finish profile page
 │ ├─┬─ Add player stats
-│ │ ├── Pickrate for each mod: NM, HR, HD, DT
-│ │ ├── Winrate for each mod: NM, HR, HD, DT
-│ │ ├── Favorite mod combos in FM (e.g. HD: 40%, HR: 55%, HDHR: 5%)
-│ │ ├── All time winrate : recent winrate (2 montns)
-│ │ ├── All time avg matchcost : recent matchcost (2 montns)
-│ │ ├── Total matches played : Matches played in last 2 montns
-│ │ └── Possibly more stats
+│ │ ├─ Pickrate for each mod: NM, HR, HD, DT
+│ │ ├─ Winrate for each mod: NM, HR, HD, DT
+│ │ ├─ Favorite mod combos in FM (e.g. HD: 40%, HR: 55%, HDHR: 5%)
+│ │ ├─ All time winrate : recent winrate (2 montns)
+│ │ ├─ All time avg matchcost : recent matchcost (2 montns)
+│ │ ├─ Total matches played : Matches played in last 2 montns
+│ │ └─ Possibly more stats
 │ ├─ Add upcoming matches for player
 │ └─ Add recent matches for player
 │
 ├─┬─ Add tournaments page
 │ ├─ Left panel with options to view past tournaments
-│ └─┬── Short info about the tournament
-│   ├── Host
-│   ├── Prize pool
-│   ├── participantspool
-│   └── Date
+│ └─┬─ Short info about the tournament
+│   ├─ Host
+│   ├─ Prize pool
+│   ├─ participantspool
+│   └─ Date
 │
 ├─┬─ Create match page
 │ ├─ Add time for upcoming matches
 │ ├─ Add score for finished matches
 │ ├─┬─ Add odds (whatever the name of this thing is)
-│ │ ├── Chance of each player to Pick/ban/win certain mods based on the data from last month
-│ │ ├── Recent matches for each player
-│ │ └── Possibly more odds
+│ │ ├─ Chance of each player to Pick/ban/win certain mods based on the data from last month
+│ │ ├─ Recent matches for each player
+│ │ └─ Possibly more odds
 │ └─ Add links to mp, where to watch
 │
 ├─┬─ Add info for tournament players
@@ -69,8 +73,19 @@ Very-very early alpha version of the website: [circlesfrontpage.iii.cl](https://
 │ ├─ Player's stats (but more detailed than public, I guess?)
 │ └─ Player's upcoming tournaments
 │
+├─┬─ Add features for tournament hosts
+│ └─┬ Tournament creator/editor
+│   ├─ Basic info editor
+│   └─ Bracket editor
+│
+│
+│
 ┆
 ┆
+┆
+│
+│
+╰── First stable release
 ```
 
 # circles-fp

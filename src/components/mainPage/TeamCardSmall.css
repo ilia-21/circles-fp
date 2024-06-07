@@ -1,29 +1,32 @@
-.playerCardSmall {
+.teamCardSmall {
 	visibility: hidden;
 	opacity: 0;
-	position: absolute;
-	width: 25em;
-	height: 8em;
-	background: var(--cfp-bg);
 	bottom: 3em;
+	position: absolute;
+	width: max-content;
+	height: 8em;
+	padding: 2em 1em 0em 1em;
 	border-radius: 15px;
 	display: flex;
 	align-items: center;
-	z-index: 9;
 	justify-content: space-between;
-	transition: opacity 0.1s;
+	gap: 1em;
+	background: var(--cfp-bg);
 	box-shadow: 0px 0px 20px black;
+	transition: opacity 0.1s;
+	z-index: 9;
 }
-.dacontainer {
+.teamCardSmall > p {
+	position: absolute;
+	top: 1em;
+	left: 1em;
+}
+.teamCardContainer {
 	display: flex;
+	align-content: center;
+	align-items: center;
 }
-.dacontainer > img {
-	width: 20%;
-	max-width: 20%;
-	margin: 1em;
-	z-index: 2;
-}
-.playerCardSmall > img:nth-child(1) {
+.teamCardSmall > img:nth-child(1) {
 	position: absolute;
 	width: 100%;
 	border-top-left-radius: 15px;
@@ -34,28 +37,28 @@
 	object-fit: cover;
 	height: 8em;
 }
-.dacontainer > div > p {
+.teamCardContainer > p {
 	z-index: 2;
 	margin: 0;
 	text-shadow: 1px 1px 5px black;
-	font-size: 1.5em;
+	font-size: 1em;
+	width: inherit;
 }
-.dacontainer > div {
+.teamCardContainer {
 	z-index: 2;
 	display: flex;
 	flex-direction: column;
-	align-content: center;
-	align-items: center;
 }
-.dacontainer > div > img {
-	width: 40%;
+.teamCardContainer > img {
+	max-width: 5em;
+	border-radius: 1em;
 }
-.playerCardSmallRank {
+.teamCardSmallRank {
 	margin: 0 1em 0 0;
 	font-size: 1.5em;
 	z-index: 2;
 }
-*:has(> .playerCardSmall):hover .playerCardSmall {
+*:has(> .teamCardSmall):hover .teamCardSmall {
 	visibility: visible;
 	opacity: 1;
 }

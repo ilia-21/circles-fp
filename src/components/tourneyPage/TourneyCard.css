@@ -1,5 +1,5 @@
 p {
-	color: white;
+	color: var(--cfp-text);
 }
 .tourneyCard {
 	background: var(--cfp-bg-tertiary);

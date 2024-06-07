@@ -1,3 +1,4 @@
+// Main.tsx
 import "./main.css";
 import CenterPane from "../components/mainPage/CenterPane";
 import LeftPane from "../components/mainPage/LeftPane";
@@ -8,6 +9,7 @@ import { Tourney } from "../types/Tourney";
 
 const Main = () => {
 	const [tourneyData, setTourneyData] = useState<Tourney[]>([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchTourneys = async () => {
@@ -25,17 +27,27 @@ const Main = () => {
 				setTourneyData(data);
 			} catch (error) {
 				console.log(error);
+			} finally {
+				setLoading(false);
 			}
 		};
 
 		fetchTourneys();
 	}, []);
 
+	if (loading) {
+		return (
+			<div className="mainContent">
+				<p>Please wait</p>
+			</div>
+		);
+	}
+
 	return (
 		<div className="mainContent">
 			{tourneyData.length > 0 && <Bannertop banner={tourneyData[0].data.banner} />}
-			<LeftPane />
-			<CenterPane />
+			<LeftPane tourneyData={tourneyData} />
+			<CenterPane tourneyData={tourneyData} />
 			<RightPane />
 		</div>
 	);

@@ -1,0 +1,77 @@
+.MatchLong {
+	display: flex;
+	align-items: center;
+
+	gap: 1em;
+	padding: 0.5em 1em;
+}
+.MatchLong:nth-child(even) {
+	background-color: var(--cfp-bg);
+}
+.MatchLong:nth-child(odd) {
+	background-color: var(--cfp-bg-secondary);
+}
+.MatchLongPlayerBox {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 0.5em;
+	height: 100%;
+}
+.MatchLongPlayerSmol > img {
+	max-height: 2em;
+}
+.MatchLongPlayerSmol > p,
+.MatchLong > p {
+	margin: 0;
+	position: relative;
+}
+.MatchLongPlayerSmol {
+	display: flex;
+	gap: 1em;
+	align-items: center;
+}
+.MatchLong > a {
+	margin-left: auto;
+}
+
+.MatchLong > p .tooltip {
+	visibility: hidden;
+	opacity: 0;
+	min-width: 15em;
+	max-width: 20em;
+	padding: 1em 0.5em;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	position: absolute;
+	z-index: 1;
+	bottom: 150%;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	align-content: center;
+	justify-content: center;
+	align-items: center;
+	transition: opacity 0.2s;
+}
+
+.MatchLong > p .tooltip::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	border-width: 5px;
+	border-style: solid;
+	border-color: black transparent transparent transparent;
+}
+
+.MatchLong > p:hover .tooltip {
+	visibility: visible;
+	opacity: 1;
+}
+.date-group > h2 {
+	border-bottom: solid 1px var(--cfp-accent);
+}

@@ -1,0 +1,13 @@
+.MatchLongResult {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	gap: 1em;
+	padding: 0.5em 1em;
+}
+.MatchLongResult:nth-child(even) {
+	background-color: var(--cfp-bg);
+}
+.MatchLongResult:nth-child(odd) {
+	background-color: var(--cfp-bg-secondary);
+}

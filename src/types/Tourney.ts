@@ -1,7 +1,7 @@
 import { Beatmap } from "./Beatmap";
 import { DoubleEliminationMatches } from "./DoubleElimMatches";
 import { Match } from "./Match";
-import { Player } from "./Player";
+import { Player, PlayerLite } from "./Player";
 
 export interface Tourney {
 	id: number;
@@ -24,10 +24,15 @@ interface TourneyData {
 		start: string;
 		end: string;
 	};
-	pool: TournamentMappool[];
+	participants: TourneyParticipant[];
+	pool: TourneyMappool[];
 	bracket: DoubleEliminationMatches;
 }
-interface TournamentMappool {
+interface TourneyMappool {
 	title: string;
 	maps: Beatmap[];
+}
+interface TourneyParticipant {
+	player: PlayerLite;
+	why: string;
 }

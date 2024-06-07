@@ -16,7 +16,7 @@ const Profile = ({ loggedInUser }: Props) => {
 	useEffect(() => {
 		const id = uid || loggedInUser?.id;
 		if (id) {
-			fetch(`${import.meta.env.VITE_API_URL}/user/${id}`, {
+			fetch(`${import.meta.env.VITE_API_URL}/user/${id}?full=true`, {
 				credentials: "include",
 			})
 				.then((response) => response.json())

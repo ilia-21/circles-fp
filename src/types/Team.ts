@@ -1,7 +1,7 @@
-import { Player } from "./Player";
+import { Player, PlayerLite } from "./Player";
 
 export interface Team {
 	id: number;
 	title: string;
-	players: Player[];
+	players: PlayerLite[];
 }

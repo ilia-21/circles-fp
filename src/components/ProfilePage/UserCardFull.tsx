@@ -12,7 +12,7 @@ const UserCardFull = ({ user }: Props) => {
 	function printRoles() {
 		if (roles && Object.keys(roles).length != 0)
 			for (let role of Object.keys(roles)) {
-				return <Badge title={role} color={roles[role][0]} icn={roles[role][1]} />;
+				return <Badge title={role} color={roles[role][0]} icn={roles[role][1]} description={roles[role][2]} />;
 			}
 	}
 	return (
@@ -26,7 +26,7 @@ const UserCardFull = ({ user }: Props) => {
 				<div className="badgeContainer">{printRoles()}</div>
 			</div>
 			<div className="quickInfo">
-				<h1>Player stats since day 1</h1>
+				<h1>Player stats:</h1>
 				<p>acc:</p> <p>{Math.round(user.statistics.hit_accuracy * 100) / 100}%</p>
 				<p>rating:</p>
 				<p>#{user.statistics.global_rank}</p>

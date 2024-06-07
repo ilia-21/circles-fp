@@ -1,8 +1,6 @@
 import "./TourneyCardhero.css";
 import { Tourney } from "../../../types/Tourney";
-import PlayerCardSmall from "../../mainPage/PlayerCardSmall";
 import BracketCard from "../BracketCard";
-import MatchCardMed from "../MatchCardMed";
 import BeatMapCardMed from "./BeatMapCardMed";
 import UserLink from "../../universal/UserLink";
 import genRanHex from "../../../functions/getRanHex";
@@ -41,7 +39,7 @@ const TourneyCardhero = ({ tourney }: Props) => {
 		if (!tourney.data.pool) return <p>No map pools in this tournament</p>;
 		return tourney.data.pool.map((pool) => (
 			<>
-				<h1>{pool.title}</h1>
+				<h2>{pool.title}</h2>
 				{pool.maps.map((map) => (
 					<BeatMapCardMed key={map.id + genRanHex(4)} map={map} />
 				))}

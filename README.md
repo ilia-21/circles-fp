@@ -23,6 +23,8 @@ Very-very early alpha version of the website: [circlesfrontpage.iii.cl](https://
 ├─┬─ Add customizability options
 │ └─ Pallete + accent selection
 │
+├─── Responsive design (never done that before)
+│
 ├─┬─ Finish tounrmanent page
 │ ├─ Fix bracket (if possible)
 │ ├─┬─ Add pages           <-- we are here

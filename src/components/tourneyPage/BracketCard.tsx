@@ -10,8 +10,10 @@ interface Props {
 	tourney: Tourney;
 }
 const cfpTheme = createTheme({
-	textColor: { main: "var(--text)", highlighted: "var(--cfp-accent)", dark: "var(--surface-1)" },
+	textColor: { main: "var(--text)", highlighted: "var(--cfp-accent)", dark: "var(--surface-1)", won: "var(--green)", lost: "var(--red)" },
 	// seperate colors for score and username are not allowed sadly
+	// fine, I'll do it myself
+
 	matchBackground: { wonColor: "var(--cfp-bg-tertiary)", lostColor: "var(--cfp-bg-secondary)" },
 	score: {
 		background: { wonColor: "var(--cfp-bg-secondary)", lostColor: "var(--cfp-bg)" },

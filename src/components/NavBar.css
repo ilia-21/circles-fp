@@ -21,7 +21,7 @@
 
 .links {
 	display: flex;
-	gap: 5em;
+	gap: 6vw;
 }
 
 .navBarLink {
@@ -29,7 +29,7 @@
 	color: white;
 	text-decoration: none;
 	position: relative;
-	font-size: 2vh;
+	font-size: 1em;
 }
 .navBarLink:last-child {
 	text-align: end;

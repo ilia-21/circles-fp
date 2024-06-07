@@ -1,12 +1,12 @@
 .badge {
 	background-color: var(--cfp-bg);
-	border-radius: 100vh;
+	border-radius: 100em;
 	text-align: center;
-	width: 7vw;
-	height: 3vh;
+	width: 5.5em;
+	height: 1.5em;
 	position: relative;
 	color: white;
-	font-size: min(2vh, 2vw);
+	font-size: 1em;
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
@@ -18,21 +18,34 @@
 	padding: 0.1em;
 }
 
-/* .badge:hover .tooltip {
+.badge:hover .badgeTooltip {
 	visibility: visible;
-} */
-.tooltip {
+	opacity: 1;
+}
+
+.badgeTooltip {
 	position: absolute;
 	background-color: #000000a0;
 	color: white;
 	visibility: hidden;
 	opacity: 0;
 	transition: opacity 0.1s;
-	font-size: 1.5vh;
-	padding: 1vh;
-	border-radius: 1vh;
-	bottom: 5vh;
-	left: 5vh;
-	max-height: 1vh;
-	max-width: 20vw;
+	font-size: 1em;
+	padding: 0.5em 0.75em;
+	border-radius: 0.75em;
+	bottom: 2em;
+	left: -4.5em;
+	max-height: 10em;
+	width: 15em;
+	z-index: 10;
+}
+.badgeTooltip::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	border-width: 5px;
+	border-style: solid;
+	border-color: black transparent transparent transparent;
 }

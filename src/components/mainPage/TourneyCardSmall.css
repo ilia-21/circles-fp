@@ -6,7 +6,7 @@
 	gap: 5%;
 	align-items: center;
 	position: relative;
-	max-height: 10vh;
+	max-height: 5em;
 }
 .tourneyCardSmall > a {
 	color: var(--cfp-accent);
@@ -20,7 +20,7 @@
 	text-align: left;
 	margin: 0;
 	width: 62%;
-	font-size: 1.727vh;
+	font-size: 1em;
 
 	/* overflow bullshit */
 	text-overflow: ellipsis;
@@ -30,8 +30,9 @@
 .tourneyCardSmall > img {
 	margin: 2.5em 0;
 	height: auto;
-	max-width: 7vw;
-	max-height: 7vh;
+	max-width: 4em;
+	height: auto;
+	object-fit: contain;
 }
 .tourneyCardSmall-date {
 	font-size: smaller;

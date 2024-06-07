@@ -1,0 +1,87 @@
+@media screen and (max-width: 540px) {
+	/* content and panes */
+	.mainContent {
+		width: 100%;
+		margin-top: 10%;
+		margin-top: 15%;
+		gap: 5px;
+		min-height: 50vh;
+		justify-content: space-evenly;
+	}
+	.centerPane {
+		flex-basis: 100%;
+	}
+	.leftPane,
+	.rightPane {
+		display: none;
+	}
+	/* matchSmall */
+	.matchSmall {
+		width: 100%;
+	}
+	.matchSmall > a > img {
+		max-width: 2em;
+		padding: 0 0.25em;
+	}
+
+	.matchSmall > p {
+		width: auto;
+		font-size: 1em;
+	}
+	/* footer */
+	.footer {
+		justify-content: space-evenly;
+	}
+	.footer > * {
+		font-size: 0.75em;
+		margin: 0;
+	}
+	/* tourneyPage */
+	.tourneyPage {
+		width: 100%;
+	}
+	/* navbar */
+	.navBar {
+		height: calc(7% + 0.75em);
+		width: 100vw;
+		left: 50vw;
+	}
+	/* beatmapcardmed */
+	.BeatMapCardMed {
+		height: 3em;
+	}
+	.BeatMapDataCont {
+		width: 60%;
+	}
+	.BeatMapCardMed p {
+		font-size: 0.75em;
+	}
+	.BeatmapMod {
+		padding: 0.5em;
+		border-radius: 2.5em;
+		min-width: 2em;
+	}
+	.BeatmapMod > p {
+		font-size: 1em;
+	}
+	/* usermenu */
+	.userMenu {
+		min-width: 10em;
+		border-radius: 10px;
+		z-index: 100;
+	}
+	.userMenu a {
+		padding: 0.5em 1em;
+	}
+	/* profile */
+	.profilePageThe2st {
+		margin: 10em 0 5em;
+	}
+	.profileContainer,
+	.quickInfo {
+		width: 100%;
+	}
+	.userCardFull {
+		flex-wrap: wrap;
+	}
+}

@@ -1,6 +1,6 @@
 .tourneyPage {
-	width: 80%;
+	width: 64em;
 	background: var(--cfp-bg-tertiary);
 	margin: 0 auto;
-	padding: 1vh 1vw;
+	padding: 1em;
 }

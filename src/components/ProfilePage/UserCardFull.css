@@ -2,10 +2,12 @@
 
 .userCardFull {
 	background: var(--cfp-bg-secondary);
-	z-index: 9;
+	z-index: 1;
 	position: relative;
 	display: flex;
+	justify-content: space-between;
 	color: white;
+	padding: 1em;
 }
 .userCardFull > div {
 	margin: 1em;
@@ -15,22 +17,19 @@
 	width: 100%;
 }
 .avatar {
-	max-width: 20vw;
-	max-height: 20vh;
+	height: 100%;
 }
 .username {
-	padding: 0.5vh 0;
-	margin: 0;
-	font-size: min(5vw, 5vh);
+	margin: 0 0 0.2em 0;
+	font-size: 3em;
 }
 .profileContainer {
 	display: flex;
 	position: relative;
-	padding: 2vh;
 	flex-direction: column-reverse;
 	flex-wrap: wrap;
-	height: 20vh;
-	gap: 2vh;
+	height: 13em;
+	gap: 1em;
 	align-content: start;
 	width: 50%;
 }
@@ -38,27 +37,29 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: end;
+	max-height: 7em;
 }
 .yetAnotherContainer > img {
-	height: 4vh;
+	height: 3em;
 	width: max-content;
 }
 .badgeContainer {
-	padding: 0.5vh;
-	margin: 0;
 	display: flex;
-	gap: 1vw;
+	gap: 1em;
+	flex-wrap: wrap;
+	max-width: 50%;
+	max-height: 5em;
 }
 .quickInfo {
 	font-family: "M PLUS Rounded 1c", sans-serif;
-	width: 50%;
+	width: 40%;
 	display: flex;
 	flex-wrap: wrap;
 	align-content: center;
 }
 .quickInfo > h1 {
 	flex: 2 0 calc(100% - 10px);
-	font-size: 3vh;
+	font-size: 150%;
 	margin: 0;
 }
 .quickInfo > p {

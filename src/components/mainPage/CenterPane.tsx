@@ -1,7 +1,6 @@
 import "./panes.css";
 import TourneyCard from "../tourneyPage/TourneyCard";
 import { useEffect, useState } from "react";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import genRanHex from "../../functions/getRanHex";
 
@@ -21,7 +20,6 @@ const CenterPane = () => {
 					throw new Error(`Error fetching data: ${response.statusText}`);
 				}
 				const data = await response.json();
-				console.log(data);
 				setTourneyData(data);
 			} catch (error) {
 				console.log(error);
@@ -39,8 +37,11 @@ const CenterPane = () => {
 			</div>
 		);
 	}
-	return <div className="centerPane">{tourneyData && tourneyData[0].id != tourneyData[1].id && tourneyData.map((tourney) => <TourneyCard key={tourney.id + genRanHex(4)} tourney={tourney} />)}</div>;
-	//for some reason sometimes tourneyData[0] == tourneyData[1]
+	const drawTourneys = () => {
+		return tourneyData.map((tourney) => <TourneyCard key={tourney.id + genRanHex(4)} tourney={tourney} />);
+	};
+
+	return <div className="centerPane">{tourneyData && drawTourneys()}</div>;
 };
 
 export default CenterPane;

@@ -13,7 +13,9 @@ const Badge = ({ title, color, icn, description }: Props) => {
 	return (
 		<div className="badge">
 			{IconComponent && <IconComponent />}
-			<p style={{ color: color, textTransform: "capitalize" }}>{title}</p>
+			<p style={{ color: color, textTransform: "capitalize" }}>
+				{title} {description && <p className="badgeTooltip">{description}</p>}
+			</p>
 		</div>
 	);
 };

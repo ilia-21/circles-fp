@@ -1,4 +1,3 @@
-import React from "react";
 import { Player } from "../../types/Player";
 import PlayerCardSmall from "../mainPage/PlayerCardSmall";
 interface Props {

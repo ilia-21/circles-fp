@@ -1,6 +1,6 @@
 .tournamentNavBar {
 	position: relative;
-	height: 7vh;
+	height: 5em;
 	background-color: var(--cfp-bg-secondary);
 	display: flex;
 	align-items: center;
@@ -9,58 +9,44 @@
 .tournamentNavBar > a {
 	text-decoration: none;
 	display: flex;
-	padding: 2vh 1vw;
+	padding: 1em 1em;
 	color: white;
 	font-family: "Raleway", sans-serif;
 	position: relative;
-	font-size: 2vh;
+	font-size: 1.5em;
 	cursor: pointer;
 	transition: all 0.2s;
 }
-.tournamentNavBar > a:before {
-	background-color: var(--cfp-accent);
-	border-radius: 10000px;
-	bottom: 1.3vh;
-	content: "";
-	display: block;
-	height: 0vh;
-	position: absolute;
-	transition: inherit;
-	width: 100%;
-	z-index: 1;
-	left: 0;
-}
+.tournamentNavBar > a.selected::before,
+.tournamentNavBar > a:before,
 .tournamentNavBar > a:hover::before {
 	background-color: var(--cfp-accent);
 	border-radius: 10000px;
-	bottom: 1vh;
 	content: "";
 	display: block;
-	height: 0.75vh;
 	position: absolute;
 	transition: inherit;
 	width: 100%;
 	z-index: 1;
 	left: 0;
 }
+.tournamentNavBar > a:before {
+	height: 0;
+	bottom: 22%;
+}
+.tournamentNavBar > a:hover::before {
+	bottom: 18%;
+	height: 0.25em;
+}
 
 .tournamentNavBar > a.selected::before {
-	background-color: var(--cfp-accent);
-	border-radius: 10000px;
-	bottom: 1vh;
-	content: "";
-	display: block;
-	height: 1vh;
-	position: absolute;
-	transition: inherit;
-	width: 100%;
-	z-index: 1;
-	left: 0;
+	bottom: 15%;
+	height: 0.5em;
 }
 
 .tournamentNavBar::before {
 	background-color: var(--cfp-accent);
-	bottom: 1.3vh;
+	bottom: 20%;
 	content: "";
 	height: 0.2vh;
 	position: absolute;

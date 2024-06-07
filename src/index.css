@@ -1,3 +1,6 @@
+@import url("./GlobalCSS/Mobile.css");
+@import url("./GlobalCSS/Tablet.css");
+
 :root {
 	/* catppucchin mocha colors */
 	--rosewater: #f5e0dc;

@@ -1,4 +1,3 @@
-import React from "react";
 import "./BeatmapMod.css";
 interface Props {
 	mod: string;

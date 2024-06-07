@@ -10,31 +10,35 @@
 .userInfo {
 	display: flex;
 	align-items: center;
+	height: 90%;
 }
 
 .userInfo img {
 	border-radius: 50%;
-	max-width: 5vw;
-	max-height: 5vh;
+	max-width: 2.5em;
+	max-height: auto;
 	margin-right: 10px;
+	object-fit: contain;
 }
 
 .userInfo p {
 	margin: 0;
-	font-size: 2vh;
+	font-size: 1em;
 }
 
 .userMenu {
 	position: absolute;
 	top: 100%;
-	right: 0;
+	left: unset;
 	background: var(--cfp-bg);
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 	z-index: 10;
 	display: flex;
 	flex-direction: column;
-	min-width: 150px;
+	min-width: 9em;
 	border-radius: 10px;
+	z-index: 100;
+	right: 0;
 }
 
 .userMenu a {
@@ -42,33 +46,28 @@
 	color: white;
 	transition: background-color 0.3s;
 	font-family: "Raleway", sans-serif;
-	font-size: 1.75vh;
+	font-size: 0.9em;
 	border-radius: 5px;
-	margin: 0.45vh 0.5vw;
-	padding: 0.25vh 2vw;
+	margin: 0.5em 0.5em;
+	padding: 0.5em 1.5em;
 	position: relative;
 }
 .userMenu a:before {
 	transition: all 0.3s;
-	background-color: #66ff7f00;
+	background-color: #00000000;
 	border-radius: 100px;
 	content: "";
-	height: 2vh;
-	left: 0.9vw;
+	height: 0.4em;
+	left: 0.5em;
 	position: absolute;
-	top: 0.6vh;
-	width: 0.4vw;
+	top: 1.2em;
+	width: 0.4em;
 	box-shadow: var(--cfp-accent) 00 0px 0px 0px;
 }
 .userMenu a:hover::before {
+	height: 1.5em;
+	top: 0.5em;
 	background: var(--cfp-accent);
-	border-radius: 100px;
-	content: "";
-	height: 2vh;
-	left: 0.9vw;
-	position: absolute;
-	top: 0.6vh;
-	width: 0.4vw;
 	box-shadow: var(--cfp-accent) 0px 0px 10px;
 }
 .userMenu a:hover {

@@ -3,7 +3,7 @@
 	height: 2.5em;
 	justify-content: space-between;
 	align-items: center;
-	margin: 1vh 0;
+	margin: 1em 0;
 	width: 89%;
 	cursor: pointer;
 }
@@ -16,22 +16,23 @@
 }
 .matchSmall > a > img {
 	height: auto;
-	max-width: 4vw;
-	max-height: 5vh;
+	max-width: 3em;
+	object-fit: contain;
 }
 
 .matchSmall > p {
 	width: auto;
-	font-size: min(2vh, 2vw);
-	margin: 0 1em;
+	margin: 0;
+	font-size: 1em;
 	position: relative;
 }
 
 .matchSmall > p .tooltip {
 	visibility: hidden;
 	opacity: 0;
-	width: 15vw;
-	padding: 2vh 1vw;
+	min-width: 15em;
+	max-width: 20em;
+	padding: 1em 0.5em;
 	background-color: black;
 	color: #fff;
 	text-align: center;

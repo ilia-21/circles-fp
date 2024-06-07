@@ -27,18 +27,18 @@ Very-very early alpha version of the website: [circlesfrontpage.iii.cl](https://
 │
 ├─┬─ Finish tounrmanent page
 │ ├─ Fix bracket (if possible)
-│ ├─┬─ Add pages           <-- we are here
+│ ├─┬─ Add pages          
 │ │ ├─ All match results
 │ │ ├─ All upcoming matches
-│ │ └─ Stats (I don't know which stats exactly for now)
+│ │ └─ Stats (I don't know which stats exactly for now) ----------- Delayed
 │ └─┬─ Add sections on the main page
 │   ├─ Participants
 │   └─ Mappol for each stage
 │
 ├─┬─ Add support for teams
 │ ├─ Add support for team matches in tornaments
-│ └─ Add team pages
-│
+│ └─ Add team pages                               <-- we are here
+│ 
 ├─┬─ Finish profile page
 │ ├─┬─ Add player stats
 │ │ ├─ Pickrate for each mod: NM, HR, HD, DT

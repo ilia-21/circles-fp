@@ -1,6 +1,6 @@
 # THIS PROJECT IS STILL UNDER ACTIVE DEVELOPMENT, NOT EVERY FEATURE IS IMPLEMENTED, PLEASE, BE PATIENT
 
-Very-very early alpha version of the website: [circlesfrontpage.iii.cl](https://circlesfrontpage.iii.cl/)
+Daily website build (except weekends): [circlesfrontpage.iii.cl](https://circlesfrontpage.iii.cl/)
 
 # Project "roadmap" (kinda)
 
@@ -27,7 +27,7 @@ Very-very early alpha version of the website: [circlesfrontpage.iii.cl](https://
 │
 ├─┬─ Finish tounrmanent page
 │ ├─ Fix bracket (if possible)
-│ ├─┬─ Add pages          
+│ ├─┬─ Add pages
 │ │ ├─ All match results
 │ │ ├─ All upcoming matches
 │ │ └─ Stats (I don't know which stats exactly for now) ----------- Delayed
@@ -38,7 +38,7 @@ Very-very early alpha version of the website: [circlesfrontpage.iii.cl](https://
 ├─┬─ Add support for teams
 │ ├─ Add support for team matches in tornaments
 │ └─ Add team pages                               <-- we are here
-│ 
+│
 ├─┬─ Finish profile page
 │ ├─┬─ Add player stats
 │ │ ├─ Pickrate for each mod: NM, HR, HD, DT

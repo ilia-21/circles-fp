@@ -33,7 +33,6 @@ const cfpTheme = createTheme({
 
 const BracketCard = ({ tourney }: Props) => {
 	if (!tourney.data.bracket) {
-		console.log(tourney.data);
 		return <p>{tourney.title} doesn't have a bracket</p>;
 	}
 	const containerRef = useRef<HTMLDivElement>(null);

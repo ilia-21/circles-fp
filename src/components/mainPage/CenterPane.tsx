@@ -7,7 +7,6 @@ interface LeftPaneProps {
 }
 
 const LeftPane: React.FC<LeftPaneProps> = ({ tourneyData }) => {
-	console.log(tourneyData);
 	const drawTourneys = () => {
 		return tourneyData.map((tourney) => <TourneyCard key={tourney.id} tourney={tourney} />);
 	};

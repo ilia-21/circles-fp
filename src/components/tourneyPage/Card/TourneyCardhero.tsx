@@ -9,7 +9,6 @@ interface Props {
 }
 
 const TourneyCardhero = ({ tourney }: Props) => {
-	console.log(tourney);
 	if (!tourney) {
 		return (
 			<div className="tourneyCardhero">

@@ -12,13 +12,11 @@ const TourneyResultsPage = ({ tourney }: Props) => {
 
 		sortedMatches.forEach((match) => {
 			if (new Date(match.timestamp) < new Date(Date.now())) {
-				console.log(new Date(match.timestamp), new Date(Date.now()));
 				const date = DateConverter(new Date(match.timestamp), "W MM DD") as string;
 				if (!matchesByDate[date]) {
 					matchesByDate[date] = [];
 				}
 				matchesByDate[date].push(<MatchLongResult key={match.id} match={match} />);
-				console.log(matchesByDate[date]);
 			}
 		});
 

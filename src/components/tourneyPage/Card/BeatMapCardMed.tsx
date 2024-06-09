@@ -15,7 +15,6 @@ const BeatMapCardMed = ({ map }: Props) => {
 
 		if (actualMod === "HR" || actualMod === "DT") {
 			const hrMultiply = (stat: number, cs?: boolean) => {
-				console.log(stat);
 				return Math.min(cs ? stat * 1.3 : stat * 1.4, 10);
 			};
 

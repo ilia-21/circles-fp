@@ -6,7 +6,6 @@ interface Props {
 }
 
 const PlayerCardSmall = ({ player }: Props) => {
-	console.log(player);
 	const playerCardRef = useRef<HTMLDivElement>(null);
 	const [position, setPosition] = useState({ left: "50%", right: "0", transform: "translateX(-50%)" });
 

@@ -17,6 +17,9 @@ const Profile = ({ loggedInUser }: Props) => {
 		const id = uid || loggedInUser?.id;
 		if (id) {
 			fetch(`${import.meta.env.VITE_API_URL}/user/${id}?full=true`, {
+				headers: {
+					"x-api-key": import.meta.env.VITE_API_KEY,
+				},
 				credentials: "include",
 			})
 				.then((response) => response.json())

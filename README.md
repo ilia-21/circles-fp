@@ -37,7 +37,19 @@ Daily website build (except weekends): [circlesfrontpage.iii.cl](https://circles
 │
 ├─┬─ Add support for teams
 │ ├─ Add support for team matches in tornaments
-│ └─ Add team pages                               <-- we are here
+│ └─┬─ Add team pages
+│   ├─ Add team schedule
+│   ├─ Add team results
+│   └─ Add team stats                                   ----------- Delayed
+│
+├─┬─ Create match page
+│ ├─ Add time for upcoming matches
+│ ├─ Add score for finished matches
+│ ├─┬─ Add odds (whatever the name of this thing is)    <-- we are here
+│ │ ├─ Chance of each player to Pick/ban/win certain mods based on the data from last month
+│ │ ├─ Recent matches for each player
+│ │ └─ Possibly more odds
+│ └─ Add links to mp, where to watch
 │
 ├─┬─ Finish profile page
 │ ├─┬─ Add player stats
@@ -58,15 +70,6 @@ Daily website build (except weekends): [circlesfrontpage.iii.cl](https://circles
 │   ├─ Prize pool
 │   ├─ participantspool
 │   └─ Date
-│
-├─┬─ Create match page
-│ ├─ Add time for upcoming matches
-│ ├─ Add score for finished matches
-│ ├─┬─ Add odds (whatever the name of this thing is)
-│ │ ├─ Chance of each player to Pick/ban/win certain mods based on the data from last month
-│ │ ├─ Recent matches for each player
-│ │ └─ Possibly more odds
-│ └─ Add links to mp, where to watch
 │
 ├─┬─ Add info for tournament players
 │ ├─ Player's upcoming matches with detailed stats about the opponent

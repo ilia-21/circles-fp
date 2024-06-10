@@ -4,26 +4,14 @@ import BracketCard from "../BracketCard";
 import BeatMapCardMed from "./BeatMapCardMed";
 import PlayerLink from "../../universal/PlayerLink";
 import genRanHex from "../../../functions/GetRanHex";
+import ErrorPage from "../../../pages/ErrorPage";
 interface Props {
 	tourney: Tourney;
 }
 
 const TourneyCardhero = ({ tourney }: Props) => {
 	if (!tourney) {
-		return (
-			<div className="tourneyCardhero">
-				<img src="404" alt="404" />
-				<h1>Tournament not found</h1>
-				<div className="tourneyInfoShort">
-					<p>
-						If you think this is an error, please open a ticket in #feedback on{" "}
-						<a href="https://discord.gg/WsXtQ9YC2d" style={{ position: "relative" }}>
-							discord server
-						</a>
-					</p>
-				</div>
-			</div>
-		);
+		return <ErrorPage />;
 	}
 
 	let host = tourney.host;
@@ -35,14 +23,19 @@ const TourneyCardhero = ({ tourney }: Props) => {
 	}).format(new Date(tourney.dateend));
 
 	const drawPools = () => {
-		if (!tourney.data.pool) return <p>No map pools in this tournament</p>;
+		if (!tourney.data.pool)
+			return (
+				<div className="tourneyNews">
+					<p>{tourney.title} doesn't have a mappool</p>
+				</div>
+			);
 		return tourney.data.pool.map((pool) => (
-			<>
+			<div className="tourneyNews">
 				<h2>{pool.title}</h2>
 				{pool.maps.map((map) => (
 					<BeatMapCardMed key={map.id + genRanHex(4)} map={map} />
 				))}
-			</>
+			</div>
 		));
 	};
 
@@ -64,12 +57,12 @@ const TourneyCardhero = ({ tourney }: Props) => {
 				</div>
 				<p>{tourney.data.description}</p>
 			</div>
-			<BracketCard tourney={tourney} />
-
-			<div className="tourneyNews">
-				<h1>Map pool</h1>
-				{tourney.data.pool && drawPools()}
+			<div>
+				<h2>Paticipants</h2>
 			</div>
+			<BracketCard tourney={tourney} />
+			<h1>Map pool</h1>
+			{drawPools()}
 		</div>
 	);
 };

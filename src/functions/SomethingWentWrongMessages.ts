@@ -8,7 +8,9 @@ const messages: string[] = [
     "Page not found... just like accuracy on your top play!",
     "Can't find the storyboard for this page. Looks like someone disabled it!",
     "404: Not Found. Looks like you're hunting for a hidden object. Keep searching!",
-    "Error 403: Forbidden. Looks like you're not ready for this difficulty. Practice some more!"
+    "Error 403: Forbidden. Looks like you're not ready for this difficulty. Practice some more!",
+    "The page you're searching for is probably practicing pool right now",
+    "Error 406: You have overstreamed 222 bpm "
 ];
 const randomErrorMessage = () => {
     return messages[Math.floor(Math.random() * messages.length)];

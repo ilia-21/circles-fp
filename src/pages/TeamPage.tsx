@@ -1,67 +1,64 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+
+import { useParams, useSearchParams } from "react-router-dom";
 import "./Profile.css";
+import "./TeamProfile.css";
 
 import { Team } from "../types/Team";
 
-interface Props {
-	teamid?: number;
-}
-const TeamPage = ({ teamid }: Props) => {
+import ErrorPage from "./ErrorPage";
+
+import TeamProfile from "../components/teamPage/TeamProfile";
+import TeamEditor from "../components/teamPage/TeamEditor";
+
+const TeamPage = () => {
+	const [queryParameters] = useSearchParams();
 	const { id } = useParams<{ id: string }>();
+	const edit = queryParameters.get("edit");
 	const [team, setTeam] = useState<any | Team>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 	useEffect(() => {
-		try {
-			fetch(`${import.meta.env.VITE_API_URL}/team/${id}`, {
-				credentials: "include",
-			})
-				.then((response) => response.json())
-				.then((data) => {
-					setTeam(data as Team);
-					setLoading(false);
+		const fetchOneTeam = async () => {
+			try {
+				await fetch(`${import.meta.env.VITE_API_URL}/team/${id}?matches=true&leader=true`, {
+					headers: {
+						"x-api-key": import.meta.env.VITE_API_KEY,
+					},
+					credentials: "include",
 				})
-				.catch((error) => {
-					console.error("Error fetching user data:", error);
-					setLoading(false);
-				});
-		} catch (e) {
-			console.log(e);
-		} finally {
-			setLoading(false);
-		}
-	}, []);
+					.then((response) => response.json())
+					.then((data) => {
+						setTeam(data as Team);
+					})
+					.catch((error) => {
+						console.error("Error fetching team data:", error);
+					});
+			} catch (e) {
+				console.log(e);
+			} finally {
+				setLoading(false);
+			}
+		};
+		fetchOneTeam();
+	}, [id]);
 
 	if (loading) {
 		return (
 			<div className="profilePage">
 				<div className="profilePageThe2st">
-					<div>Loading...</div>
+					<h1>Loading...</h1>
 				</div>
 			</div>
 		);
-	}
-	if (!team) {
+	} else if (!team) {
 		return (
 			<div className="profilePage">
-				<div className="profilePageThe2st">
-					<div className="userCardFull">
-						<div>
-							team not found, or you are not logged in. <a href="https://osu.ppy.sh/docs/#get-user">osu!api requires a token to get information about players</a>. Circles Front Page will cache this team's profile when someone who is logged in opens it.
-						</div>
-					</div>
-				</div>
+				<ErrorPage />
 			</div>
 		);
 	}
-	return (
-		<div className="profilePage">
-			<div className="profilePageThe2st" style={{ backgroundColor: "var(--cfp-bg-secondary)", padding: "1em" }}>
-				<h1>This is a page for {team.title}</h1>
-			</div>
-			{/* <UserInfo /> */}
-		</div>
-	);
+
+	return <div className="profilePage">{edit ? <TeamEditor team={team} /> : <TeamProfile team={team} />}</div>;
 };
 
 export default TeamPage;

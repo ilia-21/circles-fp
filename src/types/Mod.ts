@@ -4,4 +4,5 @@ export enum ModType {
 	HD = "HD",
 	DT = "DT",
 	FM = "FM",
+	TB = "TB",
 }

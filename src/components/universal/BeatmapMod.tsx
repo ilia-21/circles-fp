@@ -22,6 +22,9 @@ const BeatmapMod = ({ mod }: Props) => {
 		case "FM":
 			color = "mauve";
 			break;
+		case "TB":
+			color = "teal";
+			break;
 	}
 	return (
 		<div className="BeatmapMod" style={{ backgroundColor: `var(--${color})` }}>

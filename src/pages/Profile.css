@@ -2,10 +2,9 @@
 	width: 100%;
 	height: 100%;
 }
-.profilePageThe2st {
-	margin: 20em 11% 5em;
-}
+
 h1 {
 	font-family: "Raleway" sans-serif;
 	color: var(--cfp-text);
+	margin: 0;
 }

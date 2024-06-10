@@ -1,4 +1,3 @@
-// App.tsx
 import { useEffect, useState } from "react";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
@@ -9,8 +8,10 @@ import MainPage from "./pages/Main";
 import Tourney from "./pages/Tourney";
 import Tourneys from "./pages/Tourneys";
 import SomethingWentWrong from "./pages/SomethingWentWrong";
-import Page404 from "./pages/Page404";
+import ErrorPage from "./pages/ErrorPage";
 import TeamPage from "./pages/TeamPage";
+import Infopage from "./components/infoPages/InfoPage";
+import Match from "./pages/Match";
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -39,15 +40,21 @@ function App() {
 			<ErrorBoundary fallbackRender={SomethingWentWrong}>
 				<Routes>
 					<Route path="/" element={<MainPage />} />
-					<Route path="/profile" element={<Profile loggedInUser={user} />} />
-					<Route path="/profile/:uid" element={<Profile />} />
-					<Route path="/tourneys" element={<Tourneys />} />
-					<Route path="/tourney/:id" element={<Tourney page="info" />} />
-					<Route path="/tourney/:id/matches" element={<Tourney page="upcoming" />} />
-					<Route path="/tourney/:id/results" element={<Tourney page="results" />} />
-					<Route path="/tourney/:id/stats" element={<Tourney page="stats" />} />
-					<Route path="/team/:id" element={<TeamPage />} />
-					<Route path="*" element={<Page404 />} />
+					<Route path="profile" element={<Profile loggedInUser={user} />}>
+						<Route path=":uid" element={<Profile />} />
+					</Route>
+					<Route path="tourneys" element={<Tourneys />} />
+					<Route path="tourney">
+						<Route path=":id" element={<Tourney page="info" />} />
+						<Route path=":id/info" element={<Tourney page="info" />} />
+						<Route path=":id/matches" element={<Tourney page="upcoming" />} />
+						<Route path=":id/results" element={<Tourney page="results" />} />
+						<Route path=":id/stats" element={<Tourney page="stats" />} />
+					</Route>
+					<Route path="match/:id" element={<Match />} />
+					<Route path="team/:id" element={<TeamPage />} />
+					<Route path="info/*" element={<Infopage />} />
+					<Route path="*" element={<ErrorPage />} />
 				</Routes>
 				<Footer />
 			</ErrorBoundary>

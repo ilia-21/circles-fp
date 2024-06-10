@@ -3,6 +3,7 @@ import { Player } from "../../types/Player";
 import { Team } from "../../types/Team";
 import PlayerCardSmall from "../mainPage/PlayerCardSmall";
 import TeamCardSmall from "../mainPage/TeamCardSmall";
+import Tooltip from "../universal/Tooltip";
 import "./MatchSmall.css";
 interface Props {
 	match: Match;
@@ -11,7 +12,7 @@ interface Props {
 
 const MatchSmall = ({ match, content }: Props) => {
 	let openMatchPage = (id: number) => {
-		window.open(`/#/matches/${id}`, "_blank");
+		window.open(`/#/match/${id}`, "_blank");
 	};
 	if ((content == "upcoming" && new Date(match.timestamp) < new Date(Date.now())) || (content == "score" && new Date(match.timestamp) > new Date(Date.now()))) return;
 	const score = match.result;
@@ -27,7 +28,7 @@ const MatchSmall = ({ match, content }: Props) => {
 				return (
 					<p>
 						"6:66 AM"
-						<span className="tooltip">"Time not found"</span>
+						<Tooltip content={"Time not found"} />
 					</p>
 				);
 			}
@@ -43,7 +44,7 @@ const MatchSmall = ({ match, content }: Props) => {
 			return (
 				<p>
 					{shortLocalizedTimeString}
-					<span className="tooltip">{longLocalizedTimeString}</span>
+					<Tooltip content={longLocalizedTimeString} />
 				</p>
 			);
 		}
@@ -52,15 +53,15 @@ const MatchSmall = ({ match, content }: Props) => {
 	const createLink = (who: Team | Player) => {
 		if (match.type == "1v1") {
 			return (
-				<a href={`profile/${(who as Player).id}`}>
+				<a href={`/#/profile/${(who as Player).id}`}>
 					<img src={(who as Player).avatar_url} alt="" />
 					<PlayerCardSmall player={who as Player} />
 				</a>
 			);
 		} else {
 			return (
-				<a href="">
-					<img src={`/src/assets/flags/${who}.png`} alt="tpfp" />
+				<a href={`/#/team/${(who as Team).id}`}>
+					<img src={`${import.meta.env.VITE_API_URL}${(who as Team).logo}`} alt="" />
 					<TeamCardSmall team={who as Team} />
 				</a>
 			);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./BeatMapCardMed.css";
 import { Beatmap } from "../../../types/Beatmap";
 import BeatmapMod from "../../universal/BeatmapMod";
+import Tooltip from "../../universal/Tooltip";
 
 interface Props {
 	map: Beatmap;
@@ -9,6 +10,7 @@ interface Props {
 
 const BeatMapCardMed = ({ map }: Props) => {
 	const [modifiedMap, setModifiedMap] = useState(map);
+	const [copied, setCopied] = useState(false);
 
 	useEffect(() => {
 		const actualMod = map.mod.slice(0, 2);
@@ -34,7 +36,13 @@ const BeatMapCardMed = ({ map }: Props) => {
 
 			setModifiedMap(modifiedMapCopy);
 		}
-	}, []);
+	}, [map]);
+
+	const copyMapID = () => {
+		navigator.clipboard.writeText(String(map.id));
+		setCopied(true);
+		setTimeout(() => setCopied(false), 2000); // Revert back after 2 seconds
+	};
 
 	let beatmap = modifiedMap.beatmapset;
 
@@ -44,7 +52,8 @@ const BeatMapCardMed = ({ map }: Props) => {
 			<img src={beatmap.covers.list} alt="" />
 			<div className="BeatMapDataCont">
 				<a href={map.url}>
-					{beatmap.artist} - {beatmap.title}
+					<p className="BeatMapDataTitle">{beatmap.title}</p>
+					<p className="BeatMapDataArtist">{beatmap.artist}</p>
 				</a>
 				<div className="BeatMapStatsCont">
 					<p>AR: {modifiedMap.ar}</p>
@@ -54,7 +63,10 @@ const BeatMapCardMed = ({ map }: Props) => {
 					<p>OD: {modifiedMap.accuracy}</p>
 				</div>
 			</div>
-			<p className="BeatMapid">{map.id}</p>
+			<p className="BeatMapid" onClick={copyMapID}>
+				{copied ? "Copied!" : map.id}
+				<Tooltip content={"Click to to copy"} />
+			</p>
 			<div className="BeatMapModsCont">
 				<BeatmapMod mod={modifiedMap.mod} />
 			</div>

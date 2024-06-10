@@ -1,6 +1,6 @@
 import { FallbackProps } from "react-error-boundary";
 import "./SomethingWentWrong.css";
-import randomErrorMessage from "./SomethingWentWrongMessages";
+import randomErrorMessage from "../functions/SomethingWentWrongMessages";
 import { useEffect, useState } from "react";
 
 const SomethingWentWrong = ({ error }: FallbackProps) => {
@@ -13,6 +13,7 @@ const SomethingWentWrong = ({ error }: FallbackProps) => {
 			<h3>What do I do now?</h3>
 			<p>Try Reloading the page</p>
 			<p>Try going on a homepage</p>
+			<p>Try logging in</p>
 			<p>
 				<a href={`${import.meta.env.VITE_API_URL}/ping`}>Check server status</a>
 			</p>

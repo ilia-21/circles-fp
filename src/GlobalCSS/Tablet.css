@@ -16,9 +16,13 @@
 	/* matchSmall */
 	.matchSmall {
 		width: 100%;
+		justify-content: space-around;
+	}
+	.matchSmall > a {
+		width: 10%;
 	}
 	.matchSmall > a > img {
-		max-width: 2em;
+		max-height: 31%;
 		padding: 0 0.25em;
 	}
 
@@ -79,5 +83,62 @@
 	.BeatMapSlot {
 		font-size: 1.5em;
 		width: 9%;
+	}
+	/* team page */
+	.profilePageThe2st {
+		margin: 20em auto 5em;
+		width: 95%;
+	}
+	.teamProfilePlayersSegment > a > img {
+		max-width: 75%;
+		border-radius: 1em;
+	}
+	/* Disable player pop up */
+	.playerCardSmall,
+	.teamCardSmall {
+		display: none;
+	}
+
+	/* Amazing universal styles that I should've used in a first placee */
+	.content {
+		width: 95%;
+		margin: 10em auto 0;
+		padding: 0.5em;
+	}
+	.contentSlim {
+		width: 90%;
+		margin: 10em auto 0;
+		padding: 0.5em;
+	}
+	.contentSlim-section {
+		width: 90%;
+		margin: 0 auto;
+		padding: 0.5em;
+	}
+	.content-section {
+		width: 95%;
+		margin: 0 auto;
+		padding: 0.5em;
+	}
+	/* Match page */
+	.MatchCardBig {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+	}
+	.MatchCardBigPlayer {
+		width: 35%;
+	}
+	.MatchCardBigPlayer > a {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		gap: 1em;
+	}
+	.MatchCardBigPlayer > a > p {
+		font-size: 100%;
+	}
+	.MatchCardBigPlayer > a > img {
+		max-width: 75%;
 	}
 }

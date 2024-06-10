@@ -8,9 +8,9 @@ interface Props {
 const TourneyStatsPage = ({ tourney }: Props) => {
 	return (
 		<div className="TourneyStatsPage">
-			<h2>Stats of {tourney.title}</h2>
+			<h2>Stats page coming soon</h2>
 			<div className="TourneyStatsPageSection">
-				<h3>Best perfoming players</h3>
+				<h3>stat</h3>
 			</div>
 		</div>
 	);

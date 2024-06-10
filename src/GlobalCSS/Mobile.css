@@ -15,6 +15,10 @@
 	.rightPane {
 		display: none;
 	}
+	/* main page */
+	.tourneyCard {
+		margin: 5em 0 1em;
+	}
 	/* matchSmall */
 	.matchSmall {
 		width: 100%;
@@ -39,6 +43,7 @@
 	/* tourneyPage */
 	.tourneyPage {
 		width: 100%;
+		padding: 0em;
 	}
 	/* navbar */
 	.navBar {
@@ -51,7 +56,7 @@
 		height: 3em;
 	}
 	.BeatMapDataCont {
-		width: 60%;
+		width: 55%;
 	}
 	.BeatMapCardMed p {
 		font-size: 0.75em;
@@ -93,5 +98,51 @@
 	.BeatMapSlot {
 		font-size: 1.5em;
 		margin: 0 0.5em;
+	}
+	/* team page */
+	.profilePageThe2st {
+		width: 100%;
+	}
+	.teamProfilePlayersSegment > a > img {
+		max-width: 5em;
+	}
+	/* Disable player pop up */
+	.playerCardSmall,
+	.teamCardSmall {
+		display: none;
+	}
+	/* Amazing universal styles that I should've used in a first placee */
+	.content,
+	.contentSlim {
+		width: 100%;
+		margin: 10em auto 0;
+		padding: 0em;
+	}
+	.content-section,
+	.contentSlim-section {
+		width: 100%;
+		margin: 0 auto;
+		padding: 0em;
+	}
+	/* Match page */
+	.MatchCardBig {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+	}
+	.MatchCardBigPlayer {
+		width: 35%;
+	}
+	.MatchCardBigPlayer > a {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		gap: 1em;
+	}
+	.MatchCardBigPlayer > a > p {
+		font-size: 100%;
+	}
+	.MatchCardBigPlayer > a > img {
+		max-width: 75%;
 	}
 }

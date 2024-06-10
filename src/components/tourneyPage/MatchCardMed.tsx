@@ -2,6 +2,7 @@ import { Match } from "../../types/Match";
 import { Player } from "../../types/Player";
 import { Team } from "../../types/Team";
 import PlayerCardSmall from "../mainPage/PlayerCardSmall";
+import Tooltip from "../universal/Tooltip";
 import "./MatchCardMed.css";
 
 interface Props {
@@ -17,7 +18,7 @@ const MatchCardMed = ({ match, content }: Props) => {
 	const second = match.second;
 	const id = match.id;
 	const openMatchPage = (id: number) => {
-		window.open(`/#/matches/${id}`, "_blank");
+		window.open(`/#/match/${id}`, "_blank");
 	};
 
 	const createContent = () => {
@@ -28,7 +29,7 @@ const MatchCardMed = ({ match, content }: Props) => {
 				return (
 					<p>
 						"6:66 AM"
-						<span className="tooltip">"Time not found"</span>
+						<Tooltip content={"Time not found"} />
 					</p>
 				);
 			}
@@ -44,7 +45,7 @@ const MatchCardMed = ({ match, content }: Props) => {
 			return (
 				<p>
 					{shortLocalizedTimeString}
-					<span className="tooltip">{longLocalizedTimeString}</span>
+					<Tooltip content={longLocalizedTimeString} />
 				</p>
 			);
 		}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./panes.css";
 import MatchSmall from "../tourneyPage/MatchSmall";
+import randomLoadingMessage from "../../functions/loadingMessages";
 
 const RightPane = () => {
 	const [matchData, setMatchData] = useState<any[]>([]);
@@ -32,7 +33,7 @@ const RightPane = () => {
 		<div className="rightPane">
 			<div>
 				<p>Upcoming matches</p>
-				{loading ? <p>Please wait...</p> : matchData.map((match) => <MatchSmall key={match.id} match={match} content="upcoming" />)}
+				{loading ? <p>{randomLoadingMessage()}</p> : matchData.map((match) => <MatchSmall key={match.id} match={match} content="upcoming" />)}
 			</div>
 		</div>
 	);

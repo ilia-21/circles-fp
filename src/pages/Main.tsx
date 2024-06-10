@@ -1,4 +1,3 @@
-// Main.tsx
 import "./main.css";
 import CenterPane from "../components/mainPage/CenterPane";
 import LeftPane from "../components/mainPage/LeftPane";
@@ -6,6 +5,7 @@ import RightPane from "../components/mainPage/RightPane";
 import { useEffect, useState } from "react";
 import Bannertop from "../components/universal/Bannertop";
 import { Tourney } from "../types/Tourney";
+import randomLoadingMessage from "../functions/loadingMessages";
 
 const Main = () => {
 	const [tourneyData, setTourneyData] = useState<Tourney[]>([]);
@@ -38,7 +38,7 @@ const Main = () => {
 	if (loading) {
 		return (
 			<div className="mainContent">
-				<p>Please wait</p>
+				<p>{randomLoadingMessage()}</p>
 			</div>
 		);
 	}

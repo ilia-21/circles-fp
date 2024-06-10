@@ -1,0 +1,61 @@
+.profilePage {
+	width: 100%;
+	height: 100%;
+}
+.profilePageThe2st {
+	margin: 20em auto 5em;
+	width: 75%;
+}
+.profilePageThe2st > div:nth-child(odd) {
+	background-color: var(--cfp-bg-secondary);
+}
+.profilePageThe2st > div:nth-child(even) {
+	background-color: var(--cfp-bg-tertiary);
+}
+.profilePageThe2st > div {
+	padding: 1em;
+	position: relative;
+}
+.profilePageThe2st > div > h2 {
+	margin: 0;
+}
+
+h1,
+h3 {
+	font-family: "Raleway" sans-serif;
+	color: var(--cfp-text);
+}
+
+.teamProfilePlayersSegment {
+	display: flex;
+	justify-content: space-around;
+}
+.teamProfilePlayersSegment > a {
+	display: flex;
+	align-content: center;
+	align-items: center;
+	flex-direction: column;
+	z-index: 2;
+}
+.teamProfilePlayersSegment > a > p {
+	z-index: 2;
+	margin: 0;
+	text-shadow: 1px 1px 5px black;
+	font-size: 1em;
+	width: inherit;
+	text-align: center;
+}
+.teamProfilePlayersSegment > a > img {
+	max-width: 10em;
+	border-radius: 1em;
+}
+.teamProfileEditButton {
+	position: absolute;
+	right: 1em;
+	top: 1em;
+	color: var(--cfp-text);
+	cursor: pointer;
+}
+.TeamPageLogo {
+	max-height: 10em;
+}

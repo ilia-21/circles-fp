@@ -21,11 +21,6 @@
 	top: 1em;
 	left: 1em;
 }
-.teamCardContainer {
-	display: flex;
-	align-content: center;
-	align-items: center;
-}
 .teamCardSmall > img:nth-child(1) {
 	position: absolute;
 	width: 100%;
@@ -37,17 +32,19 @@
 	object-fit: cover;
 	height: 8em;
 }
+.teamCardContainer {
+	display: flex;
+	align-content: center;
+	align-items: center;
+	flex-direction: column;
+	z-index: 2;
+}
 .teamCardContainer > p {
 	z-index: 2;
 	margin: 0;
 	text-shadow: 1px 1px 5px black;
 	font-size: 1em;
 	width: inherit;
-}
-.teamCardContainer {
-	z-index: 2;
-	display: flex;
-	flex-direction: column;
 }
 .teamCardContainer > img {
 	max-width: 5em;

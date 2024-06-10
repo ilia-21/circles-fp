@@ -48,3 +48,9 @@
 	width: 10%;
 	text-align: center;
 }
+.BeatMapDataTitle {
+	color: var(--cfp-accent);
+}
+.BeatMapDataArtist {
+	font-size: 0.75em;
+}

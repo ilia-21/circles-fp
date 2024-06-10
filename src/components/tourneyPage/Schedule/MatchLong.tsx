@@ -5,6 +5,7 @@ import { Player } from "../../../types/Player";
 import PlayerLink from "../../universal/PlayerLink";
 import { Team } from "../../../types/Team";
 import TeamLink from "../../universal/TeamLink";
+import Tooltip from "../../universal/Tooltip";
 interface Props {
 	match: Match;
 }
@@ -14,7 +15,7 @@ const MatchLong = ({ match }: Props) => {
 		if (match.type == "team") {
 			return (
 				<div className="MatchLongPlayerSmol">
-					{/* <img src={(match.first as Player).avatar_url} alt="" /> */}
+					<img src={`${import.meta.env.VITE_API_URL}${(match.first as Team).logo}`} alt="" />
 					<TeamLink team={match.first as Team} noColor />
 				</div>
 			);
@@ -31,7 +32,7 @@ const MatchLong = ({ match }: Props) => {
 		if (match.type == "team") {
 			return (
 				<div className="MatchLongPlayerSmol">
-					{/* <img src={(match.second as Player).avatar_url} alt="" /> */}
+					<img src={`${import.meta.env.VITE_API_URL}${(match.second as Team).logo}`} alt="" />
 					<TeamLink team={match.second as Team} noColor />
 				</div>
 			);
@@ -48,7 +49,7 @@ const MatchLong = ({ match }: Props) => {
 		<div className="MatchLong">
 			<p>
 				{DateConverter(new Date(match.timestamp), "HH:MM")}
-				<span className="tooltip">{DateConverter(new Date(match.timestamp), "full")}</span>
+				<Tooltip content={DateConverter(new Date(match.timestamp), "full")} />
 			</p>
 			<div className="MatchLongPlayerBox">
 				{renderFirstParty()}

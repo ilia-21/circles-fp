@@ -1,0 +1,15 @@
+.MatchCardBig {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+.MatchCardBigPlayer > a {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 1em;
+}
+.MatchCardBigPlayer > a > p {
+	margin: 0;
+	font-size: 1.5em;
+}

@@ -8,6 +8,7 @@ import NavBar from "../components/tourneyPage/Card/NavBar";
 import TourneyResultsPage from "../components/tourneyPage/Results/TourneyResultsPage";
 import TourneySchedulePage from "../components/tourneyPage/Schedule/TourneySchedulePage";
 import TourneyStatsPage from "../components/tourneyPage/Stats/TourneyStatsPage";
+import randomLoadingMessage from "../functions/loadingMessages";
 interface Props {
 	page: "info" | "upcoming" | "results" | "stats";
 }
@@ -42,7 +43,7 @@ const Tourney = ({ page }: Props) => {
 	if (loading) {
 		return (
 			<div className="mainContent">
-				<p>Please wait...</p>
+				<p>{randomLoadingMessage()}</p>
 			</div>
 		);
 	}

@@ -1,0 +1,42 @@
+.content {
+	width: 80%;
+	margin: 10em auto 0;
+	background-color: var(--cfp-bg-secondary);
+	padding: 1em;
+}
+.contentSlim {
+	width: 50%;
+	margin: 10em auto 0;
+	background-color: var(--cfp-bg-secondary);
+	padding: 1em;
+}
+.content-title {
+	color: var(--cfp-text);
+}
+.link {
+	color: var(--cfp-accent);
+}
+.content-section {
+	width: 80%;
+	margin: 0 auto;
+	padding: 1em;
+}
+.contentSlim-section {
+	width: 50%;
+	margin: 0 auto;
+	padding: 1em;
+}
+li {
+	color: var(--cfp-text);
+}
+.content-section:nth-child(odd),
+.contentSlim-section:nth-child(odd) {
+	background-color: var(--cfp-bg-tertiary);
+}
+.content-section:nth-child(even),
+.contentSlim-section:nth-child(even) {
+	background-color: var(--cfp-bg-secondary);
+}
+.alignCenter {
+	text-align: center;
+}

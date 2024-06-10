@@ -1,0 +1,11 @@
+.minimalInput {
+	background-color: transparent;
+	outline: none;
+	border: none;
+	border-bottom-width: medium;
+	border-bottom-style: none;
+	border-bottom-color: currentcolor;
+	border-bottom: 1px solid var(--cfp-accent);
+	color: var(--cfp-text);
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}

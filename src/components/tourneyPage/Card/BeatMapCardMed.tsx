@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./BeatMapCardMed.css";
 import { Beatmap } from "../../../types/Beatmap";
 import BeatmapMod from "../../universal/BeatmapMod";

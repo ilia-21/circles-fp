@@ -8,6 +8,7 @@ import ErrorPage from "../../pages/ErrorPage";
 import "../universal/MinimalInput.css";
 import GetPlayer from "../../functions/GetPlayer";
 import genRanHex from "../../functions/GetRanHex";
+import randomLoadingMessage from "../../functions/loadingMessages";
 
 interface Props {
 	team: Team;
@@ -44,7 +45,7 @@ const TeamEditor = ({ team }: Props) => {
 	}, []);
 
 	if (loading) {
-		return <h1>Loading</h1>;
+		return <h1>{randomLoadingMessage()}</h1>;
 	}
 	// @ts-ignore: Object is possibly 'null'.
 	if (!user && !loading && !user.cfp.roles.DEV && user && user.id != team.leader.id) {
@@ -113,7 +114,7 @@ const TeamEditor = ({ team }: Props) => {
 						setLogoPreview(base64String);
 						setTeamData((prevData) => ({
 							...prevData,
-							logo: selectedFile.name,
+							logo: base64String,
 						}));
 						setError(null);
 					}

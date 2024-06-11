@@ -1,7 +1,6 @@
 import { FallbackProps } from "react-error-boundary";
 import "./SomethingWentWrong.css";
 import randomErrorMessage from "../functions/SomethingWentWrongMessages";
-import { useEffect, useState } from "react";
 
 const SomethingWentWrong = ({ error }: FallbackProps) => {
 	return (

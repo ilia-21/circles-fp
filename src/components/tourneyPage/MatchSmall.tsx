@@ -12,7 +12,7 @@ interface Props {
 
 const MatchSmall = ({ match, content }: Props) => {
 	let openMatchPage = (id: number) => {
-		window.open(`/#/match/${id}`, "_blank");
+		window.open(`/#/match/${id}`, "_self");
 	};
 	if ((content == "upcoming" && new Date(match.timestamp) < new Date(Date.now())) || (content == "score" && new Date(match.timestamp) > new Date(Date.now()))) return;
 	const score = match.result;
@@ -22,11 +22,11 @@ const MatchSmall = ({ match, content }: Props) => {
 	const id = match.id;
 	let createContent = () => {
 		if (content == "score") {
-			return <p>{score ? `${score[0]} - ${score[1]}` : "Score not found"}</p>;
+			return <p onClick={() => openMatchPage(id)}>{score ? `${score[0]} - ${score[1]}` : "Score not found"}</p>;
 		} else if (content == "upcoming") {
 			if (!upcoming) {
 				return (
-					<p>
+					<p onClick={() => openMatchPage(id)}>
 						"6:66 AM"
 						<Tooltip content={"Time not found"} />
 					</p>
@@ -42,7 +42,7 @@ const MatchSmall = ({ match, content }: Props) => {
 				timeStyle: "long",
 			}).format(timestamp);
 			return (
-				<p>
+				<p onClick={() => openMatchPage(id)}>
 					{shortLocalizedTimeString}
 					<Tooltip content={longLocalizedTimeString} />
 				</p>
@@ -69,7 +69,7 @@ const MatchSmall = ({ match, content }: Props) => {
 	};
 
 	return (
-		<div className="matchSmall" onClick={() => openMatchPage(id)}>
+		<div className="matchSmall">
 			{createLink(first)}
 			{createContent()}
 			{createLink(second)}

@@ -2,7 +2,7 @@
 	/* content and panes */
 	.mainContent {
 		width: 100%;
-		margin-top: 10%;
+		margin-top: 10em;
 		gap: 5px;
 		min-height: 50vh;
 		justify-content: space-evenly;
@@ -140,5 +140,9 @@
 	}
 	.MatchCardBigPlayer > a > img {
 		max-width: 75%;
+	}
+	/* Cookie warning */
+	.cfpWarningPopupContent {
+		width: 90%;
 	}
 }

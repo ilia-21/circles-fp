@@ -26,6 +26,16 @@
 	margin: 0 auto;
 	padding: 1em;
 }
+.contentSlim-section h1,
+.contentSlim-section h2,
+.contentSlim-section h3,
+.contentSlim-section p,
+.content-section h1,
+.content-section h2,
+.content-section h3,
+.content-section p {
+	color: var(--cfp-text);
+}
 li {
 	color: var(--cfp-text);
 }

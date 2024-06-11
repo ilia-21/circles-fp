@@ -5,6 +5,7 @@ import UserInfo from "../components/ProfilePage/UserInfo";
 import "./Profile.css";
 import Bannertop from "../components/universal/Bannertop";
 import OptoutPage from "../components/ProfilePage/OptoutPage";
+import randomLoadingMessage from "../functions/loadingMessages";
 
 interface Props {
 	loggedInUser?: any;
@@ -43,7 +44,7 @@ const Profile = ({ loggedInUser }: Props) => {
 		return (
 			<div className="profilePage">
 				<div className="profilePageThe2st">
-					<div>Loading...</div>
+					<div>{randomLoadingMessage()}</div>
 				</div>
 			</div>
 		);

@@ -12,9 +12,11 @@ import ErrorPage from "./pages/ErrorPage";
 import TeamPage from "./pages/TeamPage";
 import Infopage from "./components/infoPages/InfoPage";
 import Match from "./pages/Match";
+import CookieWarningPopup from "./components/universal/CookieWarningPopup";
 
 function App() {
 	const [user, setUser] = useState(null);
+	const [showPopup, setShowPopup] = useState(false);
 	const [currentPage] = useState(-1);
 
 	useEffect(() => {
@@ -26,16 +28,26 @@ function App() {
 				if (data.isLoggedIn) {
 					setUser(data.user);
 				}
-			});
+			})
+			.catch((error) => console.error("Error fetching session:", error));
+
+		if (!localStorage.getItem("hasSeenCookieWarning")) {
+			setShowPopup(true);
+		}
 	}, []);
 	let links = [
 		{ title: "Tournaments", location: "/#/tourneys" },
 		{ title: "Matches", location: "/#/matches" },
 		{ title: "Stats", location: "/#/stats" },
 	];
+	const handleClosePopup = () => {
+		localStorage.setItem("hasSeenCookieWarning", "true");
+		setShowPopup(false);
+	};
 
 	return (
 		<Router>
+			{showPopup && <CookieWarningPopup onClose={handleClosePopup} />}
 			<NavBar selected={currentPage} links={links} user={user} />
 			<ErrorBoundary fallbackRender={SomethingWentWrong}>
 				<Routes>

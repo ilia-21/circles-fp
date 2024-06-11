@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import ImageGuidelines from "./ImageGuidelines";
 import "../universal/universal.css";
 import TourneyGuidelines from "./TournamentGuidelines";
+import Cookies from "./Cookies";
 
 const Infopage = () => {
 	return (
@@ -15,10 +16,14 @@ const Infopage = () => {
 					<a href="/#/info/tournament-guidelines" className="link">
 						Tournament guidelines
 					</a>
+					<a href="/#/info/tournament-guidelines" className="link">
+						Enabling cross-site cookies
+					</a>
 				</div>
 			</div>
 			<Routes>
 				<Route path="/image-guidelines" element={<ImageGuidelines />} />
+				<Route path="/cookies" element={<Cookies />} />
 				<Route path="/tournament-guidelines" element={<TourneyGuidelines />} />
 			</Routes>
 		</>

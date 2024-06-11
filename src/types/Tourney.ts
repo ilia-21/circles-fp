@@ -21,6 +21,7 @@ interface TourneyData {
 	description: string;
 	icon: string;
 	prize: string;
+	stream: string;
 	date: {
 		start: string;
 		end: string;

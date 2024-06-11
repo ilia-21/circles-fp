@@ -10,6 +10,7 @@ import ErrorPage from "./ErrorPage";
 
 import TeamProfile from "../components/teamPage/TeamProfile";
 import TeamEditor from "../components/teamPage/TeamEditor";
+import randomLoadingMessage from "../functions/loadingMessages";
 
 const TeamPage = () => {
 	const [queryParameters] = useSearchParams();
@@ -46,7 +47,7 @@ const TeamPage = () => {
 		return (
 			<div className="profilePage">
 				<div className="profilePageThe2st">
-					<h1>Loading...</h1>
+					<h1>{randomLoadingMessage()}</h1>
 				</div>
 			</div>
 		);

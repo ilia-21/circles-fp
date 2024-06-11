@@ -4,7 +4,7 @@ interface Props {
 	party: TourneyParticipant;
 }
 
-const Paticipant = ({ party }: Props) => {
+const Paticipant = ({}: /*party*/ Props) => {
 	return <div>Paticipant</div>;
 };
 

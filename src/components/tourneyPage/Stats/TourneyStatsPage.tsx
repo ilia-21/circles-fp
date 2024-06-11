@@ -5,7 +5,7 @@ interface Props {
 	tourney: Tourney;
 }
 
-const TourneyStatsPage = ({ tourney }: Props) => {
+const TourneyStatsPage = ({}: /*tourney*/ Props) => {
 	return (
 		<div className="TourneyStatsPage">
 			<h2>Stats page coming soon</h2>

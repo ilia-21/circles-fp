@@ -1,0 +1,51 @@
+.cfpWarningPopup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 999;
+	background: var(--cfp-bg);
+}
+
+.cfpWarningPopupContent {
+	background: var(--cfp-bg-secondary);
+	padding: 20px;
+	border-radius: 5px;
+	text-align: center;
+	width: 70%;
+	box-shadow: 0 0 35px #00000090;
+}
+.cfpWarningPopupContent > h2 {
+	color: var(--red);
+	padding: 20px;
+	border-radius: 5px;
+	text-align: center;
+}
+.cfpWarningPopupContent > p {
+	margin: 0.5em;
+}
+.cfpWarningPopupContent > div {
+	display: flex;
+	gap: 1em;
+	justify-content: center;
+}
+
+.cfpWarningPopupContent button {
+	background-color: var(--cfp-bg-tertiary);
+	color: var(--text);
+	border-radius: 1em;
+	border: none;
+	outline: none;
+	margin-top: 20px;
+	padding: 10px 20px;
+	font-size: 16px;
+}
+.disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}

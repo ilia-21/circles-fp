@@ -1,0 +1,8 @@
+.matchDetails-links {
+	display: flex;
+	justify-content: center;
+	gap: 1em;
+}
+.matchEvent > p {
+	display: inline;
+}

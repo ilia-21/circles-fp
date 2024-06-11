@@ -8,6 +8,7 @@ import randomLoadingMessage from "../functions/loadingMessages";
 import MatchCardBig from "../components/matchPage/MatchCardBig";
 import { Tourney } from "../types/Tourney";
 import MatchDetails from "../components/matchPage/MatchDetails";
+import ErrorPage from "./ErrorPage";
 
 const Match = () => {
 	const { id } = useParams<{ id: string }>();
@@ -76,11 +77,7 @@ const Match = () => {
 	}
 
 	if (!matchData || !tournamentData) {
-		return (
-			<div className="contentSlim">
-				<p>Error loading match or tournament data.</p>
-			</div>
-		);
+		return <ErrorPage error={[500, "failed to load match data"]} />;
 	}
 
 	return (

@@ -10,7 +10,7 @@ interface Props {
 	tournament: Tourney;
 }
 
-const MatchCardBig = ({ match, tournament }: Props) => {
+const MatchCardBig = ({ match /*tournament*/ }: Props) => {
 	const drawParty = (which: "first" | "second") => {
 		if ((match.type = "1v1")) {
 			const party = match[which] as PlayerLite;

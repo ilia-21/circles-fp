@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./PlayerCardSmall.css";
 import { Player, PlayerLite } from "../../types/Player";
+import Badge from "../ProfilePage/Badge";
 
 interface Props {
 	player: Player | PlayerLite;
@@ -36,6 +37,11 @@ const PlayerCardSmall = ({ player, height }: Props) => {
 			parentElement.removeEventListener("mouseover", handleMouseOver);
 		};
 	}, []);
+	function printRoles() {
+		const roleTitle = Object.keys(player.cfp.roles)[0];
+		const role = player.cfp.roles[roleTitle];
+		return <Badge title={roleTitle} color={role[0]} icn={role[1]} description={role[2]} />;
+	}
 	return (
 		<div className="playerCardSmall" ref={playerCardRef} style={position}>
 			<img src={player.cover.custom_url} alt="" />
@@ -43,8 +49,10 @@ const PlayerCardSmall = ({ player, height }: Props) => {
 				<img src={player.avatar_url} alt="" />
 				<div>
 					<p>{player.username}</p>
-					<img src={`/src/assets/flags/${player.country.name}.png`} />
+					<img src={`${import.meta.env.VITE_API_URL}/f/flags/${player.country.name}.png`} />
 				</div>
+
+				<div>{player.cfp.roles && Object.keys(player.cfp.roles).length > 0 && printRoles()}</div>
 			</div>
 			<p className="playerCardSmallRank">#{player.statistics.global_rank}</p>
 		</div>

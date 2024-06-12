@@ -1,6 +1,6 @@
 import { ModType } from "./Mod";
 
-type MappoolMod = `${ModType}${number}`;
+export type MappoolMod = `${ModType}${number}`;
 
 export interface Beatmap {
 	mod: MappoolMod;

@@ -61,7 +61,7 @@ const MatchSmall = ({ match, content }: Props) => {
 		} else {
 			return (
 				<a href={`/#/team/${(who as Team).id}`}>
-					<img src={`${import.meta.env.VITE_API_URL}${(who as Team).logo}`} alt="" />
+					<img src={`${(who as Team).logo}`} alt="" />
 					<TeamCardSmall team={who as Team} />
 				</a>
 			);

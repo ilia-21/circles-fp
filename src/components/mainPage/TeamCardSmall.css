@@ -3,18 +3,19 @@
 	opacity: 0;
 	bottom: 3em;
 	position: absolute;
-	width: max-content;
-	height: 8em;
 	padding: 2em 1em 0em 1em;
 	border-radius: 15px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	flex-wrap: wrap;
 	gap: 1em;
 	background: var(--cfp-bg);
 	box-shadow: 0px 0px 20px black;
 	transition: opacity 0.1s;
 	z-index: 9;
+	width: 40em;
+	padding-top: 3em;
 }
 .teamCardSmall > p {
 	position: absolute;

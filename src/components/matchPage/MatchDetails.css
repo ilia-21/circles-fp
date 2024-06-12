@@ -3,6 +3,153 @@
 	justify-content: center;
 	gap: 1em;
 }
-.matchEvent > p {
+.matchEvent {
+	display: flex;
+	padding: 1em 0;
+}
+.matchEvent.prePick {
+	display: flex;
+	margin: 1em 0;
+	border-top: 1px dashed #ffffff30;
+}
+.matchEvent > div {
+	width: 50%;
+	text-align: center;
+}
+.matchEvent > div > p {
 	display: inline;
+}
+.MatchScoresContainer {
+	display: flex;
+}
+.MatchScoreContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 50%;
+}
+.MatchScoreContainer > table {
+	width: 95%;
+}
+.MatchScorePoints {
+	font-size: 1.5em;
+}
+.MatchScoreContainer.winner {
+	background-color: var(--cfp-bg-tertiary);
+}
+.MatchScoreContainer.looser {
+	background-color: var(--cfp-bg);
+}
+.MatchScoreContainer.winner > .MatchScorePoints {
+	color: var(--green) !important;
+}
+.MatchScoreContainer.looser > .MatchScorePoints {
+	color: var(--red) !important;
+}
+.MatchScorePoints {
+	margin: 1em 0;
+}
+.MatchPlay {
+	margin: 1em 0;
+}
+.MatchPlayHeader {
+	height: 10em;
+	display: flex;
+	flex-direction: column-reverse;
+	padding: 0.5em;
+	position: relative;
+}
+.MatchPlayHeader > p {
+	text-shadow: 0 0 5px #00000050;
+	margin: 0;
+}
+.MatchPlayHeader > p:last-child {
+	font-size: larger;
+}
+.MatchPlayHeader img {
+	min-width: 100%;
+	max-width: 100%;
+}
+.MatchPlayBeatmapMod {
+	position: absolute;
+	right: 1em;
+	top: 1em;
+}
+.MatchTeamEventPlayerScore {
+	display: flex;
+	width: 24em;
+	text-align: center;
+}
+.MatchTeamEventPlayerScore p {
+	margin: auto 0.25em;
+}
+.matchGrid {
+	width: 100%;
+}
+.matchGrid-row {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.matchGrid-item > p {
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.matchGrid-item img {
+	height: 3em;
+}
+.matchGrid-item:nth-child(1) {
+	text-align: start;
+	width: 15%;
+}
+.matchGrid-item:nth-child(2) {
+	width: 14%;
+}
+.matchGrid-item:nth-child(3) {
+	width: 15%;
+}
+.matchGrid-item:nth-child(4) {
+	width: 40%;
+}
+.matchGrid-item:nth-child(5) {
+	width: 15%;
+	text-align: end;
+}
+@media screen and (min-width: 480px) and (max-width: 900px) {
+	.matchGrid-item:nth-child(1) {
+		text-align: start;
+		width: 25%;
+	}
+	.matchGrid-item:nth-child(2) {
+		width: 24%;
+	}
+	.matchGrid-item:nth-child(3) {
+		width: 25%;
+	}
+	.matchGrid-item:nth-child(4) {
+		display: none;
+	}
+	.matchGrid-item:nth-child(5) {
+		width: 25%;
+		text-align: end;
+	}
+}
+@media screen and (min-width: 50px) and (max-width: 480px) {
+	.matchGrid-item:nth-child(1) {
+		text-align: start;
+		width: 50%;
+	}
+	.matchGrid-item:nth-child(2) {
+		display: none;
+	}
+	.matchGrid-item:nth-child(3) {
+		display: none;
+	}
+	.matchGrid-item:nth-child(4) {
+		display: none;
+	}
+	.matchGrid-item:nth-child(5) {
+		width: 49%;
+		text-align: end;
+	}
 }

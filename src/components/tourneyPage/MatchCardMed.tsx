@@ -62,7 +62,7 @@ const MatchCardMed = ({ match, content }: Props) => {
 		} else {
 			return (
 				<a href="">
-					<img src={`/src/assets/flags/${who}.png`} alt="NO TEAM AVATARS CURRENTLY" />
+					<img src={`${import.meta.env.VITE_API_URL}/f/flags/${who}.png`} alt="NO TEAM AVATARS CURRENTLY" />
 				</a>
 			);
 		}

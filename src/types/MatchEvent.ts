@@ -1,4 +1,5 @@
 import { MappoolMod } from "./Beatmap";
+import { PlayerLitest } from "./Player";
 
 export interface MatchEvent {
 	id: number;
@@ -92,6 +93,7 @@ export interface Score {
 	user_id: number;
 	current_user_attributes: CurrentUserAttributes;
 	match: Match;
+	player: PlayerLitest;
 }
 
 export interface Statistics {

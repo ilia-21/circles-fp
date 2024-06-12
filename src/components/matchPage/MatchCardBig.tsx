@@ -4,46 +4,50 @@ import { Team } from "../../types/Team";
 import { PlayerLite } from "../../types/Player";
 import DateConverter from "../../functions/DateConverter";
 import Tooltip from "../universal/Tooltip";
-import { Tourney } from "../../types/Tourney";
+import TeamCardSmall from "../mainPage/TeamCardSmall";
 interface Props {
 	match: Match;
-	tournament: Tourney;
 }
 
-const MatchCardBig = ({ match /*tournament*/ }: Props) => {
+const MatchCardBig = ({ match }: Props) => {
 	const drawParty = (which: "first" | "second") => {
-		if ((match.type = "1v1")) {
+		if (!(match.first as Team).logo) {
 			const party = match[which] as PlayerLite;
 			return (
 				<div className="MatchCardBigPlayer">
 					<a href={`/#/profile/${party.id}`}>
 						<img src={party.avatar_url} alt="" />
-						<p>
-							[#{party.statistics.global_rank}] {party.username}
-						</p>
+						<p>{party.username}</p>
 					</a>
 				</div>
 			);
 		} else {
 			const party = match[which] as Team;
-
+			const team = {
+				id: 0,
+				title: party.title,
+				logo: party.logo,
+				leader: party.players[0],
+				players: party.players,
+			} as Team;
 			return (
 				<div className="MatchCardBigPlayer">
-					<img src={`${import.meta.env.VITE_API_URL}${party.logo}`} alt="" />
+					<img src={party.logo} alt="" />
 					<p>{party.title}</p>
+					<TeamCardSmall team={team} height="-20em" />
 				</div>
 			);
 		}
 	};
 	const drawcontent = () => {
-		if (new Date(match.timestamp) < new Date(Date.now())) {
-			return <p>{`${match.result[0]} - ${match.result[1]}`}</p>;
-		} else {
+		if (new Date(match.timestamp) > new Date(Date.now())) {
 			return (
 				<p style={{ fontSize: "2em" }}>
 					{DateConverter(new Date(match.timestamp), "HH:MM")} <Tooltip content={DateConverter(new Date(match.timestamp), "full")} />
 				</p>
 			);
+		} else {
+			return <p>{`${match.result[0]} - ${match.result[1]}`}</p>;
 		}
 	};
 

@@ -104,7 +104,13 @@
 		width: 100%;
 	}
 	.teamProfilePlayersSegment > a > img {
-		max-width: 5em;
+		max-width: 4em;
+	}
+	.teamProfilePlayersSegment > a {
+		width: 18%;
+	}
+	.teamProfilePlayersSegment > a > p {
+		width: 100%;
 	}
 	/* Disable player pop up */
 	.playerCardSmall,

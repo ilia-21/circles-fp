@@ -15,7 +15,7 @@ const MatchLong = ({ match }: Props) => {
 		if (match.type == "team") {
 			return (
 				<div className="MatchLongPlayerSmol">
-					<img src={`${import.meta.env.VITE_API_URL}${(match.first as Team).logo}`} alt="" />
+					<img src={`${(match.first as Team).logo}`} alt="" />
 					<TeamLink team={match.first as Team} noColor />
 				</div>
 			);
@@ -32,7 +32,7 @@ const MatchLong = ({ match }: Props) => {
 		if (match.type == "team") {
 			return (
 				<div className="MatchLongPlayerSmol">
-					<img src={`${import.meta.env.VITE_API_URL}${(match.second as Team).logo}`} alt="" />
+					<img src={`${(match.second as Team).logo}`} alt="" />
 					<TeamLink team={match.second as Team} noColor />
 				</div>
 			);

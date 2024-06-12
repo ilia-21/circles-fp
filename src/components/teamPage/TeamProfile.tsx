@@ -60,7 +60,7 @@ const TeamProfile = ({ team }: Props) => {
 		<div className="profilePageThe2st">
 			<div className="teamProfilePlayersSegment">
 				{team.players.map((player: PlayerLite) => (
-					<a href={`/#/profile/${player.id}`}>
+					<a href={`/#/profile/${player.id}`} style={{ flex: `1 0 calc(${100 / Math.ceil(team.players.length / 2)}% - 10px)` }}>
 						<img src={player.avatar_url} alt="" />
 						<p>{player.username}</p>
 						<PlayerCardSmall player={player} height="10em" />
@@ -68,7 +68,7 @@ const TeamProfile = ({ team }: Props) => {
 				))}
 			</div>
 			<div style={{ display: "flex", gap: "1em" }}>
-				<img src={`${import.meta.env.VITE_API_URL}${team.logo}`} alt="" className="TeamPageLogo" />
+				<img src={`${team.logo}`} alt="" className="TeamPageLogo" />
 				<div>
 					<h1>{team.title}</h1>
 					<p>

@@ -1,11 +1,11 @@
-import { MappoolMod } from "./Beatmap";
-import { Player } from "./Player";
+import { Player, PlayerLite } from "./Player";
 import { Team } from "./Team";
 import { MatchEvent as Event, PickEvent } from "./MatchEvent";
 
 export interface Match {
 	id: number;
 	events: (Event | PickEvent)[];
+	users: PlayerLite[];
 	type: "1v1" | "team";
 	tournament: number;
 	result: number[];
@@ -14,4 +14,5 @@ export interface Match {
 	timestamp: string;
 	data: any;
 	date: string;
+	extra?: string;
 }

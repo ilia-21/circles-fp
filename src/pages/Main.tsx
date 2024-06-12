@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 import Bannertop from "../components/universal/Bannertop";
 import { Tourney } from "../types/Tourney";
 import randomLoadingMessage from "../functions/loadingMessages";
+import NoConnectionPopup from "../components/universal/NoConnectionPopup";
 
 const Main = () => {
 	const [tourneyData, setTourneyData] = useState<Tourney[]>([]);
 	const [loading, setLoading] = useState(true);
+	const [connection, setConnection] = useState(true);
 
 	useEffect(() => {
 		const fetchTourneys = async () => {
@@ -32,7 +34,31 @@ const Main = () => {
 			}
 		};
 
+		const checkConnection = async () => {
+			try {
+				const response = await fetch(`${import.meta.env.VITE_API_URL}/ping`, {
+					headers: {
+						"x-api-key": import.meta.env.VITE_API_KEY,
+					},
+					credentials: "include",
+				});
+				console.log(response);
+				if (response.status != 200) {
+					setConnection(false);
+				}
+			} catch (error) {
+				console.log(error);
+				setConnection(false);
+			} finally {
+				setLoading(false);
+			}
+		};
+
 		fetchTourneys();
+		if (tourneyData.length == 0) {
+			console.log(tourneyData.length);
+			checkConnection();
+		}
 	}, []);
 
 	if (loading) {
@@ -41,6 +67,9 @@ const Main = () => {
 				<p>{randomLoadingMessage()}</p>
 			</div>
 		);
+	}
+	if (!connection) {
+		return <NoConnectionPopup />;
 	}
 
 	return (

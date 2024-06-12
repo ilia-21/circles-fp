@@ -90,8 +90,15 @@
 		width: 95%;
 	}
 	.teamProfilePlayersSegment > a > img {
-		max-width: 75%;
+		max-width: 10em;
 		border-radius: 1em;
+		width: 19vw;
+	}
+	.teamProfilePlayersSegment > a {
+		width: 18%;
+	}
+	.teamProfilePlayersSegment > a > p {
+		width: 100%;
 	}
 	/* Disable player pop up */
 	.playerCardSmall,

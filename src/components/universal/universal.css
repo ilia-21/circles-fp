@@ -5,7 +5,7 @@
 	padding: 1em;
 }
 .contentSlim {
-	width: 50%;
+	width: 50em;
 	margin: 10em auto 0;
 	background-color: var(--cfp-bg-secondary);
 	padding: 1em;
@@ -22,7 +22,7 @@
 	padding: 1em;
 }
 .contentSlim-section {
-	width: 50%;
+	width: 50em;
 	margin: 0 auto;
 	padding: 1em;
 }

@@ -2,7 +2,7 @@
 	visibility: hidden;
 	opacity: 0;
 	position: absolute;
-	width: 25em;
+	width: max-content;
 	height: 8em;
 	background: var(--cfp-bg);
 	bottom: 3em;
@@ -16,6 +16,7 @@
 }
 .dacontainer {
 	display: flex;
+	width: 27em;
 }
 .dacontainer > img {
 	width: 20%;
@@ -46,6 +47,9 @@
 	flex-direction: column;
 	align-content: center;
 	align-items: start;
+}
+.dacontainer > div:nth-child(3) {
+	padding: 0.5em;
 }
 .dacontainer > div > img {
 	width: 2.5em;

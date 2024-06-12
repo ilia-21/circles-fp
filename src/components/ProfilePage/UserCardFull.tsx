@@ -5,10 +5,10 @@ interface Props {
 }
 
 const UserCardFull = ({ user }: Props) => {
-	let username = user.username;
-	let avatar = user.avatar_url;
-	let roles = user.cfp.roles;
-	let country = user.country.name;
+	const username = user.username;
+	const avatar = user.avatar_url;
+	const roles = user.cfp.roles;
+	const country = user.country.name;
 	function printRoles() {
 		if (roles && Object.keys(roles).length != 0)
 			for (let role of Object.keys(roles)) {
@@ -21,7 +21,7 @@ const UserCardFull = ({ user }: Props) => {
 				<img src={avatar} alt="avatar" className="avatar" />
 				<div className="yetAnotherContainer">
 					<h1 className="username">{username}</h1>
-					<img src={`/src/assets/flags/${country}.png`} alt="" />
+					<img src={`${import.meta.env.VITE_API_URL}/f/flags/${country}.png`} alt="" />
 				</div>
 				<div className="badgeContainer">{printRoles()}</div>
 			</div>

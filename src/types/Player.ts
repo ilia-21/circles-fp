@@ -66,6 +66,11 @@ export interface Player {
 	unranked_beatmapset_count: number;
 	cfp: Cfp;
 }
+/**
+ * Lighter version of player data to save bandwith
+ *
+ * @interface PlayerLite
+ */
 export interface PlayerLite {
 	avatar_url: string;
 	id: number;
@@ -75,6 +80,16 @@ export interface PlayerLite {
 	country: Country;
 	cover: Cover;
 	cfp: Cfp;
+}
+/**
+ * Lightest possible version of player data, containing only id, avatar and username
+ *
+ * @interface PlayerLitest
+ */
+export interface PlayerLitest {
+	avatar_url: string;
+	id: number;
+	username: string;
 }
 
 interface Cfp {

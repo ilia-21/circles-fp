@@ -1,0 +1,25 @@
+.NoConnectionPopup {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+	background-color: var(--cfp-bg);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.NoConnectionPopup h1,
+.NoConnectionPopup h2,
+.NoConnectionPopup p {
+	text-align: center;
+	color: var(--cfp-text);
+}
+.NoConnectionPopup p {
+	transition: all 0.5s;
+	cursor: pointer;
+}
+.NoConnectionPopup p:hover {
+	opacity: 1 !important;
+}

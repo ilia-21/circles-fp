@@ -3,6 +3,12 @@
 	justify-content: space-around;
 	align-items: center;
 }
+.MatchCardBigPlayer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+}
 .MatchCardBigPlayer > a {
 	display: flex;
 	align-items: center;

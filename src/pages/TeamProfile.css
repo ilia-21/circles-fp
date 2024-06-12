@@ -5,6 +5,7 @@
 .profilePageThe2st {
 	margin: 20em auto 5em;
 	width: 75%;
+	max-width: 75em;
 }
 .profilePageThe2st > div:nth-child(odd) {
 	background-color: var(--cfp-bg-secondary);
@@ -15,6 +16,8 @@
 .profilePageThe2st > div {
 	padding: 1em;
 	position: relative;
+	flex-wrap: wrap;
+	gap: 0.5em;
 }
 .profilePageThe2st > div > h2 {
 	margin: 0;

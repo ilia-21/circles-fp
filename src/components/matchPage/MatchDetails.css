@@ -28,6 +28,12 @@
 	align-items: center;
 	width: 50%;
 }
+.MatchScoreContainer > div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1em;
+}
 .MatchScoreContainer > table {
 	width: 95%;
 }

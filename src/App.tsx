@@ -13,6 +13,7 @@ import TeamPage from "./pages/TeamPage";
 import Infopage from "./components/infoPages/InfoPage";
 import Match from "./pages/Match";
 import CookieWarningPopup from "./components/universal/CookieWarningPopup";
+import TourneyEditor from "./pages/TourneyEditor";
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -63,6 +64,7 @@ function App() {
 						<Route path=":id/results" element={<Tourney page="results" />} />
 						<Route path=":id/stats" element={<Tourney page="stats" />} />
 					</Route>
+					<Route path="editor/tourney/:id" element={<TourneyEditor />} />
 					<Route path="match/:id" element={<Match />} />
 					<Route path="team/:id" element={<TeamPage />} />
 					<Route path="info/*" element={<Infopage />} />

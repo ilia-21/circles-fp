@@ -1,0 +1,67 @@
+.TourneyEditor-saveButton {
+	display: flex;
+	width: 100%;
+	justify-content: end;
+	margin: 1em 0;
+}
+.TourneyEditor-saveButton > div > svg {
+	font-size: 2em;
+}
+.TourneyEditor-MainDetails-Line {
+	display: flex;
+	gap: 1em;
+	align-items: center;
+	width: min-content;
+}
+.TourneyEditor-Banner-Container {
+	position: relative;
+}
+.TourneyEditor-Banner-img {
+	width: 100%;
+	object-fit: cover;
+	position: relative;
+}
+.TourneyEditor-Participants {
+	display: flex;
+	gap: 1em;
+}
+.TourneyEditor-Participants-Block {
+	background-color: var(--cfp-bg-tertiary);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	width: 10em;
+	height: 16em;
+	padding: 1em;
+	color: var(--cfp-accent);
+	cursor: pointer;
+}
+.TourneyEditor-Participants-Icon {
+	font-size: 10em;
+	width: 100%;
+	object-fit: cover;
+}
+.TourneyEditor-Participants-Avatar {
+	font-size: 10em;
+	width: 100%;
+	object-fit: cover;
+}
+.TourneyEditor-Participants-Id {
+	text-align: center;
+}
+.TourneyEditor-Participants-Id:focus {
+	border-bottom: 1px solid var(--green);
+}
+.TourneyEditor-Participants-Container {
+	position: relative;
+}
+.TourneyEditor-Participants-Block-Delete {
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: var(--cfp-accent);
+	font-size: 1.5em;
+	cursor: pointer;
+	z-index: 1;
+}

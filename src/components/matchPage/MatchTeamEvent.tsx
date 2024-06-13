@@ -1,7 +1,6 @@
 import { MatchEvent as MatchEventType, PickEvent, Score } from "../../types/MatchEvent";
 import { Team } from "../../types/Team";
 import BeatmapMod from "../universal/BeatmapMod";
-import PlayerLink from "../universal/PlayerLink";
 import Tooltip from "../universal/Tooltip";
 import "./MatchDetails.css";
 
@@ -12,7 +11,7 @@ interface Props {
 	next: MatchEventType | PickEvent;
 }
 
-const MatchTeamEvent = ({ event, next, first, second }: Props) => {
+const MatchTeamEvent = ({ event, next, first }: Props) => {
 	if ((event as MatchEventType).id) {
 		event = event as MatchEventType;
 		// @ts-ignore: Object is possibly 'null'.

@@ -17,7 +17,9 @@
 	},
 	"dependencies": {
 		"@g-loot/react-tournament-brackets": "^1.0.31-rc",
+		"dompurify": "^3.1.5",
 		"dotenv": "^16.4.5",
+		"marked": "^13.0.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-error-boundary": "^4.0.13",
@@ -28,6 +30,7 @@
 		"styled-components": "^6.1.11"
 	},
 	"devDependencies": {
+		"@types/dompurify": "^3.0.5",
 		"@types/node": "^20.14.0",
 		"@types/react": "^18.2.66",
 		"@types/react-dom": "^18.2.22",

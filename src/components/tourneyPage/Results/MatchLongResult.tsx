@@ -1,4 +1,4 @@
-import "./MatchLongResult.css";
+import "./TourneyResults.css";
 import { Match } from "../../../types/Match";
 import { Player } from "../../../types/Player";
 import PlayerLink from "../../universal/PlayerLink";

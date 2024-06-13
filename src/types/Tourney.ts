@@ -1,7 +1,7 @@
 import { Beatmap } from "./Beatmap";
 import { DoubleEliminationMatches } from "./DoubleElimMatches";
 import { Match } from "./Match";
-import { Player, PlayerLite } from "./Player";
+import { Player, PlayerLite, PlayerLitest } from "./Player";
 import { Team } from "./Team";
 
 export interface Tourney {
@@ -36,6 +36,6 @@ interface TourneyMappool {
 }
 export interface TourneyParticipant {
 	type: "team" | "player";
-	who: PlayerLite | Team;
+	who: PlayerLite | PlayerLitest | Team;
 	why: string;
 }

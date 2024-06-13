@@ -17,7 +17,10 @@ const BeatMapCardMed = ({ map }: Props) => {
 
 		if (actualMod === "HR" || actualMod === "DT") {
 			const hrMultiply = (stat: number, cs?: boolean) => {
-				return Math.min(cs ? stat * 1.3 : stat * 1.4, 10);
+				// floating point precision :skull:
+				const multiplier = cs ? 1.3 : 1.4;
+				const result = Math.min(stat * multiplier, 10);
+				return parseFloat(result.toFixed(1));
 			};
 
 			const modifiedMapCopy = { ...map };

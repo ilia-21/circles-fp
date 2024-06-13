@@ -1,3 +1,4 @@
+import "./TourneyResults.css";
 import DateConverter from "../../../functions/DateConverter";
 import { Tourney } from "../../../types/Tourney";
 import MatchLongResult from "./MatchLongResult";
@@ -7,7 +8,7 @@ interface Props {
 
 const TourneyResultsPage = ({ tourney }: Props) => {
 	const drawSchedule = () => {
-		const sortedMatches = [...tourney.matches].sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+		const sortedMatches = [...tourney.matches].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 		const matchesByDate: { [key: string]: JSX.Element[] } = {};
 
 		sortedMatches.forEach((match) => {
@@ -31,7 +32,7 @@ const TourneyResultsPage = ({ tourney }: Props) => {
 	};
 
 	return (
-		<div>
+		<div className="tourneyResultsContent">
 			<h2>Results of {tourney.title}</h2>
 			{drawSchedule()}
 		</div>

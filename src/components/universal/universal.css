@@ -1,5 +1,6 @@
 .content {
-	width: 80%;
+	width: 80em;
+	max-width: 90%;
 	margin: 10em auto 0;
 	background-color: var(--cfp-bg-secondary);
 	padding: 1em;
@@ -49,4 +50,25 @@ li {
 }
 .alignCenter {
 	text-align: center;
+}
+.minimalisticInput {
+	background-color: transparent;
+	outline: none;
+	border: none;
+	border-bottom: 1px solid var(--cfp-accent);
+	color: var(--cfp-text);
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+.minimalisticInput:read-only {
+	border-bottom: none;
+}
+
+.minimalisticTextarea {
+	background-color: transparent;
+	outline: none;
+	border: none;
+	border-bottom: 1px solid var(--cfp-accent);
+	color: var(--cfp-text);
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	resize: none;
 }

@@ -5,6 +5,8 @@ import BeatMapCardMed from "./BeatMapCardMed";
 import PlayerLink from "../../universal/PlayerLink";
 import genRanHex from "../../../functions/GetRanHex";
 import ErrorPage from "../../../pages/ErrorPage";
+import ParseMarkdown from "../../universal/ParseMarkdown";
+import { PlayerLitest } from "../../../types/Player";
 interface Props {
 	tourney: Tourney;
 }
@@ -38,6 +40,22 @@ const TourneyCardhero = ({ tourney }: Props) => {
 			</div>
 		));
 	};
+	const drawParticipants = () => {
+		const participants = tourney.data.participants;
+		if (!participants || participants.length == 0)
+			return (
+				<div className="tourneyNews">
+					<p>{tourney.title} doesn't have any participants</p>
+				</div>
+			);
+		return participants.map((p) => (
+			<div className="tourneyInfo-Participant">
+				<img src={(p.who as PlayerLitest).avatar_url} alt="" />
+				<p>{(p.who as PlayerLitest).username}</p>
+				<p>{p.why}</p>
+			</div>
+		));
+	};
 
 	return (
 		<div className="tourneyCardhero">
@@ -55,10 +73,13 @@ const TourneyCardhero = ({ tourney }: Props) => {
 					<p>Starts: {dateStart}</p>
 					<p>Ends: {dateEnd}</p>
 				</div>
-				<p>{tourney.data.description}</p>
+				<div style={{ flex: "0 0 99%" }}>
+					<ParseMarkdown text={tourney.data.description} />
+				</div>
 			</div>
 			<div>
 				<h2>Paticipants</h2>
+				<div className="tourneyInfo-Participants">{drawParticipants()}</div>
 			</div>
 			<BracketCard tourney={tourney} />
 			<h1>Map pool</h1>

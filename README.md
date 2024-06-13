@@ -37,19 +37,26 @@ Daily website build (except weekends): [circlesfrontpage.iii.cl](https://circles
 │
 ├─┬─ Add support for teams
 │ ├─ Add support for team matches in tornaments
-│ └─┬─ Add team pages
-│   ├─ Add team schedule
-│   ├─ Add team results
-│   └─ Add team stats                                   ----------- Delayed
+│ ├─┬─ Add team pages
+│ │ ├─ Add team schedule
+│ │ ├─ Add team results
+│ │ └─ Add team stats                                   ----------- Delayed
+│ └─── Add team editor
 │
 ├─┬─ Create match page
 │ ├─ Add time for upcoming matches
 │ ├─ Add score for finished matches
-│ ├─┬─ Add odds (whatever the name of this thing is)    <-- we are here
+│ ├─┬─ Add odds (whatever the name of this thing is)
 │ │ ├─ Chance of each player to Pick/ban/win certain mods based on the data from last month
 │ │ ├─ Recent matches for each player
 │ │ └─ Possibly more odds
 │ └─ Add links to mp, where to watch
+│
+├─┬─ Create tournament editor
+│ ├─ Basic info editor
+│ ├─ Participants editor
+│ ├─ Map pool editor                                    <-- we are here
+│ └─ Bracket editor
 │
 ├─┬─ Finish profile page
 │ ├─┬─ Add player stats

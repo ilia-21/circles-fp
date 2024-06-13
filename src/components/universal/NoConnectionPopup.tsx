@@ -1,10 +1,17 @@
 import { useState } from "react";
 import randomErrorMessage from "../../functions/SomethingWentWrongMessages";
 import "./NoConnectionPopup.css";
+import { openAsBlob } from "fs";
+import { MdHeight } from "react-icons/md";
 
 const NoConnectionPopup = () => {
 	const [detailsOpen, setDetailsOpen] = useState(false);
 	const [detailsOpened, setDetailsOpened] = useState(false);
+	let styles = {
+		opacity: detailsOpen ? 1 : 0,
+		height: detailsOpen ? "20em" : 0,
+		transition: "all 0.5s",
+	};
 	return (
 		<div className="NoConnectionPopup">
 			<div>
@@ -17,7 +24,7 @@ const NoConnectionPopup = () => {
 					}}
 					style={{ opacity: detailsOpened && !detailsOpen ? 0 : 1 }}
 				>{`> Read more`}</p>
-				<div style={{ display: detailsOpen ? "block" : "none" }}>
+				<div style={styles}>
 					<h2>What happened?</h2>
 					<p>Circles Front Page server is not acessible at the moment</p>
 					<p>I stopped loading the page for you, so it won't break</p>

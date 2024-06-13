@@ -10,6 +10,23 @@
 .tourneyInfoShort > div {
 	flex: 0 0 49%;
 }
+.tourneyInfo-Participants {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1em;
+	margin-bottom: 1em;
+}
+.tourneyInfo-Participant {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: var(--cfp-bg-secondary);
+	padding: 1em;
+}
+.tourneyInfo-Participant > img {
+	width: 10em;
+	object-fit: cover;
+}
 .tourneyNews > div {
 	display: flex;
 	justify-content: space-around;

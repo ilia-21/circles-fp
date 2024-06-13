@@ -18,6 +18,7 @@ const Match = () => {
 	const [matchData, setMatchData] = useState<Match | null>(null);
 	const [tournamentData, setTournamentData] = useState<Tourney | null>(null);
 	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState<string[] | null>(null);
 
 	useEffect(() => {
 		const fetchMatch = async () => {
@@ -28,11 +29,13 @@ const Match = () => {
 					},
 					credentials: "include",
 				});
+				if (response.status == 401) {
+					setError(["401", "You need to log in"]);
+				}
 				if (!response.ok) {
 					throw new Error(`Error fetching data: ${response.statusText}`);
 				}
 				const data = await response.json();
-				console.log("Fetched match data:", data);
 				setMatchData(data);
 				if (!data.tournament) {
 					setLoading(false);
@@ -106,8 +109,10 @@ const Match = () => {
 		);
 	}
 
-	if (!matchData) {
-		return <ErrorPage error={[500, "failed to load match data"]} />;
+	if (error) {
+		return <ErrorPage error={[Number(error[0]), error[1]]} />;
+	} else if (!matchData) {
+		return <ErrorPage error={[500, "Failed to load match data"]} />;
 	}
 
 	const drawEvents = () => {

@@ -45,6 +45,13 @@
 		width: 100%;
 		padding: 0em;
 	}
+	.tourneyCardhero {
+		padding: 1em;
+	}
+	.tourneyResultsContent,
+	.tourneyScheduleContent {
+		padding: 1em;
+	}
 	/* navbar */
 	.navBar {
 		height: calc(7% + 0.75em);
@@ -130,6 +137,11 @@
 		margin: 0 auto;
 		padding: 0em;
 	}
+	/* That one input element */
+	.minimalisticInput {
+		max-width: 10em;
+	}
+
 	/* Match page */
 	.MatchCardBig {
 		display: flex;
@@ -154,5 +166,11 @@
 	/* Cookie warning */
 	.cfpWarningPopupContent {
 		width: 100%;
+	}
+	/* error pages */
+	.somethingWentWrong {
+		width: 100%;
+		padding: 1em;
+		margin: 10em 0;
 	}
 }

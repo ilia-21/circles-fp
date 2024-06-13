@@ -5,7 +5,7 @@ import PlayerCardSmall from "../mainPage/PlayerCardSmall";
 import PlayerLink from "../universal/PlayerLink";
 import { useEffect, useState } from "react";
 import ErrorPage from "../../pages/ErrorPage";
-import "../universal/MinimalInput.css";
+import "../universal/universal.css";
 import GetPlayer from "../../functions/GetPlayer";
 import genRanHex from "../../functions/GetRanHex";
 import randomLoadingMessage from "../../functions/loadingMessages";
@@ -19,7 +19,7 @@ const TeamEditor = ({ team }: Props) => {
 	const [user, setUser] = useState<PlayerLite | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [teamData, setTeamData] = useState<{ id: number; title?: string; leader?: number; logo?: string }>({ id: team.id, title: team.title, leader: team.leader.id });
-	const [logoPreview, setLogoPreview] = useState<string | null>(`${import.meta.env.VITE_API_URL}${team.logo}`);
+	const [logoPreview, setLogoPreview] = useState<string | null>(`${team.logo}`);
 	const [error, setError] = useState<string | null>(null);
 	const [success, setSuccess] = useState<string | null>(null);
 
@@ -71,7 +71,9 @@ const TeamEditor = ({ team }: Props) => {
 	};
 
 	const handleSave = async () => {
+		// I may have to add comments because returning to this I don't understand a single thing
 		try {
+			// POSTing edited data to the api
 			const response = await fetch(`${import.meta.env.VITE_API_URL}/edit/team/${team.id}`, {
 				method: "POST",
 				headers: {
@@ -81,7 +83,9 @@ const TeamEditor = ({ team }: Props) => {
 				credentials: "include",
 				body: JSON.stringify(teamData),
 			});
-
+			if (response.status == 401) {
+				window.open("https://c.tenor.com/5laBYESlyu8AAAAC/tenor.gif", "_self");
+			}
 			if (!response.ok) {
 				throw new Error(`Error saving data: ${response.statusText}`);
 			}
@@ -93,25 +97,31 @@ const TeamEditor = ({ team }: Props) => {
 	};
 
 	const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		// This gets called every time the logo changes
 		if (e.target.files && e.target.files[0]) {
 			const selectedFile = e.target.files[0];
 
 			if (selectedFile.size > 9 * 1024 * 1024) {
+				// Check if logo is bigger than 9 MB
 				setError("File size should be less than 9 MB");
 				return;
 			}
-
+			// Thing to read buffer from image
 			const reader = new FileReader();
 
 			reader.onloadend = () => {
 				const base64String = reader.result as string;
 
 				const img = new Image();
+				// This gets called every time img.src changes
 				img.onload = () => {
 					if (img.width > 512 || img.height > 512) {
+						// Check file resolution
 						setError("Image dimensions should not exceed 512x512 pixels");
 					} else {
+						// Changing src of the preview
 						setLogoPreview(base64String);
+						// Changing data, that's gonna be sent to the API
 						setTeamData((prevData) => ({
 							...prevData,
 							logo: base64String,
@@ -132,7 +142,7 @@ const TeamEditor = ({ team }: Props) => {
 			{success && <p style={{ color: "var(--green)" }}>{success}</p>}
 			<div className="teamProfilePlayersSegment">
 				{team.players.map((player: PlayerLite) => (
-					<a key={player.id + genRanHex(4)} href={`/#/profile/${player.id}`}>
+					<a key={player.id + genRanHex(4)} style={{ flex: `1 0 calc(${100 / Math.ceil(team.players.length / 2)}% - 10px)` }} href={`/#/profile/${player.id}`}>
 						<img src={player.avatar_url} alt="" />
 						<p>{player.username}</p>
 						<PlayerCardSmall player={player} height="10em" />
@@ -143,9 +153,9 @@ const TeamEditor = ({ team }: Props) => {
 				<img className="TeamPageLogo" src={logoPreview || ""} onClick={() => document.getElementById("logoInput")?.click()} style={{ cursor: "pointer" }} />
 				<input id="logoInput" type="file" accept="image/*" style={{ display: "none" }} onChange={handleLogoChange} />
 				<div>
-					<input className="minimalInput" type="text" id="title" value={teamData.title} onChange={handleInputChange} style={{ fontSize: "2em", fontWeight: "bold" }} />
+					<input className="minimalisticInput" type="text" id="title" value={teamData.title} onChange={handleInputChange} style={{ fontSize: "2em", fontWeight: "bold" }} />
 					<p>
-						Leader: <input className="minimalInput" type="text" id="leader" value={teamData.leader || ""} onChange={handleInputChange} onBlur={handleBlur} /> (<PlayerLink user={leader as PlayerLite} />)
+						Leader: <input className="minimalisticInput" type="text" id="leader" value={teamData.leader || ""} onChange={handleInputChange} onBlur={handleBlur} /> (<PlayerLink user={leader as PlayerLite} />)
 					</p>
 					<p>
 						Plase make sure that your logo is not violating any <a href="/#/info/image-guidelines">image rules</a>, before you click save

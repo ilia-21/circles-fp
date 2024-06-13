@@ -34,7 +34,7 @@ const TeamCardSmall = ({ team, height }: Props) => {
 		<div className="teamCardSmall" ref={teamCardRef} style={position}>
 			<p>{team.title}</p>
 			{team.players.map((player) => (
-				<div className="teamCardContainer" style={{ flex: `1 0 calc(${100 / Math.ceil(team.players.length / 2)}% - 20px)` }}>
+				<div key={player.id} className="teamCardContainer" style={{ flex: `1 0 calc(${100 / Math.ceil(team.players.length / 2)}% - 20px)` }}>
 					<img src={player.avatar_url} alt="" />
 					<p>{player.username}</p>
 				</div>

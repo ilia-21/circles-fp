@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import "./CookieWarningPopup.css";
 
 const CookieWarningPopup = ({ onClose }: any) => {
+	const timeToRead = 10;
 	const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-	const [countdown, setCountdown] = useState(5);
+	const [countdown, setCountdown] = useState(timeToRead);
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setIsButtonDisabled(false);
-		}, 5000);
+		}, timeToRead * 1000);
 
 		const countdownTimer = setInterval(() => {
 			setCountdown((prevCountdown) => {
@@ -37,10 +38,12 @@ const CookieWarningPopup = ({ onClose }: any) => {
 				<h2>Please, take a moment to read this!</h2>
 				<p>For the website to work correctly, please enable cross-site cookies in your browser settings. </p>
 				<p>As an independent developer implementing this project with a small budget, I'm hosting the website on GitHub Pages and the API on my personal server to keep costs down. Because they are on different servers, cookies, required for authentication are becoming cross-site. Some browsers may block these cookies by default for privacy reasons. </p>
-				<p>Don't worry, enabling cross-site cookies is safe and will not allow tracking or data collection. I don't plan to insert ads, and the whole project is open source </p>
-				<p>If you have trouble logging in, simply go into your browser settings and allow cross-site cookies for this site. This option is completely under your control and is necessary for the login function to work correctly due to the split servers. </p>
+				<p>Don't worry, enabling cross-site cookies is safe and will not allow tracking or data collection. I don't plan to insert ads, and the whole project is open source. </p>
+				<p>If you have trouble logging in, simply go into your browser settings and allow cross-site cookies for this site. This option is necessary for the login function to work correctly due to the split servers. </p>
 				<p>Thank you for understanding!</p>
-				<p>This pop up will only be shown once</p>
+				<p>
+					<b>This pop up will only be shown once</b>
+				</p>
 				<div>
 					<button onClick={onClose} className={isButtonDisabled ? "disabled" : "enabled"}>
 						{isButtonDisabled ? `Got it (${countdown})` : "Got it!"}

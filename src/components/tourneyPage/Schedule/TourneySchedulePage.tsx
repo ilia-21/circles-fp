@@ -1,3 +1,4 @@
+import "./TourneySchedule.css";
 import DateConverter from "../../../functions/DateConverter";
 import { Tourney } from "../../../types/Tourney";
 import MatchLong from "./MatchLong";
@@ -32,7 +33,7 @@ const TourneySchedulePage = ({ tourney }: Props) => {
 	};
 
 	return (
-		<div>
+		<div className="tourneyScheduleContent">
 			<h2>Schedule for {tourney.title}</h2>
 			{drawSchedule()}
 		</div>

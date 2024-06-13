@@ -152,4 +152,9 @@
 	.cfpWarningPopupContent {
 		width: 90%;
 	}
+	/* error pages */
+	.somethingWentWrong {
+		padding: 1em;
+		margin: 10em 5%;
+	}
 }

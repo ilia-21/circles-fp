@@ -42,7 +42,6 @@ const Main = () => {
 					},
 					credentials: "include",
 				});
-				console.log(response);
 				if (response.status != 200) {
 					setConnection(false);
 				}
@@ -56,7 +55,6 @@ const Main = () => {
 
 		fetchTourneys();
 		if (tourneyData.length == 0) {
-			console.log(tourneyData.length);
 			checkConnection();
 		}
 	}, []);

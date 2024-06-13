@@ -1,4 +1,4 @@
-import "./MatchLong.css";
+import "./TourneySchedule.css";
 import { Match } from "../../../types/Match";
 import DateConverter from "../../../functions/DateConverter";
 import { Player } from "../../../types/Player";

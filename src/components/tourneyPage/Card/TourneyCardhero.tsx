@@ -7,6 +7,7 @@ import genRanHex from "../../../functions/GetRanHex";
 import ErrorPage from "../../../pages/ErrorPage";
 import ParseMarkdown from "../../universal/ParseMarkdown";
 import { PlayerLitest } from "../../../types/Player";
+import { Beatmap } from "../../../types/Beatmap";
 interface Props {
 	tourney: Tourney;
 }
@@ -35,7 +36,7 @@ const TourneyCardhero = ({ tourney }: Props) => {
 			<div className="tourneyNews">
 				<h2>{pool.title}</h2>
 				{pool.maps.map((map) => (
-					<BeatMapCardMed key={map.id + genRanHex(4)} map={map} />
+					<BeatMapCardMed key={map.id + genRanHex(4)} map={map as Beatmap} />
 				))}
 			</div>
 		));

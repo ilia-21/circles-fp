@@ -7,7 +7,7 @@ interface Props {
 	setMessage: (message: string[] | null) => void;
 }
 
-export const Banner = ({ tourney, setTourneyData, setMessage }: Props) => {
+const Banner = ({ tourney, setTourneyData, setMessage }: Props) => {
 	const [localTourneyData, setLocalTourneyData] = useState<Tourney>(tourney);
 
 	useEffect(() => {
@@ -65,3 +65,4 @@ export const Banner = ({ tourney, setTourneyData, setMessage }: Props) => {
 		</div>
 	);
 };
+export default Banner;

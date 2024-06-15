@@ -8,6 +8,7 @@ import ProcessTournamentBracket from "../../functions/ProcessTournamentBracket";
 
 interface Props {
 	tourney: Tourney;
+	bracketWidth?: number;
 }
 const cfpTheme = createTheme({
 	textColor: { main: "var(--text)", highlighted: "var(--cfp-accent)", dark: "var(--surface-1)", won: "var(--green)", lost: "var(--red)" },
@@ -31,12 +32,12 @@ const cfpTheme = createTheme({
 	},
 });
 
-const BracketCard = ({ tourney }: Props) => {
+const BracketCard = ({ tourney, bracketWidth }: Props) => {
 	if (!tourney.data.bracket) {
 		return <p>{tourney.title} doesn't have a bracket</p>;
 	}
 	const containerRef = useRef<HTMLDivElement>(null);
-	const [width, setWidth] = useState<number>(0);
+	const [width, setWidth] = useState<number>(bracketWidth || 0);
 
 	useEffect(() => {
 		const handleResize = () => {

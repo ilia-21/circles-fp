@@ -3,6 +3,7 @@ import "./BeatMapCardMed.css";
 import { Beatmap } from "../../../types/Beatmap";
 import BeatmapMod from "../../universal/BeatmapMod";
 import Tooltip from "../../universal/Tooltip";
+import ModApplier from "../../../functions/ModApplier";
 
 interface Props {
 	map: Beatmap;
@@ -14,31 +15,9 @@ const BeatMapCardMed = ({ map }: Props) => {
 
 	useEffect(() => {
 		const actualMod = map.mod.slice(0, 2);
+		const moddedMap = ModApplier(actualMod as "NM" | "HR" | "HD" | "DT" | "FM" | "TB", map);
 
-		if (actualMod === "HR" || actualMod === "DT") {
-			const hrMultiply = (stat: number, cs?: boolean) => {
-				// floating point precision :skull:
-				const multiplier = cs ? 1.3 : 1.4;
-				const result = Math.min(stat * multiplier, 10);
-				return parseFloat(result.toFixed(1));
-			};
-
-			const modifiedMapCopy = { ...map };
-
-			switch (actualMod) {
-				case "HR":
-					modifiedMapCopy.ar = hrMultiply(map.ar);
-					modifiedMapCopy.cs = hrMultiply(map.cs, true);
-					modifiedMapCopy.drain = hrMultiply(map.drain);
-					modifiedMapCopy.accuracy = hrMultiply(map.accuracy);
-					break;
-				case "DT":
-					modifiedMapCopy.bpm *= 1.5;
-					break;
-			}
-
-			setModifiedMap(modifiedMapCopy);
-		}
+		setModifiedMap(moddedMap);
 	}, [map]);
 
 	const copyMapID = () => {

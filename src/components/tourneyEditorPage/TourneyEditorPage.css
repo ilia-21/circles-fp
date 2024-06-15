@@ -1,5 +1,6 @@
 .TourneyEditor-saveButton {
 	display: flex;
+	gap: 1em;
 	width: 100%;
 	justify-content: end;
 	margin: 1em 0;
@@ -23,28 +24,42 @@
 }
 .TourneyEditor-Participants {
 	display: flex;
+	flex-wrap: wrap;
 	gap: 1em;
 }
-.TourneyEditor-Participants-Block {
-	background-color: var(--cfp-bg-tertiary);
+.TourneyEditor-Participants-Container {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-around;
-	width: 10em;
-	height: 16em;
+	gap: 1em;
+	background: var(--cfp-bg-tertiary);
 	padding: 1em;
-	color: var(--cfp-accent);
-	cursor: pointer;
+}
+.TourneyEditor-Participants-Block {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	gap: 0.5em;
+	width: 10em;
+}
+.TourneyEditor-Matches-Content-Block {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	margin: 2em 0;
 }
 .TourneyEditor-Participants-Icon {
 	font-size: 10em;
 	width: 100%;
+	color: var(--cfp-accent);
+	cursor: pointer;
 	object-fit: cover;
 }
 .TourneyEditor-Participants-Avatar {
 	font-size: 10em;
-	width: 100%;
+	max-width: 100%;
 	object-fit: cover;
 }
 .TourneyEditor-Participants-Id {
@@ -53,15 +68,159 @@
 .TourneyEditor-Participants-Id:focus {
 	border-bottom: 1px solid var(--green);
 }
-.TourneyEditor-Participants-Container {
-	position: relative;
+.TourneyEditor-Participants-Container-Toolbar {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 .TourneyEditor-Participants-Block-Delete {
-	position: absolute;
-	right: 0;
-	top: 0;
 	color: var(--cfp-accent);
 	font-size: 1.5em;
 	cursor: pointer;
 	z-index: 1;
+}
+.TourneyEditor-Match-Container {
+	display: flex;
+	flex-direction: column;
+	background: var(--cfp-bg-tertiary);
+	position: relative;
+	padding: 1em;
+	min-width: 28em;
+	width: 46%;
+	border: 1px solid transparent;
+	transition: 0.2s border;
+}
+.TourneyEditor-Match-Toolbar {
+	display: flex;
+	justify-content: center;
+	gap: 1em;
+}
+.TourneyEditor-Match-Toolbar > input {
+	text-align: center;
+}
+.TourneyEditor-Match-Footer {
+	padding-top: 1em;
+	display: flex;
+	justify-content: space-between;
+	font-size: 0.75em;
+}
+.TourneyEditor-Match-Footer > div {
+	display: flex;
+	justify-content: start;
+	gap: 0.5em;
+}
+.toggler {
+}
+.toggler > span {
+	padding: 0.125em;
+	cursor: pointer;
+}
+.toggler > span:first-child {
+	border-left: 1px solid var(--cfp-text);
+	border-top: 1px solid var(--cfp-text);
+	border-bottom: 1px solid var(--cfp-text);
+	border-top-left-radius: 0.25em;
+	border-bottom-left-radius: 0.25em;
+}
+.toggler > span:last-child {
+	border-right: 1px solid var(--cfp-text);
+	border-top: 1px solid var(--cfp-text);
+	border-bottom: 1px solid var(--cfp-text);
+	border-top-right-radius: 0.25em;
+	border-bottom-right-radius: 0.25em;
+}
+.toggler > span.selected {
+	font-weight: unset;
+	background-color: var(--surface-0);
+	color: var(--cfp-text);
+}
+.toggler > span.unselected {
+	background-color: var(--cfp-bg-secondary);
+	color: var(--surface-1);
+}
+.TourneyEditor-Match-Container {
+	display: flex;
+	flex-direction: column;
+	background: var(--cfp-bg-tertiary);
+	position: relative;
+	padding: 1em;
+	max-width: 35em;
+}
+.TourneyEditor-Matches-Block {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	gap: 1em;
+	position: relative;
+}
+.glowing-green {
+	border: 2px solid var(--green);
+}
+
+.glowing-red {
+	border: 2px solid var(--red);
+}
+.TourneyEditor-Mappool {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1em;
+}
+.TourneyEditor-Map-Container {
+	width: 30em;
+	background: var(--cfp-bg-tertiary);
+	padding: 1em;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 1em;
+}
+.TourneyEditor-Map-Container > div {
+	display: flex;
+	justify-content: center;
+}
+.TourneyEditor-Map-Container-Toolbar {
+	display: flex;
+	justify-content: space-between !important;
+}
+.TourneyEditor-Map-Container-Toolbar-Delete {
+	color: var(--red);
+	cursor: pointer;
+}
+.TourneyEditor-Map-Container-Stats {
+	display: flex;
+	gap: 1em;
+}
+.TourneyEditor-Map-Container-Mods {
+	display: flex;
+	gap: 0.5em;
+}
+.TourneyEditor-Map-Container-Image {
+	height: 10em;
+	max-width: 28em;
+	object-fit: contain;
+}
+.TourneyEditor-Map-Mod {
+	padding: 0.5em 1em;
+	color: var(--cfp-bg);
+	border-radius: 2em;
+	font-weight: bold;
+}
+.modNM {
+	background-color: var(--green);
+}
+.modHR {
+	background-color: var(--red);
+}
+.modHD {
+	background-color: var(--blue);
+}
+.modDT {
+	background-color: var(--yellow);
+}
+.modFM {
+	background-color: var(--mauve);
+}
+.modTB {
+	background-color: var(--teal);
 }

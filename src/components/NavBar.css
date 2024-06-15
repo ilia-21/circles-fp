@@ -10,6 +10,7 @@
 	transform: translateX(-50%);
 	background: var(--cfp-bg-secondary);
 	z-index: 9;
+	box-shadow: 0 0 4em #00000090;
 }
 
 .logo {

@@ -45,13 +45,15 @@ const Participant = ({ participant, index, removeParticipant, updateParticipant,
 
 	return (
 		<div className="TourneyEditor-Participants-Container">
-			<CiTrash className="TourneyEditor-Participants-Block-Delete" onClick={() => removeParticipant(index)} />
+			<div className="TourneyEditor-Participants-Container-Toolbar">
+				<input value={participant.who.id} className="minimalisticInput" name="id" onChange={handleInputChange} onBlur={handleInputBlur} onPaste={handleInputPaste} style={{ width: "7em" }} />
+				<CiTrash className="TourneyEditor-Participants-Block-Delete" onClick={() => removeParticipant(index)} />
+				<Tooltip content="Participant's id" />
+			</div>
 			<div className="TourneyEditor-Participants-Block">
-				<input type="text" className="minimalisticInput TourneyEditor-Participants-Id" value={participant.who.id} name="id" onChange={handleInputChange} onBlur={handleInputBlur} onPaste={handleInputPaste} />
-				<Tooltip content="Participant's id" height="-12em" />
 				<img src={(participant.who as PlayerLitest).avatar_url} className="TourneyEditor-Participants-Avatar" alt="Participant Avatar" />
-				<input type="text" className="minimalisticInput" value={(participant.who as PlayerLitest).username} name="username" readOnly />
-				<input type="text" className="minimalisticInput" value={participant.why} onChange={handleWhyChange} />
+				<input type="text" className="minimalisticInput" value={(participant.who as PlayerLitest).username} name="username" readOnly style={{ textAlign: "center" }} />
+				<input type="text" className="minimalisticInput" value={participant.why} onChange={handleWhyChange} style={{ textAlign: "center" }} />
 			</div>
 		</div>
 	);

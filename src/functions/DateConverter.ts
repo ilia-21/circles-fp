@@ -1,4 +1,4 @@
-let DateConverter = (date: Date, type: "MM DD" | "W MM DD" | "DD" | "MM DD HH:MM" | "HH:MM" | "full") => {
+let DateConverter = (date: Date, type: "MM DD" | "W MM DD" | "DD" | "MM DD HH:MM" | "HH:MM" | "full" | "HH:MM 24" | "DD/MM/YYYY" | Intl.DateTimeFormatOptions) => {
 	switch (type) {
 		case "full":
 			return new Intl.DateTimeFormat("en-US", {
@@ -31,6 +31,16 @@ let DateConverter = (date: Date, type: "MM DD" | "W MM DD" | "DD" | "MM DD HH:MM
 		case "HH:MM":
 			return new Intl.DateTimeFormat("en-US", {
 				timeStyle: "short",
+			}).format(date);
+			break;
+		case "HH:MM 24":
+			return new Intl.DateTimeFormat("en-GB", {
+				timeStyle: "short",
+			}).format(date);
+			break;
+		case "DD/MM/YYYY":
+			return new Intl.DateTimeFormat("en-GB", {
+				dateStyle: "short",
 			}).format(date);
 			break;
 	}

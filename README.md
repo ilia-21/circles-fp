@@ -47,7 +47,8 @@ Daily website build (except weekends): [circlesfrontpage.iii.cl](https://circles
 │ ├─ Add time for upcoming matches
 │ ├─ Add score for finished matches
 │ ├─┬─ Add odds (whatever the name of this thing is)
-│ │ ├─ Chance of each player to Pick/ban/win certain mods based on the data from last month
+│ │ ├─ Chance of each player to Pick/ban/win certain
+│ │ │  mods based on the data from last month
 │ │ ├─ Recent matches for each player
 │ │ └─ Possibly more odds
 │ └─ Add links to mp, where to watch
@@ -55,8 +56,8 @@ Daily website build (except weekends): [circlesfrontpage.iii.cl](https://circles
 ├─┬─ Create tournament editor
 │ ├─ Basic info editor
 │ ├─ Participants editor
-│ ├─ Map pool editor                                    <-- we are here
-│ └─ Bracket editor
+│ ├─ Bracket editor
+│ └─ Map pool editor                                    <-- we are here
 │
 ├─┬─ Finish profile page
 │ ├─┬─ Add player stats
@@ -83,10 +84,6 @@ Daily website build (except weekends): [circlesfrontpage.iii.cl](https://circles
 │ ├─ Player's stats (but more detailed than public, I guess?)
 │ └─ Player's upcoming tournaments
 │
-├─┬─ Add features for tournament hosts
-│ └─┬ Tournament creator/editor
-│   ├─ Basic info editor
-│   └─ Bracket editor
 │
 │
 │

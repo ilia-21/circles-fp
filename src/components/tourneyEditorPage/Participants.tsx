@@ -21,7 +21,7 @@ const newParticipant: TourneyParticipant = {
 	} as PlayerLitest,
 };
 
-export const Participants = ({ tourney, setTourneyData }: Props) => {
+const Participants = ({ tourney, setTourneyData }: Props) => {
 	const [localTourneyData, setLocalTourneyData] = useState<Tourney>(tourney);
 
 	useEffect(() => {
@@ -29,9 +29,7 @@ export const Participants = ({ tourney, setTourneyData }: Props) => {
 	}, [tourney]);
 
 	const addBlankParticipant = async () => {
-		const playerData = await GetPlayer(newParticipant.who.id);
-		const updatedNewParticipant = { ...newParticipant, who: playerData };
-		const updatedParticipants = [...localTourneyData.data.participants, updatedNewParticipant];
+		const updatedParticipants = [...localTourneyData.data.participants, newParticipant];
 		const updatedTourneyData = { ...localTourneyData, data: { ...localTourneyData.data, participants: updatedParticipants } };
 		setLocalTourneyData(updatedTourneyData);
 		setTourneyData(updatedTourneyData);
@@ -72,3 +70,4 @@ export const Participants = ({ tourney, setTourneyData }: Props) => {
 		</div>
 	);
 };
+export default Participants;

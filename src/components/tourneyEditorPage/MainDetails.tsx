@@ -12,7 +12,7 @@ interface Props {
 	setTourneyData: (tourney: Tourney) => void;
 }
 
-export const MainDetails = ({ tourney, setTourneyData }: Props) => {
+const MainDetails = ({ tourney, setTourneyData }: Props) => {
 	const [localTourneyData, setLocalTourneyData] = useState<Tourney>(tourney);
 	const [host, setHost] = useState<PlayerLite>(tourney.host);
 	const [descriptionTab, setDescriptionTab] = useState<"edit" | "preview">("preview");
@@ -94,3 +94,4 @@ export const MainDetails = ({ tourney, setTourneyData }: Props) => {
 		</div>
 	);
 };
+export default MainDetails;

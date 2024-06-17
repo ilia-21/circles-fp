@@ -30,7 +30,7 @@ const Participant = ({ participant, index, removeParticipant, updateParticipant,
 	};
 	const handleInputPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
 		setTimeout(() => {
-			const playerId = Number(e.target.value);
+			const playerId = Number((e.target as HTMLInputElement).value);
 			if (playerId !== participant.who.id) {
 				fetchPlayerData(index, playerId);
 			}

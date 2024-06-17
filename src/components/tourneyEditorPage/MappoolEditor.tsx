@@ -1,9 +1,8 @@
 import { IoMdAdd } from "react-icons/io";
-import { Tourney, TourneyMappool, TourneyParticipant } from "../../types/Tourney";
+import { Tourney, TourneyMappool } from "../../types/Tourney";
 import { useState, useEffect } from "react";
 import "./TourneyEditorPage.css";
 import Mappool from "./Mappool";
-import GetMap from "../../functions/GetMap";
 
 interface Props {
 	tourney: Tourney;

@@ -48,7 +48,7 @@ const TeamEditor = ({ team }: Props) => {
 		return <h1>{randomLoadingMessage()}</h1>;
 	}
 	// @ts-ignore: Object is possibly 'null'.
-	if (!user && !loading && !user.cfp.roles.DEV && user && user.id != team.leader.id) {
+	if (!user && !loading && !user.cfp.roles.DEV && !user.cfp.roles.MOD && user && user.id != team.leader.id) {
 		return <ErrorPage error={[401, "You are not supposed to be here"]} />;
 	}
 

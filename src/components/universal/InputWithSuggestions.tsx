@@ -39,9 +39,13 @@ const InputWithSuggestions = ({ name, suggestions, value, onChange, onBlur, onPa
 		switch (e.code) {
 			case "Enter":
 				e.preventDefault();
-				setTimeout(() => setInputValue(filteredSuggestions[selected]), 100);
+				setTimeout(() => setInputValue(filteredSuggestions[selected]), 10);
+				//typescript :sob:
 				e.currentTarget.blur();
-				setTimeout(() => setShowSuggestions(false), 100);
+				setTimeout(() => {
+					setShowSuggestions(false);
+					onBlur && onBlur(e as unknown as React.FocusEvent<HTMLInputElement>);
+				}, 100);
 				break;
 			case "ArrowUp":
 				e.preventDefault();

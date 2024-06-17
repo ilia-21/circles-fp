@@ -74,7 +74,7 @@ const TeamProfile = ({ team }: Props) => {
 					<p>
 						Leader: <PlayerLink user={team.leader} />
 					</p>
-					{(user?.cfp.roles.DEV || (user && user.id == team.leader.id)) && (
+					{(user?.cfp.roles.DEV || user?.cfp.roles.MOD || (user && user.id == team.leader.id)) && (
 						<div className="teamProfileEditButton">
 							<a href={`/#/team/${team.id}?edit=true`}>
 								<LuPencil />

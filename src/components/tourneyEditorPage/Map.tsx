@@ -3,6 +3,7 @@ import { CiTrash } from "react-icons/ci";
 import { Beatmap, MappoolMod } from "../../types/Beatmap";
 import { mapsCount } from "./Mappool";
 import ModApplier from "../../functions/ModApplier";
+import { ModType } from "../../types/Mod";
 
 interface Props {
 	mapInfo: [number, MappoolMod];
@@ -30,10 +31,10 @@ const Map = ({ mapInfo, mapIndex, removeMap, updateMap, fetchMapData, poolMapsCo
 		const oldMod: string = oldm.slice(0, 2);
 		const newMod: string = newm.slice(0, 2);
 		const localMapsCounter = { ...poolMapsCounter };
-		localMapsCounter[oldMod]--;
-		localMapsCounter[newMod]++;
+		localMapsCounter[oldMod as ModType]--;
+		localMapsCounter[newMod as ModType]++;
 		setPoolMapsCounter(localMapsCounter);
-		return localMapsCounter[newMod] as number;
+		return localMapsCounter[newMod as ModType] as number;
 	};
 
 	const updateMapMod = (mod: "NM" | "HR" | "HD" | "DT" | "FM" | "TB") => {
@@ -61,7 +62,7 @@ const Map = ({ mapInfo, mapIndex, removeMap, updateMap, fetchMapData, poolMapsCo
 				<CiTrash className="TourneyEditor-Map-Container-Toolbar-Delete" onClick={() => removeMap(mapIndex)} />
 			</div>
 			<div>{mapData && mapData.beatmapset && <img src={mapData.beatmapset.covers.card} alt="BeatmapBg" className="TourneyEditor-Map-Container-Image" />}</div>
-			<div className="TourneyEditor-Map-Container-Mods">
+			<div className="TourneyEditor-Map-Container-Stats">
 				<p>AR: {mapData?.ar}</p>
 				<p>CS: {mapData?.cs}</p>
 				<p>BPM: {mapData?.bpm}</p>
@@ -72,9 +73,9 @@ const Map = ({ mapInfo, mapIndex, removeMap, updateMap, fetchMapData, poolMapsCo
 				{["NM", "HR", "HD", "DT", "FM", "TB"].map((mod) => (
 					<p
 						key={mod}
-						className={`${mapInfo[1].startsWith(mod) ? "enabled" : "disabled"} TourneyEditor-Map-Mod mod${mod}`}
+						className={`${mapInfo[1].startsWith(mod) ? "mod-enabled" : "mod-disabled"} TourneyEditor-Map-Mod mod${mod}`}
 						onClick={() => {
-							updateMapMod(mod as MappoolMod);
+							updateMapMod(mod as ModType);
 						}}
 					>
 						{mod}

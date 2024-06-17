@@ -23,7 +23,13 @@ const sendTournament = async (id: string, tourneyData: Tourney, setMessage: (mes
 		console.error(error);
 	}
 };
-let CheckTournament = async (id: string, tourneyData: Tourney, setMessage: (message: string[]) => void) => {
+const highlightMatches = (foundIn: string[]) => {
+	for (const m of foundIn) {
+		document.getElementById(`match-${m}`)?.classList.add("glowing-red");
+		setTimeout(() => document.getElementById(`match-${m}`)?.classList.remove("glowing-red"), 20000);
+	}
+};
+let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, setMessage: (message: string[]) => void) => {
 	let foundIn = [];
 	// Test 1
 	// Check for matches without any routes for winner
@@ -43,6 +49,7 @@ let CheckTournament = async (id: string, tourneyData: Tourney, setMessage: (mess
 	}
 	if (counter > 1) {
 		setMessage(["red", `Your matches are incorrect! There can be only one match without "Next match for winner": the Grand Finals, but you have ${counter}: ${foundIn.join(", ")}`]);
+		highlightMatches(foundIn);
 		return false;
 	}
 	counter = 0;
@@ -64,6 +71,7 @@ let CheckTournament = async (id: string, tourneyData: Tourney, setMessage: (mess
 	}
 	if (found) {
 		setMessage(["red", `Your matches are incorrect! All finished matches must have both players selected. These matches dont: ${foundIn.join(", ")}`]);
+		highlightMatches(foundIn);
 		return false;
 	}
 	counter = 0;
@@ -89,9 +97,96 @@ let CheckTournament = async (id: string, tourneyData: Tourney, setMessage: (mess
 	}
 	if (counter > 1) {
 		setMessage(["red", `Your matches are incorrect! All matches, execpt grand finals must have real match id in "Next match for winner". These don't: ${foundIn.join(", ")}`]);
+		highlightMatches(foundIn);
 		return false;
 	}
-	sendTournament(id, tourneyData, setMessage);
+	counter = 0;
+	foundIn = [];
+	// Test 4
+	// Check if all winners/loosers are in correct matches
+	// For each match match with nextMatchId or nextLooserMatchId should have winner/looser OR null/TBD
+	// There can't be any other player/team in match from nextMatchId other than winner player/team, save for nextLooserMatchId
+	for (const match of tourneyData.data.bracket.upper) {
+		const nextWinnerMatch = tourneyData.data.bracket.upper.find((m) => m.id == match.nextMatchId) || tourneyData.data.bracket.lower.find((m) => m.id == match.nextMatchId);
+		const nextLooserMatch = tourneyData.data.bracket.lower.find((m) => m.id == match.nextLooserMatchId);
+		const thisWinner = match.participants.find((p) => p.isWinner == true);
+		const thisLooser = match.participants.find((p) => p.isWinner == false);
+		if (thisWinner) {
+			// !thisWinner means that match doesn't have a winner yet
+			if (nextWinnerMatch?.participants[0].name && !nextWinnerMatch?.participants.find((p) => p.name == thisWinner.name)) {
+				counter++;
+				foundIn.push(match.id);
+				setTimeout(() => document.getElementById(`match-${match.id}`)?.classList.remove("glowing-red"), 20000);
+			}
+		}
+		if (thisLooser) {
+			if (nextLooserMatch?.participants[0].name && !nextLooserMatch?.participants.find((p) => p.name == thisLooser.name)) {
+				console.log(
+					nextLooserMatch?.participants[0].name,
+					thisLooser.name,
+					nextLooserMatch?.participants.find((p) => p.name == thisLooser.name)
+				);
+				counter++;
+				foundIn.push(match.id);
+			}
+		}
+	}
+	for (const match of tourneyData.data.bracket.lower) {
+		const nextWinnerMatch = tourneyData.data.bracket.upper.find((m) => m.id == match.nextMatchId) || tourneyData.data.bracket.lower.find((m) => m.id == match.nextMatchId);
+		const thisWinner = match.participants.find((p) => p.isWinner == true);
+		// Not checking for losers in lower bracket
+		if (thisWinner) {
+			// !thisWinner means that match doesn't have a winner yet
+			if (nextWinnerMatch?.participants[0].name && !nextWinnerMatch?.participants.find((p) => p.name == thisWinner.name)) {
+				counter++;
+				foundIn.push(match.id);
+			}
+		}
+	}
+	highlightMatches(foundIn);
+	if (counter > 0) {
+		setMessage(["red", `Your matches are incorrect! All winners should go to the "Next match for winner", and all loosers should go to the "Next match for looser", but these don't: ${foundIn.join(", ")}`]);
+		if (foundIn.length == 1) {
+			setTimeout(() => document.getElementById(`match-${foundIn[0]}`)?.scrollIntoView(), 1000);
+		}
+
+		return false;
+	}
+	// Test 5
+	// Check if all images in description are from allowed links
+	const description = tourneyData.data.description;
+	const allowedDomains = ["imgur.com", "puu.sh", "ppy.sh"];
+	const markdownImageRegex = /!\[.*?\]\((.*?)\)/g;
+	const urls = [...description.matchAll(markdownImageRegex)].map((match) => match[1]);
+	for (const url of urls) {
+		const domain = new URL(url).hostname.split(".").slice(-2).join(".");
+		if (!allowedDomains.some((allowedDomain) => domain.endsWith(allowedDomain))) {
+			setMessage(["red", `Your tournament description contains a link to an unknown source, please use one of the allowed image hostings: ${allowedDomains.join(", ")}`]);
+		}
+		return false;
+	}
+	// Test 6
+	// Check for fake links in description
+	const markdownLinkRegex = /\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g;
+	let match;
+
+	while ((match = markdownLinkRegex.exec(description)) !== null) {
+		const visibleText = match[1];
+		const actualUrl = match[2];
+
+		if (visibleText.startsWith("http://") || visibleText.startsWith("https://")) {
+			if (visibleText !== actualUrl) {
+				setMessage(["red", `Your tournament description contains fake link. What are you trying to do? Please remove it. Links can only be like this: [https://ourwebsite.com](https://ourwebsite.com) or [our website](https://ourwebsite.com)`]);
+				return false;
+			}
+		}
+	}
+
+	if (send) {
+		sendTournament(id, tourneyData, setMessage);
+	} else {
+		setMessage(["green", "Errors in your tournament not found, click again to confirm"]);
+	}
 	return true;
 };
 export default CheckTournament;

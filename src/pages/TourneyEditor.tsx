@@ -13,7 +13,6 @@ import Tooltip from "../components/universal/Tooltip";
 import Participants from "../components/tourneyEditorPage/Participants";
 import Matches from "../components/tourneyEditorPage/Matches";
 import CheckTournament from "../functions/CheckTournament";
-import { MdPanoramaPhotosphereSelect } from "react-icons/md";
 import MappoolEditor from "../components/tourneyEditorPage/MappoolEditor";
 
 const TourneyEditor = () => {
@@ -66,6 +65,11 @@ const TourneyEditor = () => {
 		fetchSession();
 		fetchTeam();
 	}, []);
+	// useEffect(() => {
+	// 	setConfirmation(false);
+	// }, [tourneyData]);
+	// Canceled, since it's lagging textarea a lot
+
 	// confirm closing
 	useEffect(() => {
 		const unloadCallback = (event: any) => {
@@ -80,11 +84,13 @@ const TourneyEditor = () => {
 
 	const saveTourneyData = async () => {
 		if (!confirmation) {
-			setConfirmation(true);
+			setMessage(["yellow", "Checking your tournament..."]);
+			const checkResult = await CheckTournament(false, id as string, tourneyData as Tourney, setMessage);
+			checkResult && setConfirmation(true);
 			return;
 		}
 		try {
-			CheckTournament(id as string, tourneyData as Tourney, setMessage);
+			CheckTournament(true, id as string, tourneyData as Tourney, setMessage);
 			setConfirmation(false);
 		} catch (error) {
 			console.error("Error saving data:", error);
@@ -104,7 +110,7 @@ const TourneyEditor = () => {
 	if (errorMessage) {
 		return <ErrorPage error={[Number(errorMessage[0]), errorMessage[1]]} />;
 	}
-	if (!user || (!loading && !user.cfp.roles.DEV && user && user.id != tourneyData?.host.id)) {
+	if (!user || (!loading && !user.cfp.roles.DEV && !user.cfp.roles.MOD && user && user.id != tourneyData?.host.id)) {
 		return <ErrorPage error={[401, "You are not supposed to be here"]} />;
 	}
 	return (

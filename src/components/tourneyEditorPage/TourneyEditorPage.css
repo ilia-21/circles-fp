@@ -37,6 +37,7 @@
 	padding: 1em;
 }
 .TourneyEditor-Participants-Block {
+	background-color: var(--cfp-bg-tertiary);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -79,6 +80,10 @@
 	font-size: 1.5em;
 	cursor: pointer;
 	z-index: 1;
+}
+.TourneyEditor-Match-Container.empty {
+	justify-content: center;
+	align-items: center;
 }
 .TourneyEditor-Match-Container {
 	display: flex;
@@ -161,10 +166,29 @@
 .glowing-red {
 	border: 2px solid var(--red);
 }
+.TourneyEditor-Mappools {
+	display: flex;
+	flex-direction: column;
+	gap: 3em;
+}
 .TourneyEditor-Mappool {
 	display: flex;
+	justify-content: center;
+	gap: 1em;
 	flex-wrap: wrap;
 	gap: 1em;
+}
+.TourneyEditor-Mappool-Toolbar {
+	width: 100%;
+	display: flex;
+	gap: 1em;
+}
+.TourneyEditor-Mappool-Toolbar-Delete {
+	font-size: 2em;
+	color: var(--red);
+}
+.TourneyEditor-Map-Container.empty {
+	justify-content: center;
 }
 .TourneyEditor-Map-Container {
 	width: 30em;
@@ -223,4 +247,11 @@
 }
 .modTB {
 	background-color: var(--teal);
+}
+.mod-disabled {
+	opacity: 0.1;
+}
+.bracketCardContainer {
+	overflow-x: hidden;
+	width: 100%;
 }

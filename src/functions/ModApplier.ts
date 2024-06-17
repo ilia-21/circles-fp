@@ -1,4 +1,5 @@
 import { Beatmap } from "../types/Beatmap";
+import calculateDTAR from "./calculateDTAR";
 
 const ModApplier = (mod: "NM" | "HR" | "HD" | "DT" | "FM" | "TB", map: Beatmap) => {
 	const modifiedMap = { ...map };
@@ -19,6 +20,7 @@ const ModApplier = (mod: "NM" | "HR" | "HD" | "DT" | "FM" | "TB", map: Beatmap) 
 				break;
 			case "DT":
 				modifiedMap.bpm *= 1.5;
+				modifiedMap.ar = calculateDTAR(map.ar);
 				break;
 		}
 	}

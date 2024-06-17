@@ -6,13 +6,28 @@ import PlayerLink from "../../universal/PlayerLink";
 import genRanHex from "../../../functions/GetRanHex";
 import ErrorPage from "../../../pages/ErrorPage";
 import ParseMarkdown from "../../universal/ParseMarkdown";
-import { PlayerLitest } from "../../../types/Player";
+import { PlayerLite, PlayerLitest } from "../../../types/Player";
 import { Beatmap } from "../../../types/Beatmap";
+import { useEffect, useState } from "react";
+import { LuPencil } from "react-icons/lu";
 interface Props {
 	tourney: Tourney;
 }
 
 const TourneyCardhero = ({ tourney }: Props) => {
+	const [user, setUser] = useState<PlayerLite | null>(null);
+	useEffect(() => {
+		fetch(`${import.meta.env.VITE_API_URL}/api/session`, {
+			credentials: "include",
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.isLoggedIn) {
+					setUser(data.user);
+				}
+			});
+	}, []);
+
 	if (!tourney) {
 		return <ErrorPage />;
 	}
@@ -36,7 +51,7 @@ const TourneyCardhero = ({ tourney }: Props) => {
 			<div className="tourneyNews">
 				<h2>{pool.title}</h2>
 				{pool.maps.map((map) => (
-					<BeatMapCardMed key={map.id + genRanHex(4)} map={map as Beatmap} />
+					<BeatMapCardMed key={(map as Beatmap).id + genRanHex(4)} map={map as Beatmap} />
 				))}
 			</div>
 		));
@@ -61,7 +76,16 @@ const TourneyCardhero = ({ tourney }: Props) => {
 	return (
 		<div className="tourneyCardhero">
 			<img src={tourney.data.banner} alt="" />
-			<h1>{tourney.title}</h1>
+			<div style={{ position: "relative" }}>
+				<h1>{tourney.title}</h1>
+				{(user?.cfp.roles.DEV || user?.cfp.roles.MOD || (user && user.id == tourney.host.id)) && (
+					<div className="teamProfileEditButton">
+						<a href={`/#/editor/tourney/${tourney.id}`}>
+							<LuPencil style={{ fontSize: "1.5em" }} />
+						</a>
+					</div>
+				)}
+			</div>
 			<div className="tourneyInfoShort">
 				<div>
 					<p>

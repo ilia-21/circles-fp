@@ -12,6 +12,8 @@ interface Props {
 	removeMatch: (index: number, bracket: "lower" | "upper") => void;
 	updateMatch: (index: number, bracket: "lower" | "upper", updatedMatch: BracketMatch) => void;
 	allParticipants: string[];
+	allMatches: BracketMatch[];
+	setMatchesErrored: (error: boolean) => void;
 }
 
 const getTimeZone = () => {
@@ -41,18 +43,27 @@ const convertTime = (time: string): [string, string] => {
 
 	return [localDateString, localTimeString];
 };
-const Match = ({ match, matchBracket, matchIndex, removeMatch, updateMatch, allParticipants }: Props) => {
+const Match = ({ match, matchBracket, matchIndex, removeMatch, updateMatch, allParticipants, allMatches, setMatchesErrored }: Props) => {
 	const [bracket, setBracket] = useState<"lower" | "upper">(matchBracket);
 	const [timestamp, setTimestamp] = useState<string[] | null>(convertTime(match.startTime) || null);
 	const [score, setScore] = useState<string[] | null>([match.participants[0].resultText, match.participants[1].resultText] || null);
 	const [matchState, setMatchState] = useState<"SCORE_DONE" | "DONE" | "NO_SHOW" | "WALK_OVER" | "NO_PARTY">(match.state);
 
+	const checkIfMatchExists = (matchId: string) => {
+		console.log(allMatches, matchId);
+		const found = allMatches.find((m) => {
+			m.id == matchId;
+		});
+		found ? setMatchesErrored(false) : setMatchesErrored(true);
+	};
 	const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 		if (e.target.name.startsWith("participant")) {
 			const index = e.target.name.endsWith(".first") ? 0 : 1;
 			const updatedParticipants = [...match.participants];
 			updatedParticipants[index].name = value;
+			updatedParticipants[index].id = value;
+			console.log(updatedParticipants, value, index);
 			const updatedMatch = { ...match, participants: updatedParticipants };
 			updateMatch(matchIndex, bracket, updatedMatch);
 		} else if (e.target.name.startsWith("score")) {
@@ -140,7 +151,10 @@ const Match = ({ match, matchBracket, matchIndex, removeMatch, updateMatch, allP
 						className="minimalisticInput"
 						value={match.nextMatchId as string}
 						onBlur={handleInputBlur}
-						onChange={handleInputBlur}
+						onChange={(e) => {
+							checkIfMatchExists(e.target.value);
+							handleInputBlur(e as unknown as React.FocusEvent<HTMLInputElement>);
+						}}
 						onFocus={(e) => {
 							const winnerMatch = document.getElementById(`match-${e.target.value}`);
 							if (winnerMatch) winnerMatch.classList.add("glowing-green");
@@ -160,7 +174,10 @@ const Match = ({ match, matchBracket, matchIndex, removeMatch, updateMatch, allP
 						className="minimalisticInput"
 						value={match.nextLooserMatchId as string}
 						onBlur={handleInputBlur}
-						onChange={handleInputBlur}
+						onChange={(e) => {
+							checkIfMatchExists(e.target.value);
+							handleInputBlur(e as unknown as React.FocusEvent<HTMLInputElement>);
+						}}
 						onFocus={(e) => {
 							const looserMatch = document.getElementById(`match-${e.target.value}`);
 							if (looserMatch) looserMatch.classList.add("glowing-red");

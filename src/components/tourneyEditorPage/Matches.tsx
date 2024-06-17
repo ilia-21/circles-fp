@@ -41,6 +41,7 @@ const newMatch: BracketMatch = {
 const Matches = ({ tourney, setTourneyData }: Props) => {
 	const [localTourneyData, setLocalTourneyData] = useState<Tourney>(tourney);
 	const [allParticipants, setAllParticipants] = useState<string[]>([]);
+	const [matchesErrored, setMatchesErrored] = useState<boolean>(false);
 
 	useEffect(() => {
 		setLocalTourneyData(tourney);
@@ -76,7 +77,6 @@ const Matches = ({ tourney, setTourneyData }: Props) => {
 
 	const updateMatch = useCallback(
 		(index: number, bracket: "lower" | "upper", updatedMatch: BracketMatch) => {
-			console.log(index, bracket, updatedMatch);
 			const updatedMatches = { ...localTourneyData.data.bracket, [bracket]: [...localTourneyData.data.bracket[bracket]] };
 			updatedMatches[bracket][index] = updatedMatch;
 			const updatedTourneyData = { ...localTourneyData, data: { ...localTourneyData.data, bracket: updatedMatches } };
@@ -88,27 +88,35 @@ const Matches = ({ tourney, setTourneyData }: Props) => {
 
 	const drawMatches = useCallback(
 		(br: "upper" | "lower") => {
-			return localTourneyData.data.bracket[br].map((match, i) => <Match key={match.id} matchIndex={i} matchBracket={br} match={match} removeMatch={removeMatch} updateMatch={updateMatch} allParticipants={allParticipants} />);
+			return localTourneyData.data.bracket[br].map((match, i) => <Match key={match.id} matchIndex={i} matchBracket={br} match={match} removeMatch={removeMatch} updateMatch={updateMatch} allParticipants={allParticipants} allMatches={[...tourney.data.bracket.lower, ...tourney.data.bracket.upper]} setMatchesErrored={setMatchesErrored} />);
 		},
 		[localTourneyData.data.bracket, allParticipants, removeMatch, updateMatch]
 	);
+	const drawIncorrectBlock = () => {
+		return (
+			<div>
+				<p style={{ color: "var(--red)" }}>Your matches are incorrect! Bracket preview is not available</p>
+				<p>Click on save tournament to check what is wrong. (Tournament data won't be updated)</p>
+			</div>
+		);
+	};
 
 	return (
 		<div className="TourneyEditor-Participants">
-			<div>
+			<div style={{ width: "100%" }}>
 				<h2>Bracket preview</h2>
-				<BracketCard tourney={localTourneyData} bracketWidth={1000} />
+				{!matchesErrored ? <BracketCard tourney={localTourneyData} bracketWidth={1000} /> : drawIncorrectBlock()}
 			</div>
 			<div className="TourneyEditor-Matches-Block">
 				<h2 style={{ width: "100%" }}>Upper bracket</h2>
 				{localTourneyData.data.bracket.upper && drawMatches("upper")}
-				<div className="TourneyEditor-Match-Container" onClick={() => addBlankMatch("upper")}>
+				<div className="TourneyEditor-Match-Container empty" onClick={() => addBlankMatch("upper")}>
 					<IoMdAdd className="TourneyEditor-Participants-Icon" />
 					<p>Add new Match</p>
 				</div>
 				<h2 style={{ width: "100%" }}>Lower bracket</h2>
 				{localTourneyData.data.bracket.lower && drawMatches("lower")}
-				<div className="TourneyEditor-Match-Container" onClick={() => addBlankMatch("lower")}>
+				<div className="TourneyEditor-Match-Container empty" onClick={() => addBlankMatch("lower")}>
 					<IoMdAdd className="TourneyEditor-Participants-Icon" />
 					<p>Add new Match</p>
 				</div>

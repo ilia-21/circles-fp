@@ -1,8 +1,6 @@
 import { useState } from "react";
 import randomErrorMessage from "../../functions/SomethingWentWrongMessages";
 import "./NoConnectionPopup.css";
-import { openAsBlob } from "fs";
-import { MdHeight } from "react-icons/md";
 
 const NoConnectionPopup = () => {
 	const [detailsOpen, setDetailsOpen] = useState(false);

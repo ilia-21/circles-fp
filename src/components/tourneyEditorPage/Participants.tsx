@@ -5,6 +5,7 @@ import "./TourneyEditorPage.css";
 import { PlayerLitest } from "../../types/Player";
 import Participant from "./Participant";
 import GetPlayer from "../../functions/GetPlayer";
+import GetTeam from "../../functions/GetTeam";
 
 interface Props {
 	tourney: Tourney;
@@ -50,8 +51,13 @@ const Participants = ({ tourney, setTourneyData }: Props) => {
 		setTourneyData(updatedTourneyData);
 	};
 
-	const fetchPlayerData = async (index: number, playerId: number) => {
-		const playerData = await GetPlayer(playerId);
+	const fetchPlayerData = async (index: number, partyId: number) => {
+		let playerData;
+		if (tourney.data.type == "team") {
+			playerData = await GetTeam(partyId);
+		} else {
+			playerData = await GetPlayer(partyId);
+		}
 		const updatedParticipant = { ...localTourneyData.data.participants[index], who: playerData };
 		updateParticipant(index, updatedParticipant);
 	};
@@ -63,7 +69,7 @@ const Participants = ({ tourney, setTourneyData }: Props) => {
 	return (
 		<div className="TourneyEditor-Participants">
 			{localTourneyData.data.participants && drawParticipants()}
-			<div className="TourneyEditor-Participants-Block" onClick={addBlankParticipant}>
+			<div className="TourneyEditor-Participants-Block new" onClick={addBlankParticipant}>
 				<IoMdAdd className="TourneyEditor-Participants-Icon" />
 				<p>Add new participant</p>
 			</div>

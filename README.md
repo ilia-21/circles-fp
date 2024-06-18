@@ -53,11 +53,17 @@ Daily website build (except weekends): [circlesfrontpage.iii.cl](https://circles
 │ │ └─ Possibly more odds
 │ └─ Add links to mp, where to watch
 │
+├─┬─ Add settings
+│ ├─ Cloud sync
+│ ├─ Website color options
+│ └─ UserArea pages options
+│
 ├─┬─ Create tournament editor
 │ ├─ Basic info editor
 │ ├─ Participants editor
 │ ├─ Bracket editor
-│ └─ Map pool editor                                    <-- we are here
+│ ├─ Match editor                                       <-- we are here
+│ └─ Map pool editor
 │
 ├─┬─ Finish profile page
 │ ├─┬─ Add player stats
@@ -85,6 +91,10 @@ Daily website build (except weekends): [circlesfrontpage.iii.cl](https://circles
 │ └─ Player's upcoming tournaments
 │
 │
+├─┬─ (Sidequest) Discord bot for announcing new tournaments, tournament winners, important matches
+│ ├─ Player's upcoming matches with detailed stats about the opponent
+│ ├─ Player's stats (but more detailed than public, I guess?)
+│ └─ Player's upcoming tournaments
 │
 │
 ┆

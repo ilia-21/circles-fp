@@ -1,5 +1,3 @@
-import { LargeNumberLike } from "crypto";
-
 // https://osu.ppy.sh/wiki/en/Beatmap/Approach_rate
 let calculateDTAR = (ar: number) => {
 	//thank you https://www.reddit.com/r/osugame/comments/99bj39/comment/e4mksa8/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button

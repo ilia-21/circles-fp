@@ -53,7 +53,7 @@ const BracketCard = ({ tourney, bracketWidth }: Props) => {
 		};
 	}, []);
 
-	tourney.data.bracket = ProcessTournamentBracket(tourney);
+	const localBracket = ProcessTournamentBracket(tourney);
 	const finalWidth = Math.max(width, 500);
 	//I am in a lot of pain right now :start
 	//Sorry to whoever will have to read this :after 17 minutes
@@ -62,7 +62,7 @@ const BracketCard = ({ tourney, bracketWidth }: Props) => {
 	return (
 		<div ref={containerRef} className="bracketCardContainer">
 			<DoubleEliminationBracket
-				matches={tourney.data.bracket}
+				matches={localBracket}
 				matchComponent={(
 					{ match, onMatchClick, onPartyClick, onMouseEnter, onMouseLeave, topParty, bottomParty, topWon, bottomWon, topHovered, bottomHovered, topText, bottomText }: any //connectorColor, computedStyles, teamNameFallback, resultFallback
 				) => (

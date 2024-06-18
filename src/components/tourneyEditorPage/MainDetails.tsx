@@ -46,7 +46,12 @@ const MainDetails = ({ tourney, setTourneyData }: Props) => {
 		setLocalTourneyData(updatedTourney);
 		setTourneyData(updatedTourney);
 	};
-
+	const handleTypeChange = (type: "1v1" | "team") => {
+		const updatedData = { ...localTourneyData.data, type: type, participants: [] };
+		const updatedTourney = { ...localTourneyData, data: updatedData };
+		setLocalTourneyData(updatedTourney);
+		setTourneyData(updatedTourney);
+	};
 	const textAreaAdjust = (element: HTMLTextAreaElement) => {
 		element.style.height = element.rows * 5 + "em";
 	};
@@ -64,6 +69,18 @@ const MainDetails = ({ tourney, setTourneyData }: Props) => {
 				<PlayerLink user={host} />
 				<CiWarning style={{ color: "var(--red)" }} />
 				<Tooltip content={"Be careful! Changing this may revoke your right to edit the tournament."} />
+			</div>
+			<div className="TourneyEditor-MainDetails-Line" style={{ margin: "1em 0" }}>
+				<p>Type:</p>
+				<div className="toggler">
+					<span className={tourney.data.type == "1v1" ? "selected" : "unselected"} onClick={() => handleTypeChange("1v1")}>
+						1v1
+					</span>
+					<span className={tourney.data.type == "team" ? "selected" : "unselected"} onClick={() => handleTypeChange("team")}>
+						Team
+					</span>
+				</div>
+				<Tooltip content={"Be careful! Changing this will erase all current participants."} />
 			</div>
 			<div className="TourneyEditor-MainDetails-Line" style={{ display: "block", width: "99%" }}>
 				<p>Description (supports markdown!):</p>

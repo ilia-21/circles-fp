@@ -14,6 +14,7 @@ interface Props {
 	allParticipants: string[];
 	allMatches: BracketMatch[];
 	setMatchesErrored: (error: boolean) => void;
+	allPools: string[];
 }
 
 const getTimeZone = () => {
@@ -43,17 +44,18 @@ const convertTime = (time: string): [string, string] => {
 
 	return [localDateString, localTimeString];
 };
-const Match = ({ match, matchBracket, matchIndex, removeMatch, updateMatch, allParticipants, allMatches, setMatchesErrored }: Props) => {
+const Match = ({ match, matchBracket, matchIndex, removeMatch, updateMatch, allParticipants, allMatches, setMatchesErrored, allPools }: Props) => {
 	const [bracket, setBracket] = useState<"lower" | "upper">(matchBracket);
 	const [timestamp, setTimestamp] = useState<string[] | null>(convertTime(match.startTime) || null);
 	const [score, setScore] = useState<string[] | null>([match.participants[0].resultText, match.participants[1].resultText] || null);
 	const [matchState, setMatchState] = useState<"SCORE_DONE" | "DONE" | "NO_SHOW" | "WALK_OVER" | "NO_PARTY">(match.state);
 
 	const checkIfMatchExists = (matchId: string) => {
-		console.log(allMatches, matchId);
-		const found = allMatches.find((m) => {
-			m.id == matchId;
-		});
+		const found = allMatches.find((m) => m.id == matchId);
+		found ? setMatchesErrored(false) : setMatchesErrored(true);
+	};
+	const checkForMpLink = (matchId: string) => {
+		const found = allMatches.find((m) => m.id == matchId);
 		found ? setMatchesErrored(false) : setMatchesErrored(true);
 	};
 	const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -63,7 +65,6 @@ const Match = ({ match, matchBracket, matchIndex, removeMatch, updateMatch, allP
 			const updatedParticipants = [...match.participants];
 			updatedParticipants[index].name = value;
 			updatedParticipants[index].id = value;
-			console.log(updatedParticipants, value, index);
 			const updatedMatch = { ...match, participants: updatedParticipants };
 			updateMatch(matchIndex, bracket, updatedMatch);
 		} else if (e.target.name.startsWith("score")) {
@@ -119,7 +120,6 @@ const Match = ({ match, matchBracket, matchIndex, removeMatch, updateMatch, allP
 			</div>
 		);
 	};
-
 	return (
 		<div className={`TourneyEditor-Match-Container`} id={`match-${match.id}`}>
 			<div className="TourneyEditor-Match-Toolbar">
@@ -137,10 +137,22 @@ const Match = ({ match, matchBracket, matchIndex, removeMatch, updateMatch, allP
 				{drawDatePicker()}
 				<Tooltip content={`Date and time if match in YOUR timezone (${getTimeZone()}) We'll convert it for each user :)`} />
 			</div>
-			<div className="TourneyEditor-Matches-Content-Block" style={{ flexDirection: "column" }}>
-				<p>Match Name</p>
-				<input type="text" name="match.name" className="minimalisticInput" value={match.name} onChange={handleInputBlur} />
-				<Tooltip content={`Shows under this match in bracket. Can be empty`} />
+			<div className="TourneyEditor-Matches-Content-Block">
+				<div style={{ flexDirection: "column" }}>
+					<p>Match Name</p>
+					<input type="text" name="match.name" className="minimalisticInput" value={match.name} onChange={handleInputBlur} />
+					<Tooltip content={`Shows under this match in bracket. Can be empty`} />
+				</div>
+				<div style={{ flexDirection: "column" }}>
+					<p>Mp id</p>
+					<input type="text" name="match.mpID" className="minimalisticInput" value={match.mpID} onChange={handleInputBlur} />
+					<Tooltip content={`A osu mp id, for example in match https://osu.ppy.sh/community/matches/111554331, you should paste 111554331 `} />
+				</div>
+				<div style={{ flexDirection: "column" }}>
+					<p>Tournament stage</p>
+					<InputWithSuggestions value={match.tournamentRoundText as string} name="match.tournamentRoundText" onBlur={handleInputBlur} suggestions={allPools} />
+					<Tooltip content={`Required for finished matches, stage must have mappool `} />
+				</div>
 			</div>
 			<div className="TourneyEditor-Matches-Content-Block">
 				<div>

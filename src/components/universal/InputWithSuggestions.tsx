@@ -32,7 +32,7 @@ const InputWithSuggestions = ({ name, suggestions, value, onChange, onBlur, onPa
 	}, [inputValue, suggestions]);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		!showSuggestions && !suggestions.includes(e.target.value) && setShowSuggestions(true);
+		!showSuggestions && !suggestions.includes(e.target.value.toLowerCase()) && setShowSuggestions(true);
 		setInputValue(e.target.value);
 	};
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

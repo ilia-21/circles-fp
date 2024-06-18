@@ -41,7 +41,12 @@ const Mappool = ({ mapPool, index, removePool, updatePool }: Props) => {
 	};
 
 	const addBlankMap = () => {
-		const updatedMaps: [number, MappoolMod][] = [...(localPoolData.maps as [number, MappoolMod][]), [0, "NM1"] as [number, MappoolMod]];
+		const newCounter = { ...poolMapsCounter };
+
+		newCounter["NM"]++;
+
+		setPoolMapsCounter(newCounter);
+		const updatedMaps: [number, MappoolMod][] = [...(localPoolData.maps as [number, MappoolMod][]), [0, `NM${newCounter["NM"]}`] as [number, MappoolMod]];
 		const updatedPool = { ...localPoolData, maps: updatedMaps };
 		syncPools(index, updatedPool);
 	};

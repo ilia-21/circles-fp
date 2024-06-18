@@ -14,6 +14,7 @@ import Participants from "../components/tourneyEditorPage/Participants";
 import Matches from "../components/tourneyEditorPage/Matches";
 import CheckTournament from "../functions/CheckTournament";
 import MappoolEditor from "../components/tourneyEditorPage/MappoolEditor";
+import IsEditor from "../functions/IsEditor";
 
 const TourneyEditor = () => {
 	const [tourneyData, setTourneyData] = useState<Tourney | null>(null);
@@ -68,7 +69,7 @@ const TourneyEditor = () => {
 	// useEffect(() => {
 	// 	setConfirmation(false);
 	// }, [tourneyData]);
-	// Canceled, since it's lagging textarea a lot
+	// Canceled, since it's lagging  a lot
 
 	// confirm closing
 	useEffect(() => {
@@ -102,15 +103,14 @@ const TourneyEditor = () => {
 			setMessage(null);
 		}, time);
 	}
-
 	if (loading) {
 		return <h1>{randomLoadingMessage()}</h1>;
 	}
-	// @ts-ignore: Object is possibly 'null'.
 	if (errorMessage) {
 		return <ErrorPage error={[Number(errorMessage[0]), errorMessage[1]]} />;
 	}
-	if (!user || (!loading && !user.cfp.roles.DEV && !user.cfp.roles.MOD && user && user.id != tourneyData?.host.id)) {
+	// @ts-ignore
+	if (!user && !loading && !IsEditor({ key: user.id, condition: "equals", value: tourneyData?.host.id }, user as unknown as PlayerLite)) {
 		return <ErrorPage error={[401, "You are not supposed to be here"]} />;
 	}
 	return (

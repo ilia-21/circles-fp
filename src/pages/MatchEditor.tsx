@@ -1,24 +1,29 @@
 import { useEffect, useState } from "react";
-import "../components/universal/universal.css";
-import type { Match } from "../types/Match";
-import { PlayerLite } from "../types/Player";
-import { Team } from "../types/Team";
 import { useParams } from "react-router-dom";
-import randomLoadingMessage from "../functions/loadingMessages";
-import MatchCardBig from "../components/matchPage/MatchCardBig";
+import { Match } from "../types/Match";
 import { Tourney } from "../types/Tourney";
-import MatchDetails from "../components/matchPage/MatchDetails";
+import { Team } from "../types/Team";
+import { PlayerLite } from "../types/Player";
+import randomLoadingMessage from "../functions/loadingMessages";
 import ErrorPage from "./ErrorPage";
-import MatchEvent from "../components/matchPage/MatchEvent";
-import genRanHex from "../functions/GetRanHex";
-import MatchTeamEvent from "../components/matchPage/MatchTeamEvent";
-
-const Match = () => {
+import MatchCardBig from "../components/matchPage/MatchCardBig";
+import { PickEvent } from "../types/MatchEvent";
+import { IoMdAdd } from "react-icons/io";
+import Pick from "../components/matchEditorPage/Pick";
+import { MappoolMod } from "../types/Beatmap";
+const BlankPick: PickEvent = {
+	who: "first",
+	type: "pick",
+	map: "NM1",
+};
+const MatchEditor = () => {
 	const { id } = useParams<{ id: string }>();
 	const [matchData, setMatchData] = useState<Match | null>(null);
 	const [tournamentData, setTournamentData] = useState<Tourney | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string[] | null>(null);
+	const [pickData, setPickData] = useState<PickEvent[] | null | undefined>((matchData && matchData.data && matchData.data.picks) || null);
+	const [availableMaps, setAvailableMaps] = useState<string[] | null>();
 
 	useEffect(() => {
 		const fetchMatch = async () => {
@@ -49,7 +54,6 @@ const Match = () => {
 
 		fetchMatch();
 	}, [id]);
-
 	useEffect(() => {
 		const fetchTournament = async () => {
 			if (!matchData || !matchData.tournament) {
@@ -57,7 +61,7 @@ const Match = () => {
 			}
 
 			try {
-				const response = await fetch(`${import.meta.env.VITE_API_URL}/tourney/${matchData.tournament}`, {
+				const response = await fetch(`${import.meta.env.VITE_API_URL}/tourney/${matchData.tournament}?raw=true`, {
 					headers: {
 						"x-api-key": import.meta.env.VITE_API_KEY,
 					},
@@ -81,6 +85,9 @@ const Match = () => {
 
 		// shit here was completely wrong
 	}, [matchData]);
+	useEffect(() => {
+		setPickData(matchData?.data?.picks || []);
+	}, []);
 
 	const first = matchData?.first as Team | PlayerLite;
 	const second = matchData?.second as Team | PlayerLite;
@@ -92,43 +99,46 @@ const Match = () => {
 			</div>
 		);
 	}
-
 	if (error) {
 		return <ErrorPage error={[Number(error[0]), error[1]]} />;
 	} else if (!matchData) {
 		return <ErrorPage error={[500, "Failed to load match data"]} />;
 	}
-
-	const drawEvents = () => {
-		const events = [];
-		if (!matchData.first.title) {
-			//for some reason this thing always sets matchData.type to "1v1" and I don't know why
-			for (let i = 0; i < matchData.events.length; i++) {
-				events.push(<MatchEvent key={genRanHex(4)} event={matchData.events[i]} first={(matchData.first as PlayerLite).username} second={(matchData.second as PlayerLite).username} next={matchData.events[i + 1]} />);
-			}
-		} else {
-			for (let i = 0; i < matchData.events.length; i++) {
-				events.push(<MatchTeamEvent key={genRanHex(4)} event={matchData.events[i]} first={matchData.first as Team} second={matchData.second as Team} next={matchData.events[i + 1]} />);
-			}
-		}
-		return events;
+	const addBlankPick = () => {
+		const updatedPicks = [...(pickData || []), BlankPick];
+		setPickData(updatedPicks);
 	};
-
+	const drawPicksEditor = () => {
+		if (matchData.data && matchData.data.stage) setAvailableMaps(tournamentData?.data.pool[matchData.data.stage].maps.map((m) => `${(m as [number, MappoolMod])[0]}`));
+		console.log(availableMaps);
+		for (const p of pickData || []) {
+			const updatedMaps = "";
+		}
+		if (pickData) {
+			console.log(pickData);
+			return pickData.map((p, index) => {
+				<Pick first={matchData.first} second={matchData.second} pick={p} pickData={pickData} setPickData={setPickData} />;
+			});
+		} else {
+			return <div>no picks</div>;
+		}
+	};
 	return (
-		<>
-			<div className="contentSlim">
-				<h1 className="alignCenter">
-					{(first as Team).title || (first as PlayerLite)?.username} vs {(second as Team)?.title || (second as PlayerLite)?.username}
-				</h1>
+		<div>
+			<div className="content">
 				<MatchCardBig match={matchData} />
 			</div>
-			<MatchDetails match={matchData} tournament={tournamentData as Tourney} />
-			<div className="contentSlim-section">
-				{matchData.extra && <p style={{ color: "var(--red)" }}>Warning! This match is not in the database, data maybe incorrect/not full</p>}
-				{drawEvents()}
+			<div className="content-section">
+				<div>
+					{pickData && drawPicksEditor()}
+					<div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }} onClick={addBlankPick}>
+						<IoMdAdd className="TourneyEditor-Participants-Icon" />
+						<p>Add new pick</p>
+					</div>
+				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 
-export default Match;
+export default MatchEditor;

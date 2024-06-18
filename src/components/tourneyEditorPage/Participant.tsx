@@ -3,6 +3,8 @@ import { CiTrash } from "react-icons/ci";
 import Tooltip from "../universal/Tooltip";
 import { TourneyParticipant } from "../../types/Tourney";
 import { PlayerLitest } from "../../types/Player";
+import { realpathSync } from "fs";
+import { Team } from "../../types/Team";
 
 interface Props {
 	participant: TourneyParticipant;
@@ -42,6 +44,25 @@ const Participant = ({ participant, index, removeParticipant, updateParticipant,
 		const updatedParticipant = { ...participant, why: value };
 		updateParticipant(index, updatedParticipant);
 	};
+	const drawParticipantData = () => {
+		if ((participant.who as Team).title) {
+			return (
+				<div className="TourneyEditor-Participants-Block">
+					<img src={(participant.who as Team).logo} className="TourneyEditor-Participants-Avatar" alt="Participant Avatar" />
+					<input type="text" className="minimalisticInput" value={(participant.who as Team).title} name="username" readOnly style={{ textAlign: "center" }} />
+					<input type="text" className="minimalisticInput" value={participant.why} onChange={handleWhyChange} style={{ textAlign: "center" }} />
+				</div>
+			);
+		} else {
+			return (
+				<div className="TourneyEditor-Participants-Block">
+					<img src={(participant.who as PlayerLitest).avatar_url} className="TourneyEditor-Participants-Avatar" alt="Participant Avatar" />
+					<input type="text" className="minimalisticInput" value={(participant.who as PlayerLitest).username} name="username" readOnly style={{ textAlign: "center" }} />
+					<input type="text" className="minimalisticInput" value={participant.why} onChange={handleWhyChange} style={{ textAlign: "center" }} />
+				</div>
+			);
+		}
+	};
 
 	return (
 		<div className="TourneyEditor-Participants-Container">
@@ -50,11 +71,7 @@ const Participant = ({ participant, index, removeParticipant, updateParticipant,
 				<CiTrash className="TourneyEditor-Participants-Block-Delete" onClick={() => removeParticipant(index)} />
 				<Tooltip content="Participant's id" />
 			</div>
-			<div className="TourneyEditor-Participants-Block">
-				<img src={(participant.who as PlayerLitest).avatar_url} className="TourneyEditor-Participants-Avatar" alt="Participant Avatar" />
-				<input type="text" className="minimalisticInput" value={(participant.who as PlayerLitest).username} name="username" readOnly style={{ textAlign: "center" }} />
-				<input type="text" className="minimalisticInput" value={participant.why} onChange={handleWhyChange} style={{ textAlign: "center" }} />
-			</div>
+			{drawParticipantData()}
 		</div>
 	);
 };

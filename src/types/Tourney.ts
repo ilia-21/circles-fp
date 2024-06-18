@@ -17,6 +17,7 @@ export interface Tourney {
 	matches: Match[];
 }
 interface TourneyData {
+	type?: "1v1" | "team";
 	banner: string;
 	description: string;
 	icon: string;

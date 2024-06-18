@@ -88,7 +88,7 @@ const Matches = ({ tourney, setTourneyData }: Props) => {
 
 	const drawMatches = useCallback(
 		(br: "upper" | "lower") => {
-			return localTourneyData.data.bracket[br].map((match, i) => <Match key={match.id} matchIndex={i} matchBracket={br} match={match} removeMatch={removeMatch} updateMatch={updateMatch} allParticipants={allParticipants} allMatches={[...tourney.data.bracket.lower, ...tourney.data.bracket.upper]} setMatchesErrored={setMatchesErrored} />);
+			return localTourneyData.data.bracket[br].map((match, i) => <Match key={match.id} matchIndex={i} matchBracket={br} match={match} removeMatch={removeMatch} updateMatch={updateMatch} allParticipants={allParticipants} allMatches={[...tourney.data.bracket.lower, ...tourney.data.bracket.upper]} setMatchesErrored={setMatchesErrored} allPools={tourney.data.pool.map((p) => p.title)} />);
 		},
 		[localTourneyData.data.bracket, allParticipants, removeMatch, updateMatch]
 	);

@@ -14,6 +14,9 @@ import Infopage from "./components/infoPages/InfoPage";
 import Match from "./pages/Match";
 import CookieWarningPopup from "./components/universal/CookieWarningPopup";
 import TourneyEditor from "./pages/TourneyEditor";
+import Settings from "./pages/Settings";
+import SettingsLoader from "./components/universal/SettingsLoader";
+import MatchEditor from "./pages/MatchEditor";
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -49,6 +52,7 @@ function App() {
 	return (
 		<Router>
 			{showPopup && <CookieWarningPopup onClose={handleClosePopup} />}
+			<SettingsLoader />
 			<NavBar selected={currentPage} links={links} user={user} />
 			<ErrorBoundary fallbackRender={SomethingWentWrong}>
 				<Routes>
@@ -64,10 +68,14 @@ function App() {
 						<Route path=":id/results" element={<Tourney page="results" />} />
 						<Route path=":id/stats" element={<Tourney page="stats" />} />
 					</Route>
-					<Route path="editor/tourney/:id" element={<TourneyEditor />} />
+					<Route path="editor">
+						<Route path="tourney/:id" element={<TourneyEditor />} />
+						<Route path="match/:id" element={<MatchEditor />} />
+					</Route>
 					<Route path="match/:id" element={<Match />} />
 					<Route path="team/:id" element={<TeamPage />} />
 					<Route path="info/*" element={<Infopage />} />
+					<Route path="settings/" element={<Settings />} />
 					<Route path="*" element={<ErrorPage />} />
 				</Routes>
 				<Footer />

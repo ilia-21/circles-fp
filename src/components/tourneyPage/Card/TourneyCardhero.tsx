@@ -10,6 +10,7 @@ import { PlayerLite, PlayerLitest } from "../../../types/Player";
 import { Beatmap } from "../../../types/Beatmap";
 import { useEffect, useState } from "react";
 import { LuPencil } from "react-icons/lu";
+import IsEditor from "../../../functions/IsEditor";
 interface Props {
 	tourney: Tourney;
 }
@@ -67,7 +68,7 @@ const TourneyCardhero = ({ tourney }: Props) => {
 		return participants.map((p) => (
 			<div className="tourneyInfo-Participant">
 				<img src={(p.who as PlayerLitest).avatar_url} alt="" />
-				<p>{(p.who as PlayerLitest).username}</p>
+				<a href={`/#/profile/${p.who.id}`}>{(p.who as PlayerLitest).username}</a>
 				<p>{p.why}</p>
 			</div>
 		));
@@ -78,7 +79,7 @@ const TourneyCardhero = ({ tourney }: Props) => {
 			<img src={tourney.data.banner} alt="" />
 			<div style={{ position: "relative" }}>
 				<h1>{tourney.title}</h1>
-				{(user?.cfp.roles.DEV || user?.cfp.roles.MOD || (user && user.id == tourney.host.id)) && (
+				{user && IsEditor({ key: `${user?.id}`, condition: "equals", value: tourney.host.id }, user as PlayerLite) && (
 					<div className="teamProfileEditButton">
 						<a href={`/#/editor/tourney/${tourney.id}`}>
 							<LuPencil style={{ fontSize: "1.5em" }} />

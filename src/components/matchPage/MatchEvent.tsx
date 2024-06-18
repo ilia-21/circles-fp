@@ -33,6 +33,7 @@ const MatchEvent = ({ event, next, first, second }: Props) => {
 				</div>
 			);
 		};
+		console.log(firstScore, secondScore);
 		return (
 			<div className="MatchPlay">
 				<a
@@ -51,14 +52,20 @@ const MatchEvent = ({ event, next, first, second }: Props) => {
 					<p>{beatmap.beatmapset.title}</p>
 				</a>
 				<div className="MatchScoresContainer">
-					<div className={firstScore?.score > secondScore?.score ? "MatchScoreContainer winner" : "MatchScoreContainer looser"}>
+					<div className={firstScore?.score > secondScore?.score || !secondScore ? "MatchScoreContainer winner" : "MatchScoreContainer looser"}>
 						<p className="MatchScorePoints">{firstScore?.score}</p>
 						{drawScoreDetails(firstScore)}
 					</div>
-					<div className={secondScore?.score > firstScore?.score ? "MatchScoreContainer winner" : "MatchScoreContainer looser"}>
-						<p className="MatchScorePoints">{secondScore?.score}</p>
-						{drawScoreDetails(secondScore)}
-					</div>
+					{secondScore ? (
+						<div className={secondScore?.score > firstScore?.score ? "MatchScoreContainer winner" : "MatchScoreContainer looser"}>
+							<p className="MatchScorePoints">{secondScore?.score}</p>
+							{drawScoreDetails(secondScore)}
+						</div>
+					) : (
+						<div className={"MatchScoreContainer looser"}>
+							<p className="MatchScorePoints">{"Disconnect"}</p>
+						</div>
+					)}
 				</div>
 			</div>
 		);

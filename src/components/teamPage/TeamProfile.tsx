@@ -9,6 +9,7 @@ import MatchLongResult from "../tourneyPage/Results/MatchLongResult";
 import PlayerLink from "../universal/PlayerLink";
 import { Team } from "../../types/Team";
 import { useEffect, useState } from "react";
+import IsEditor from "../../functions/IsEditor";
 interface Props {
 	team: Team;
 }
@@ -74,7 +75,7 @@ const TeamProfile = ({ team }: Props) => {
 					<p>
 						Leader: <PlayerLink user={team.leader} />
 					</p>
-					{(user?.cfp.roles.DEV || user?.cfp.roles.MOD || (user && user.id == team.leader.id)) && (
+					{user && IsEditor({ key: `${user?.id}`, condition: "equals", value: team.leader.id }, user as PlayerLite) && (
 						<div className="teamProfileEditButton">
 							<a href={`/#/team/${team.id}?edit=true`}>
 								<LuPencil />

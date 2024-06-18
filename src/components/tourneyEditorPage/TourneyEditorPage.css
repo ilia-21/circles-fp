@@ -45,6 +45,15 @@
 	gap: 0.5em;
 	width: 10em;
 }
+.TourneyEditor-Participants-Block.new {
+	background-color: var(--cfp-bg-tertiary);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	gap: 0.5em;
+	width: 12em;
+}
 .TourneyEditor-Matches-Content-Block {
 	display: flex;
 	align-items: center;
@@ -229,6 +238,7 @@
 	color: var(--cfp-bg);
 	border-radius: 2em;
 	font-weight: bold;
+	cursor: pointer;
 }
 .modNM {
 	background-color: var(--green);

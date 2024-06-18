@@ -15,10 +15,11 @@
 export interface BracketMatch {
 	id: string;
 	href?: string;
+	mpID?: string;
 	name?: string;
 	nextMatchId: string | null;
 	nextLooserMatchId: string | null;
-	tournamentRoundText?: string; // (broken) Text for Round Header
+	tournamentRoundText?: string; // (broken) Text for Round Header, used for tournament stage, for example: Semifinals
 	startTime: string;
 	state: "DONE" | "NO_SHOW" | "WALK_OVER" | "NO_PARTY" | "DONE" | "SCORE_DONE";
 	participants: Participant[];

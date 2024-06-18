@@ -47,7 +47,7 @@ const BeatMapCardMed = ({ map }: Props) => {
 			</div>
 			<p className="BeatMapid" onClick={copyMapID}>
 				{copied ? "Copied!" : map.id}
-				<Tooltip content={"Click to to copy"} />
+				<Tooltip content={"Click to copy"} />
 			</p>
 			<div className="BeatMapModsCont">
 				<BeatmapMod mod={modifiedMap.mod} />

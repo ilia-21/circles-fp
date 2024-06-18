@@ -193,3 +193,46 @@ interface UserAchievement {
 	achieved_at: Date;
 	achievement_id: number;
 }
+export interface UserSettings {
+	colors: {
+		/* CFP styles */
+		cfpBgDark: string;
+		cfpBg: string;
+		cfpBgSecondary: string;
+		cfpBgTertiary: string;
+		cfpAccent: string;
+		cfpText: string;
+		advanced: {
+			rosewater: string;
+			flamingo: string;
+			pink: string;
+			mauve: string;
+			red: string;
+			maroon: string;
+			peach: string;
+			yellow: string;
+			green: string;
+			teal: string;
+			sky: string;
+			sapphire: string;
+			blue: string;
+			lavender: string;
+			text: string;
+			subtext0: string;
+			subtext1: string;
+			overlay0: string;
+			overlay1: string;
+			overlay2: string;
+			surface0: string;
+			surface1: string;
+			surface2: string;
+			base: string;
+			mantle: string;
+			crust: string;
+		};
+	};
+	profileButtons: string[];
+}
+export interface Me extends Player {
+	settings: UserSettings | {};
+}

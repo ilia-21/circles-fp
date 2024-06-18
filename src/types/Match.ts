@@ -12,7 +12,11 @@ export interface Match {
 	first: Team | Player;
 	second: Team | Player;
 	timestamp: string;
-	data: any;
+	data?: MatchData;
 	date: string;
 	extra?: string;
+}
+interface MatchData {
+	stage: string;
+	picks: PickEvent[];
 }

@@ -11,7 +11,7 @@ interface Props {
 
 const MatchCardBig = ({ match }: Props) => {
 	const drawParty = (which: "first" | "second") => {
-		if (!(match.first as Team).logo) {
+		if (!(match[which] as Team).logo) {
 			const party = match[which] as PlayerLite;
 			return (
 				<div className="MatchCardBigPlayer">

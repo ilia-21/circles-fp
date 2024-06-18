@@ -1,5 +1,7 @@
+import { MappoolMod } from "../types/Beatmap";
 import { Tourney } from "../types/Tourney";
 const sendTournament = async (id: string, tourneyData: Tourney, setMessage: (message: string[]) => void) => {
+	console.log("sending..");
 	try {
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/edit/tourney/${id}`, {
 			method: "POST",
@@ -30,7 +32,7 @@ const highlightMatches = (foundIn: string[]) => {
 	}
 };
 let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, setMessage: (message: string[]) => void) => {
-	let foundIn = [];
+	let foundIn: any = [];
 	// Test 1
 	// Check for matches without any routes for winner
 	// There should only be one match without a nextMatchId: the last one.
@@ -121,11 +123,6 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 		}
 		if (thisLooser) {
 			if (nextLooserMatch?.participants[0].name && !nextLooserMatch?.participants.find((p) => p.name == thisLooser.name)) {
-				console.log(
-					nextLooserMatch?.participants[0].name,
-					thisLooser.name,
-					nextLooserMatch?.participants.find((p) => p.name == thisLooser.name)
-				);
 				counter++;
 				foundIn.push(match.id);
 			}
@@ -152,7 +149,66 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 
 		return false;
 	}
+	counter = 0;
+	foundIn = [];
 	// Test 5
+	// Check if all finished matches have a valid mp link
+	for (const match of [...tourneyData.data.bracket.upper, ...tourneyData.data.bracket.lower]) {
+		if ((!match.mpID || !Number(match.mpID)) && match.state == "DONE") {
+			counter++;
+			foundIn.push(match.id);
+		}
+	}
+	highlightMatches(foundIn);
+	if (counter > 0) {
+		setMessage(["red", `Your matches are incorrect! All finished matches MUST have a valid osu mp link, but these don't: ${foundIn.join(", ")}`]);
+		if (foundIn.length == 1) {
+			setTimeout(() => document.getElementById(`match-${foundIn[0]}`)?.scrollIntoView(), 1000);
+		}
+
+		return false;
+	}
+	counter = 0;
+	foundIn = [];
+	// Test 6
+	// Check if all finished matches have a mappool assigned
+	for (const match of [...tourneyData.data.bracket.upper, ...tourneyData.data.bracket.lower]) {
+		if (!tourneyData.data.pool.find((p) => p.title == match.tournamentRoundText) && match.state == "DONE") {
+			counter++;
+			foundIn.push(match.id);
+		}
+	}
+	highlightMatches(foundIn);
+	if (counter > 0) {
+		setMessage(["red", `Your matches are incorrect! All finished matches MUST have a valid stage, but these don't: ${foundIn.join(", ")}`]);
+		if (foundIn.length == 1) {
+			setTimeout(() => document.getElementById(`match-${foundIn[0]}`)?.scrollIntoView(), 1000);
+		}
+
+		return false;
+	}
+	counter = 0;
+	foundIn = [];
+	// Test 7
+	// Check if there's only one TB in each map pool
+	for (const pool of tourneyData.data.pool) {
+		let TBcount = 0;
+		for (const map of pool.maps) {
+			if ((map as [number, MappoolMod])[1].slice(0, 2) == "TB") TBcount++;
+		}
+		if (TBcount > 1) {
+			counter++;
+			foundIn.push(pool.title);
+		}
+	}
+	highlightMatches(foundIn);
+	if (counter > 0) {
+		setMessage(["red", `Your map pools are incorrect! All map pool MUST have only one Tiebreaker, but these don't: ${foundIn.join(", ")}`]);
+
+		return false;
+	}
+
+	// Test 8
 	// Check if all images in description are from allowed links
 	const description = tourneyData.data.description;
 	const allowedDomains = ["imgur.com", "puu.sh", "ppy.sh"];
@@ -165,7 +221,7 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 		}
 		return false;
 	}
-	// Test 6
+	// Test 9
 	// Check for fake links in description
 	const markdownLinkRegex = /\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g;
 	let match;
@@ -185,7 +241,7 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 	if (send) {
 		sendTournament(id, tourneyData, setMessage);
 	} else {
-		setMessage(["green", "Errors in your tournament not found, click again to confirm"]);
+		setMessage(["green", "No errors found in your tournament, click again to confirm"]);
 	}
 	return true;
 };

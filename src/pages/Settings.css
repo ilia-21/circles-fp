@@ -1,0 +1,80 @@
+.settings-color-block {
+	display: flex;
+	gap: 1em;
+	margin: 1em;
+}
+.sketch-picker {
+	background: var(--cfp-bg-tertiary) !important;
+	position: absolute;
+}
+.settings-header {
+	display: flex;
+	justify-content: space-between;
+}
+.settings-header-title {
+	color: var(--cfp-text);
+}
+.settings-header-title-buttons {
+	color: var(--cfp-accent);
+}
+.settings-header-buttons {
+	display: flex;
+	gap: 1em;
+}
+.settings-header-buttons svg {
+	color: var(--cfp-accent);
+	font-size: 1.5em;
+	cursor: pointer;
+}
+.settings-color-container {
+	display: flex;
+	gap: 1em;
+	align-items: center;
+	margin: 1em 0;
+}
+.settings-color-preview {
+	height: 2em;
+	width: 4em;
+	box-shadow: 0 0 1em black;
+	cursor: pointer;
+}
+.settings-colors-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.settings-colors-header > div {
+	display: flex;
+	gap: 1em;
+	cursor: pointer;
+}
+.settings-colors-header > div > p {
+	color: var(--cfp-accent);
+}
+.full-darkness-easter-egg {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0.5;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.settings-profilebutton-block {
+	display: flex;
+	justify-content: space-between;
+	padding: 1em;
+}
+.settings-profilebutton-block:nth-child(odd) {
+	background-color: var(--cfp-bg);
+}
+.settings-profilebutton-block:nth-child(even) {
+	background-color: var(--cfp-bg-tertiary);
+}
+.settings-profilebuttons-buttons {
+	color: var(--cfp-accent);
+	font-size: 1.5em;
+	cursor: pointer;
+}

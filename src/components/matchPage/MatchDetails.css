@@ -26,11 +26,17 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: space-between;
 	width: 50%;
+	padding: 1em 0;
+}
+.MatchScoreContainer > p {
+	margin: 0;
+	font-weight: bold;
+	font-size: 2em;
 }
 .MatchScoreContainer > div {
 	display: flex;
-	flex-direction: column;
 	align-items: center;
 	gap: 1em;
 }

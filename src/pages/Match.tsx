@@ -12,13 +12,30 @@ import ErrorPage from "./ErrorPage";
 import MatchEvent from "../components/matchPage/MatchEvent";
 import genRanHex from "../functions/GetRanHex";
 import MatchTeamEvent from "../components/matchPage/MatchTeamEvent";
+import { BsChevronLeft } from "react-icons/bs";
+import IsEditor from "../functions/IsEditor";
+import { LuPencil } from "react-icons/lu";
 
 const Match = () => {
 	const { id } = useParams<{ id: string }>();
+	const [user, setUser] = useState<PlayerLite | null>(null);
 	const [matchData, setMatchData] = useState<Match | null>(null);
 	const [tournamentData, setTournamentData] = useState<Tourney | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string[] | null>(null);
+
+	useEffect(() => {
+		fetch(`${import.meta.env.VITE_API_URL}/api/session`, {
+			credentials: "include",
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.isLoggedIn) {
+					setUser(data.user as PlayerLite);
+				}
+			})
+			.catch((error) => console.error("Error fetching session:", error));
+	}, []);
 
 	useEffect(() => {
 		const fetchMatch = async () => {
@@ -75,7 +92,7 @@ const Match = () => {
 			}
 		};
 
-		if (!matchData?.extra) fetchTournament();
+		if (matchData?.tournament) fetchTournament();
 
 		if (!matchData) return;
 
@@ -104,7 +121,7 @@ const Match = () => {
 		if (!matchData.first.title) {
 			//for some reason this thing always sets matchData.type to "1v1" and I don't know why
 			for (let i = 0; i < matchData.events.length; i++) {
-				events.push(<MatchEvent key={genRanHex(4)} event={matchData.events[i]} first={(matchData.first as PlayerLite).username} second={(matchData.second as PlayerLite).username} next={matchData.events[i + 1]} />);
+				events.push(<MatchEvent key={genRanHex(4)} event={matchData.events[i]} first={matchData.first as PlayerLite} second={matchData.second as PlayerLite} next={matchData.events[i + 1]} />);
 			}
 		} else {
 			for (let i = 0; i < matchData.events.length; i++) {
@@ -113,10 +130,42 @@ const Match = () => {
 		}
 		return events;
 	};
-
+	const drawExtra = () => {
+		let elements = [];
+		if (matchData.match.end_time) {
+			switch (matchData.extra) {
+				case "mpOnly":
+					elements.push(<p style={{ color: "var(--red)" }}>Warning! This match is not in the database, data maybe incorrect/not full</p>);
+					break;
+				case "noPickData":
+					elements.push(<p style={{ color: "var(--red)" }}>Warning! Tournament editor did not provide pick/ban data</p>);
+					break;
+			}
+			if (user && IsEditor({ key: `${user.id}`, condition: "equals", value: tournamentData?.host.id }, user) && matchData.extra == "noPickData") {
+				elements.push(
+					<p style={{ color: "var(--red)" }}>
+						Oh wait, you are the tournament editor, maybe <a href={`/#/editor/match/${matchData.id}`}>provide some pick/ban data?</a>
+					</p>
+				);
+			}
+		}
+		return elements;
+	};
 	return (
 		<>
 			<div className="contentSlim">
+				<div style={{ display: "flex", justifyContent: "space-between" }}>
+					{matchData.tournament && (
+						<a href={`/#/tourney/${matchData.tournament}`} style={{ display: "flex", gap: "0.5em", alignItems: "center" }}>
+							<BsChevronLeft /> Back to the tournament
+						</a>
+					)}
+					{user && IsEditor({ key: `${user.id}`, condition: "equals", value: tournamentData?.host.id }, user) && (
+						<a href={`/#/editor/match/${matchData.id}`} style={{ display: "flex", gap: "0.5em", alignItems: "center" }}>
+							<LuPencil />
+						</a>
+					)}
+				</div>
 				<h1 className="alignCenter">
 					{(first as Team).title || (first as PlayerLite)?.username} vs {(second as Team)?.title || (second as PlayerLite)?.username}
 				</h1>
@@ -124,7 +173,7 @@ const Match = () => {
 			</div>
 			<MatchDetails match={matchData} tournament={tournamentData as Tourney} />
 			<div className="contentSlim-section">
-				{matchData.extra && <p style={{ color: "var(--red)" }}>Warning! This match is not in the database, data maybe incorrect/not full</p>}
+				{matchData.extra && drawExtra()}
 				{drawEvents()}
 			</div>
 		</>

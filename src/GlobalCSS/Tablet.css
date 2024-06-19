@@ -157,4 +157,8 @@
 		padding: 1em;
 		margin: 10em 5%;
 	}
+	/* Match editor*/
+	.matchEditor-pick-container > div {
+		flex-wrap: wrap;
+	}
 }

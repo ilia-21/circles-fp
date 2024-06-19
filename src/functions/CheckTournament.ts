@@ -1,9 +1,9 @@
 import { MappoolMod } from "../types/Beatmap";
 import { Tourney } from "../types/Tourney";
-const sendTournament = async (id: string, tourneyData: Tourney, setMessage: (message: string[]) => void) => {
-	console.log("sending..");
+const sendTournament = async (id: string, tourneyData: Tourney, setMessage: (message: string[]) => void, created?: boolean) => {
+	const url = created ? `${import.meta.env.VITE_API_URL}/new/tourney` : `${import.meta.env.VITE_API_URL}/edit/tourney/${id}`;
 	try {
-		const response = await fetch(`${import.meta.env.VITE_API_URL}/edit/tourney/${id}`, {
+		const response = await fetch(url, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -12,6 +12,7 @@ const sendTournament = async (id: string, tourneyData: Tourney, setMessage: (mes
 			credentials: "include",
 			body: JSON.stringify(tourneyData),
 		});
+		const data = await response.json();
 		if (response.status == 401) {
 			window.open("https://c.tenor.com/5laBYESlyu8AAAAC/tenor.gif", "_self");
 		}
@@ -19,7 +20,11 @@ const sendTournament = async (id: string, tourneyData: Tourney, setMessage: (mes
 			setMessage(["red", "Error, while updating tournament"]);
 			throw new Error(`Error saving data: ${response.statusText}`);
 		}
-		setMessage(["green", "Tournament information updated successfully"]);
+		if (created) {
+			window.open(`${window.location.origin}/#/tourney/${data.id}`);
+		} else {
+			setMessage(["green", "Tournament information updated successfully"]);
+		}
 		return true;
 	} catch (error) {
 		console.error(error);
@@ -28,10 +33,10 @@ const sendTournament = async (id: string, tourneyData: Tourney, setMessage: (mes
 const highlightMatches = (foundIn: string[]) => {
 	for (const m of foundIn) {
 		document.getElementById(`match-${m}`)?.classList.add("glowing-red");
-		setTimeout(() => document.getElementById(`match-${m}`)?.classList.remove("glowing-red"), 20000);
+		setTimeout(() => document.getElementById(`match-${m}`)?.classList.remove("glowing-red"), 10000);
 	}
 };
-let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, setMessage: (message: string[]) => void) => {
+let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, setMessage: (message: string[]) => void, created?: boolean) => {
 	let foundIn: any = [];
 	// Test 1
 	// Check for matches without any routes for winner
@@ -239,7 +244,7 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 	}
 
 	if (send) {
-		sendTournament(id, tourneyData, setMessage);
+		sendTournament(id, tourneyData, setMessage, created);
 	} else {
 		setMessage(["green", "No errors found in your tournament, click again to confirm"]);
 	}

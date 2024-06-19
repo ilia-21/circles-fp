@@ -58,6 +58,9 @@ h3 {
 	top: 1em;
 	color: var(--cfp-text);
 	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 1em;
 }
 .TeamPageLogo {
 	max-height: 10em;

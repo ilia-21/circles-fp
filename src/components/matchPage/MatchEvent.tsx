@@ -1,24 +1,27 @@
 import { MatchEvent as MatchEventType, PickEvent, Score } from "../../types/MatchEvent";
+import { PlayerLite } from "../../types/Player";
+import { Team } from "../../types/Team";
 import BeatmapMod from "../universal/BeatmapMod";
 import "./MatchDetails.css";
 
 interface Props {
-	first: string;
-	second: string;
+	first: PlayerLite;
+	second: PlayerLite;
 	event: MatchEventType | PickEvent;
 	next: MatchEventType | PickEvent;
 }
 
 const MatchEvent = ({ event, next, first, second }: Props) => {
+	//typescript is a blessing and a curse
 	if ((event as MatchEventType).id) {
 		event = event as MatchEventType;
 		if (event.detail.type != "other") {
 			return <></>;
 		}
 		// @ts-ignore: Object is possibly 'null'.
-		const firstScore = (event as MatchEventType).game.scores[0];
+		const firstScore = (event as MatchEventType).game.scores.find((s) => s.user_id == first.id);
 		// @ts-ignore: Object is possibly 'null'.
-		const secondScore = (event as MatchEventType).game.scores[1];
+		const secondScore = (event as MatchEventType).game.scores.find((s) => s.user_id == second.id);
 		// @ts-ignore: Object is possibly 'null'.
 		const beatmap = event.game.beatmap;
 		// @ts-ignore: Object is possibly 'null'.
@@ -27,13 +30,12 @@ const MatchEvent = ({ event, next, first, second }: Props) => {
 		const drawScoreDetails = (who: Score) => {
 			return (
 				<div>
-					<p>Acc: {Math.round(who.accuracy * 10000) / 100}%</p>
+					<p>{Math.round(who.accuracy * 10000) / 100}%</p>
 					<p>{`${who.max_combo}x`}</p>
 					<p>{`{${who.statistics.count_300}/${who.statistics.count_100}/${who.statistics.count_50}/${who.statistics.count_miss}}`}</p>
 				</div>
 			);
 		};
-		console.log(firstScore, secondScore);
 		return (
 			<div className="MatchPlay">
 				<a
@@ -78,14 +80,14 @@ const MatchEvent = ({ event, next, first, second }: Props) => {
 					<div>
 						{event.who == "first" && (
 							<p style={{ color: content[0] }}>
-								{first} {content[1]} {content[2]}
+								{first.username} {content[1]} {content[2]}
 							</p>
 						)}
 					</div>
 					<div>
 						{event.who == "second" && (
 							<p style={{ color: content[0] }}>
-								{second} {content[1]} {content[2]}
+								{second.username} {content[1]} {content[2]}
 							</p>
 						)}
 					</div>

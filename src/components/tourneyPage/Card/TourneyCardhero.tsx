@@ -11,6 +11,7 @@ import { Beatmap } from "../../../types/Beatmap";
 import { useEffect, useState } from "react";
 import { LuPencil } from "react-icons/lu";
 import IsEditor from "../../../functions/IsEditor";
+import { CiTrash } from "react-icons/ci";
 interface Props {
 	tourney: Tourney;
 }
@@ -83,6 +84,9 @@ const TourneyCardhero = ({ tourney }: Props) => {
 					<div className="teamProfileEditButton">
 						<a href={`/#/editor/tourney/${tourney.id}`}>
 							<LuPencil style={{ fontSize: "1.5em" }} />
+						</a>
+						<a href={`/#/deleter/tourney/${tourney.id}`}>
+							<CiTrash style={{ fontSize: "1.75em", color: "var(--red)" }} />
 						</a>
 					</div>
 				)}

@@ -127,15 +127,21 @@
 	/* Amazing universal styles that I should've used in a first placee */
 	.content,
 	.contentSlim {
-		width: 100%;
+		-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+		-moz-box-sizing: border-box; /* Firefox, other Gecko */
+		box-sizing: border-box;
+		max-width: 100%;
 		margin: 10em auto 0;
-		padding: 0em;
+		padding: 0.5em;
 	}
 	.content-section,
 	.contentSlim-section {
-		width: 100%;
+		-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+		-moz-box-sizing: border-box; /* Firefox, other Gecko */
+		box-sizing: border-box;
+		max-width: 100%;
 		margin: 0 auto;
-		padding: 0em;
+		padding: 0.5em;
 	}
 	/* That one input element */
 	.minimalisticInput {
@@ -163,6 +169,11 @@
 	.MatchCardBigPlayer > a > img {
 		max-width: 75%;
 	}
+	.MatchScoreContainer > div {
+		justify-content: center;
+		flex-wrap: wrap;
+		padding: 0 1em;
+	}
 	/* Cookie warning */
 	.cfpWarningPopupContent {
 		width: 100%;
@@ -172,5 +183,13 @@
 		width: 100%;
 		padding: 1em;
 		margin: 10em 0;
+	}
+	/* Match editor */
+	.matchEditor-pick-container > div {
+		flex-wrap: wrap;
+	}
+	/* Tournament editor*/
+	.TourneyEditor-MainDetails-Line {
+		width: auto;
 	}
 }

@@ -9,6 +9,7 @@ import TourneyResultsPage from "../components/tourneyPage/Results/TourneyResults
 import TourneySchedulePage from "../components/tourneyPage/Schedule/TourneySchedulePage";
 import TourneyStatsPage from "../components/tourneyPage/Stats/TourneyStatsPage";
 import randomLoadingMessage from "../functions/loadingMessages";
+import ErrorPage from "./ErrorPage";
 interface Props {
 	page: "info" | "upcoming" | "results" | "stats";
 }
@@ -16,6 +17,7 @@ interface Props {
 const Tourney = ({ page }: Props) => {
 	const { id } = useParams<{ id: string }>();
 	const [loading, setLoading] = useState<boolean>(true);
+	const [gone, setGone] = useState<boolean>(false);
 	const [tourneyData, setTourneyData] = useState<Tourney>();
 	useEffect(() => {
 		const fetchOneTourney = async () => {
@@ -26,9 +28,14 @@ const Tourney = ({ page }: Props) => {
 					},
 					credentials: "include",
 				});
+				console.log(response.status);
+				if (response.status == 410) {
+					setGone(true);
+				}
 				if (!response.ok) {
 					throw new Error(`Error fetching data: ${response.statusText}`);
 				}
+
 				const data = await response.json();
 				setTourneyData(data);
 			} catch (error) {
@@ -46,6 +53,9 @@ const Tourney = ({ page }: Props) => {
 				<p>{randomLoadingMessage()}</p>
 			</div>
 		);
+	}
+	if (gone) {
+		return <ErrorPage error={[410, "Gone"]} />;
 	}
 	const drawContent = () => {
 		switch (page) {

@@ -30,6 +30,7 @@
 	display: flex;
 	gap: 1em;
 	align-items: center;
+	flex: 0 0 40%;
 }
 .MatchLong > a {
 	margin-left: auto;

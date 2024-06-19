@@ -39,9 +39,12 @@ let DateConverter = (date: Date, type: "MM DD" | "W MM DD" | "DD" | "MM DD HH:MM
 			}).format(date);
 			break;
 		case "DD/MM/YYYY":
-			return new Intl.DateTimeFormat("en-GB", {
-				dateStyle: "short",
-			}).format(date);
+			//just why
+			const year = date.getFullYear();
+			const month = String(date.getMonth() + 1).padStart(2, "0");
+			const day = String(date.getDate()).padStart(2, "0");
+
+			return `${day}/${month}/${year.toString().padStart(4, "0")}`;
 			break;
 	}
 };

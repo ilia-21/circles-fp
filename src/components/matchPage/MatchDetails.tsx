@@ -26,7 +26,7 @@ const MatchDetails = ({ match, tournament }: Props) => {
 			<div className="contentSlim-section">
 				{drawLinks()}
 				<p></p>
-				<OneStat first={`#${(first as PlayerLite).statistics.global_rank}`} second={`#${(second as PlayerLite).statistics.global_rank}`} stat="World ranking" condition="more" />
+				<OneStat first={`#${(first as PlayerLite).statistics.global_rank}`} second={`#${(second as PlayerLite).statistics.global_rank}`} stat="World ranking" condition="less" />
 			</div>
 		);
 	} else {

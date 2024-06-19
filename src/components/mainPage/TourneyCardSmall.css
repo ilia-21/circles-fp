@@ -3,7 +3,7 @@
 	justify-content: center;
 	flex-direction: column;
 	flex-wrap: wrap;
-	gap: 5%;
+	gap: 0.5em;
 	align-items: center;
 	position: relative;
 	max-height: 5em;
@@ -15,11 +15,11 @@
 .tourneyCardSmall > a:hover {
 	text-decoration: underline;
 }
-.tourneyCardSmall > p,
-.tourneyCardSmall > a {
+.tourneyCardSmall > div > p,
+.tourneyCardSmall > div > a {
 	text-align: left;
 	margin: 0;
-	width: 62%;
+	width: 100%;
 	font-size: 1em;
 
 	/* overflow bullshit */

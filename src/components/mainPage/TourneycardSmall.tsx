@@ -1,7 +1,7 @@
+import { TourneyLite } from "../../types/Tourney";
 import "./TourneyCardSmall.css";
-import { Tourney } from "../../types/Tourney";
 interface Props {
-	tourney: Tourney;
+	tourney: TourneyLite;
 }
 
 const TourneycardSmall = ({ tourney }: Props) => {
@@ -9,14 +9,18 @@ const TourneycardSmall = ({ tourney }: Props) => {
 	let longLocalizedTimeString;
 	if (tourney.ongoing) {
 		longLocalizedTimeString = "Live";
+	} else if (tourney.endedRecently) {
+		longLocalizedTimeString = "Ended";
 	} else {
-		longLocalizedTimeString = new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric" }).format(new Date(tourney.datestart));
+		longLocalizedTimeString = new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric" }).format(new Date(tourney.datestart + "00"));
 	}
 	return (
 		<div className="tourneyCardSmall">
-			<img src={tourney.data.icon} alt="" />
-			<a href={`/#/tourney/${tourney.id}`}>{tourney.title}</a>
-			<p className="tourneyCardSmall-date">{longLocalizedTimeString}</p>
+			<img src={tourney.data.icon} alt="logo" />
+			<div>
+				<a href={`/#/tourney/${tourney.id}`}>{tourney.title}</a>
+				<p className="tourneyCardSmall-date">{longLocalizedTimeString}</p>
+			</div>
 		</div>
 	);
 };

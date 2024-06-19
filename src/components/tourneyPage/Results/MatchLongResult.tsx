@@ -12,14 +12,14 @@ const MatchLongResult = ({ match }: Props) => {
 	const renderFirstParty = () => {
 		if (match.type == "team") {
 			return (
-				<div className="MatchLongPlayerSmol">
+				<div className="MatchLongPlayerSmol" style={{ justifyContent: "end" }}>
 					<TeamLink team={match.first as Team} noColor />
 					<img src={`${(match.first as Team).logo}`} alt="" />
 				</div>
 			);
 		} else {
 			return (
-				<div className="MatchLongPlayerSmol">
+				<div className="MatchLongPlayerSmol" style={{ justifyContent: "end" }}>
 					<PlayerLink user={match.first as Player} noColor />
 					<img src={(match.first as Player).avatar_url} alt="" />
 				</div>

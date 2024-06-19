@@ -73,7 +73,7 @@ const Main = () => {
 	return (
 		<div className="mainContent">
 			{tourneyData.length > 0 && <Bannertop banner={tourneyData[0].data.banner} />}
-			<LeftPane tourneyData={tourneyData} />
+			<LeftPane />
 			<CenterPane tourneyData={tourneyData} />
 			<RightPane />
 		</div>

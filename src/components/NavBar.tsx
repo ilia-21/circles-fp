@@ -20,11 +20,11 @@ const NavBar = ({ selected, links, user }: Props) => {
 	};
 
 	const handleLogin = () => {
-		window.location.href = `${import.meta.env.VITE_API_URL}/login`;
+		window.location.href = `${import.meta.env.VITE_API_URL}/login?from=${btoa(window.location.href)}`;
 	};
 
 	const handleLogout = () => {
-		window.location.href = `${import.meta.env.VITE_API_URL}/logout`;
+		window.location.href = `${import.meta.env.VITE_API_URL}/logout?from=${btoa(window.location.href)}`;
 	};
 
 	return (

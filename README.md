@@ -1,6 +1,9 @@
 # THIS PROJECT IS STILL UNDER ACTIVE DEVELOPMENT, NOT EVERY FEATURE IS IMPLEMENTED, PLEASE, BE PATIENT
 
+**I HAVEN'T PLAYER ULTRAKILL IN 16 DAYS JUST TO FINISH THIS**
+
 Daily website build (except weekends): [circlesfrontpage.iii.cl](https://circlesfrontpage.iii.cl/)
+(may be broken)
 
 # Project "roadmap" (kinda)
 
@@ -62,10 +65,12 @@ Daily website build (except weekends): [circlesfrontpage.iii.cl](https://circles
 │ ├─ Basic info editor
 │ ├─ Participants editor
 │ ├─ Bracket editor
-│ ├─ Match editor                                       <-- we are here
+│ ├─ Match editor
 │ └─ Map pool editor
 │
-├─┬─ Finish profile page
+├─── Create tournament deleter
+│
+├─┬─ Finish profile page                                <-- we are here
 │ ├─┬─ Add player stats
 │ │ ├─ Pickrate for each mod: NM, HR, HD, DT
 │ │ ├─ Winrate for each mod: NM, HR, HD, DT
@@ -90,6 +95,7 @@ Daily website build (except weekends): [circlesfrontpage.iii.cl](https://circles
 │ ├─ Player's stats (but more detailed than public, I guess?)
 │ └─ Player's upcoming tournaments
 │
+├─── Clean up
 │
 ├─┬─ (Sidequest) Discord bot for announcing new tournaments, tournament winners, important matches
 │ ├─ Player's upcoming matches with detailed stats about the opponent

@@ -4,6 +4,17 @@ import { Match } from "./Match";
 import { Player, PlayerLite, PlayerLitest } from "./Player";
 import { Team } from "./Team";
 
+export interface TourneyLite {
+	id: number;
+	title: string;
+	ongoing: boolean;
+	endedRecently: boolean;
+	datestart: string | Date;
+	data: {
+		icon: string;
+	};
+}
+
 export interface Tourney {
 	id: number;
 	title: string;

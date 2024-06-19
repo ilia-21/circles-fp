@@ -7,7 +7,6 @@ const syncSettings = async () => {
 			credentials: "include",
 		});
 		let data = await response.json();
-		console.log(data);
 		localStorage.setItem("websiteSettings", JSON.stringify(data));
 		return data;
 	} catch (error) {

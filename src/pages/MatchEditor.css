@@ -1,0 +1,35 @@
+.matchEditor-toolbar {
+	display: flex;
+	justify-content: space-between;
+	color: var(--cfp-accent);
+	align-items: center;
+	margin: 1em 0;
+}
+.matchEditor-pick-container {
+	display: flex;
+	align-items: center;
+}
+.matchEditor-pick-container > div {
+	width: 49%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5em;
+}
+.matchEditor-pick.ban {
+	color: var(--red);
+}
+.matchEditor-pick.pick > div {
+	color: var(--green);
+}
+.matchEditor-pick-data {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5em;
+}
+.matchEditor-pick-user {
+	cursor: pointer;
+	text-decoration: underline;
+}

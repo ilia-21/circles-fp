@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { CiTrash } from "react-icons/ci";
 import { BracketMatch } from "../../types/BracketMatches";
 import InputWithSuggestions from "../universal/InputWithSuggestions";
 import Tooltip from "../universal/Tooltip";
 import DateConverter from "../../functions/DateConverter";
+import { convertTime, getTimeZone } from "../../functions/TimeOperations";
 
 interface Props {
 	match: BracketMatch;
@@ -16,87 +17,80 @@ interface Props {
 	setMatchesErrored: (error: boolean) => void;
 	allPools: string[];
 }
-
-const getTimeZone = () => {
-	var offset = new Date().getTimezoneOffset(),
-		o = Math.abs(offset);
-	return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
-};
-const convertTime = (time: string): [string, string] => {
-	const dateObject = new Date(time);
-
-	const localDateString = dateObject
-		.toLocaleDateString("en-GB", {
-			year: "numeric",
-			month: "2-digit",
-			day: "2-digit",
-		})
-		.split("/")
-		.reverse()
-		.join("-");
-
-	const localTimeString = dateObject.toLocaleTimeString("en-GB", {
-		hour: "2-digit",
-		minute: "2-digit",
-		second: "2-digit",
-		hour12: false,
-	});
-
-	return [localDateString, localTimeString];
-};
-const Match = ({ match, matchBracket, matchIndex, removeMatch, updateMatch, allParticipants, allMatches, setMatchesErrored, allPools }: Props) => {
+const Match: React.FC<Props> = React.memo(({ match, matchBracket, matchIndex, removeMatch, updateMatch, allParticipants, allMatches, setMatchesErrored, allPools }) => {
+	const getScore = () => {
+		const first = match.participants[0] ? match.participants[0].resultText : "";
+		const second = match.participants[1] ? match.participants[1].resultText : "";
+		return [first, second] || null;
+	};
 	const [bracket, setBracket] = useState<"lower" | "upper">(matchBracket);
 	const [timestamp, setTimestamp] = useState<string[] | null>(convertTime(match.startTime) || null);
-	const [score, setScore] = useState<string[] | null>([match.participants[0].resultText, match.participants[1].resultText] || null);
+	const [score, setScore] = useState<string[] | null>(getScore());
 	const [matchState, setMatchState] = useState<"SCORE_DONE" | "DONE" | "NO_SHOW" | "WALK_OVER" | "NO_PARTY">(match.state);
 
-	const checkIfMatchExists = (matchId: string) => {
-		const found = allMatches.find((m) => m.id == matchId);
-		found ? setMatchesErrored(false) : setMatchesErrored(true);
-	};
-	const checkForMpLink = (matchId: string) => {
-		const found = allMatches.find((m) => m.id == matchId);
-		found ? setMatchesErrored(false) : setMatchesErrored(true);
-	};
-	const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-		const value = e.target.value;
-		if (e.target.name.startsWith("participant")) {
-			const index = e.target.name.endsWith(".first") ? 0 : 1;
-			const updatedParticipants = [...match.participants];
-			updatedParticipants[index].name = value;
-			updatedParticipants[index].id = value;
-			const updatedMatch = { ...match, participants: updatedParticipants };
-			updateMatch(matchIndex, bracket, updatedMatch);
-		} else if (e.target.name.startsWith("score")) {
-			const index = e.target.name.endsWith(".first") ? 0 : 1;
-			const updatedParticipants = [...match.participants];
-			updatedParticipants[index].resultText = value;
-			const updatedMatch = { ...match, participants: updatedParticipants };
-			updateMatch(matchIndex, bracket, updatedMatch);
-		} else if (e.target.name.startsWith("route")) {
-			const updatedMatch = { ...match, [e.target.name === "route.win" ? "nextMatchId" : "nextLooserMatchId"]: value };
-			updateMatch(matchIndex, bracket, updatedMatch);
-		} else if (e.target.name.startsWith("match")) {
-			const key = e.target.name.replace("match.", "");
-			const updatedMatch = { ...match, [key]: value };
-			updateMatch(matchIndex, bracket, updatedMatch);
-		} else if (e.target.name.startsWith("time")) {
-			const index = e.target.name.endsWith(".date") ? 0 : 1;
-			const newTimestamp = [...(timestamp as string[])];
-			if (index === 0) {
-				newTimestamp[0] = `${value}T`;
-			} else {
-				newTimestamp[1] = `${value}${getTimeZone()}`;
-			}
-			setTimestamp(newTimestamp);
+	const checkIfMatchExists = useCallback(
+		(matchId: string) => {
+			const found = allMatches.find((m) => m.id === matchId);
+			found ? setMatchesErrored(false) : setMatchesErrored(true);
+		},
+		[allMatches, setMatchesErrored]
+	);
 
-			const startTime = newTimestamp.join("");
-			if (new Date(startTime) instanceof Date && !isNaN(new Date(startTime).getTime())) {
-				const updatedMatch = { ...match, startTime: startTime };
+	const checkForMpLink = useCallback(
+		(matchId: string) => {
+			const found = allMatches.find((m) => m.id === matchId);
+			found ? setMatchesErrored(false) : setMatchesErrored(true);
+		},
+		[allMatches, setMatchesErrored]
+	);
+
+	const handleInputBlur = useCallback(
+		(e: React.FocusEvent<HTMLInputElement>) => {
+			const value = e.target.value;
+			if (e.target.name.startsWith("participant")) {
+				const index = e.target.name.endsWith(".first") ? 0 : 1;
+				let updatedParticipants;
+				if (!value || value === "TBD") {
+					updatedParticipants = [...match.participants];
+					updatedParticipants.splice(index, 1);
+				} else {
+					updatedParticipants = [...match.participants];
+					updatedParticipants[index] = { name: value, id: value, resultText: "", status: null };
+				}
+				const updatedMatch = { ...match, participants: updatedParticipants };
 				updateMatch(matchIndex, bracket, updatedMatch);
+			} else if (e.target.name.startsWith("score")) {
+				const index = e.target.name.endsWith(".first") ? 0 : 1;
+				const updatedParticipants = [...match.participants];
+				updatedParticipants[index].resultText = value;
+				const updatedMatch = { ...match, participants: updatedParticipants };
+				updateMatch(matchIndex, bracket, updatedMatch);
+			} else if (e.target.name.startsWith("route")) {
+				const updatedMatch = { ...match, [e.target.name === "route.win" ? "nextMatchId" : "nextLooserMatchId"]: value };
+				updateMatch(matchIndex, bracket, updatedMatch);
+			} else if (e.target.name.startsWith("match")) {
+				const key = e.target.name.replace("match.", "");
+				const updatedMatch = { ...match, [key]: value };
+				updateMatch(matchIndex, bracket, updatedMatch);
+			} else if (e.target.name.startsWith("time")) {
+				const index = e.target.name.endsWith(".date") ? 0 : 1;
+				const newTimestamp = [...(timestamp as string[])];
+				if (index === 0) {
+					newTimestamp[0] = `${value}T`;
+				} else {
+					newTimestamp[1] = `${value}${getTimeZone()}`;
+				}
+				setTimestamp(newTimestamp);
+
+				const startTime = newTimestamp.join("");
+				if (new Date(startTime) instanceof Date && !isNaN(new Date(startTime).getTime())) {
+					const updatedMatch = { ...match, startTime: startTime };
+					updateMatch(matchIndex, bracket, updatedMatch);
+				}
 			}
-		}
-	};
+		},
+		[match, matchIndex, bracket, updateMatch, timestamp]
+	);
 
 	const drawScoreEditor = () => {
 		const localScore = score || ["0", "0"];
@@ -115,11 +109,12 @@ const Match = ({ match, matchBracket, matchIndex, removeMatch, updateMatch, allP
 		const time = DateConverter(new Date(match.startTime), "HH:MM 24");
 		return (
 			<div style={{ display: "flex", gap: "1em" }}>
-				<input type="date" name="time.date" id="" value={date} className="minimalisticInput" onChange={handleInputBlur} />
-				<input type="time" name="time.time" id="" value={time} className="minimalisticInput" onChange={handleInputBlur} />
+				<input type="date" name="time.date" id="" value={date} className="minimalisticInput" onBlur={handleInputBlur} />
+				<input type="time" name="time.time" id="" value={time} className="minimalisticInput" onBlur={handleInputBlur} />
 			</div>
 		);
 	};
+
 	return (
 		<div className={`TourneyEditor-Match-Container`} id={`match-${match.id}`}>
 			<div className="TourneyEditor-Match-Toolbar">
@@ -128,9 +123,9 @@ const Match = ({ match, matchBracket, matchIndex, removeMatch, updateMatch, allP
 				<Tooltip content={`Unique name for this match. Will be used as reference by other matches`} />
 			</div>
 			<div className="TourneyEditor-Matches-Content-Block">
-				<InputWithSuggestions value={match.participants[0].name} name="participant.first" onBlur={handleInputBlur} suggestions={allParticipants} inputStyle={{ textAlign: "right", fontSize: "1.25em", width: "100%" }} containerStyle={{ maxWidth: "35%" }} />
+				<InputWithSuggestions value={match.participants[0] ? match.participants[0].name : "TBD"} name="participant.first" onBlur={handleInputBlur} suggestions={allParticipants} inputStyle={{ textAlign: "right", fontSize: "1.25em", width: "100%" }} containerStyle={{ maxWidth: "35%" }} />
 				{matchState === "DONE" && drawScoreEditor()}
-				<InputWithSuggestions value={match.participants[1].name} name="participant.second" onBlur={handleInputBlur} suggestions={allParticipants} inputStyle={{ fontSize: "1.25em", width: "100%" }} containerStyle={{ maxWidth: "35%" }} />
+				<InputWithSuggestions value={match.participants[1] ? match.participants[1].name : "TBD"} name="participant.second" onBlur={handleInputBlur} suggestions={allParticipants} inputStyle={{ fontSize: "1.25em", width: "100%" }} containerStyle={{ maxWidth: "35%" }} />
 			</div>
 			<div className="TourneyEditor-Matches-Content-Block" style={{ flexDirection: "column" }}>
 				<p>Match timestamp</p>
@@ -176,7 +171,7 @@ const Match = ({ match, matchBracket, matchIndex, removeMatch, updateMatch, allP
 							if (winnerMatch) winnerMatch.classList.remove("glowing-green");
 						}}
 					/>
-					<Tooltip content={"Winning participant will go to this match"} />
+					<Tooltip content={"Winner will advance to match with tis identifier"} />
 				</div>
 				<div>
 					<p>Next match for looser: </p>
@@ -199,7 +194,7 @@ const Match = ({ match, matchBracket, matchIndex, removeMatch, updateMatch, allP
 							if (looserMatch) looserMatch.classList.remove("glowing-red");
 						}}
 					/>
-					<Tooltip content={`Loosing participant will go to this match. Leave blank for elimination `} />
+					<Tooltip content={`Looser will go to match with tis identifier `} />
 				</div>
 			</div>
 			<div className="TourneyEditor-Match-Footer">
@@ -239,6 +234,6 @@ const Match = ({ match, matchBracket, matchIndex, removeMatch, updateMatch, allP
 			</div>
 		</div>
 	);
-};
+});
 
 export default Match;

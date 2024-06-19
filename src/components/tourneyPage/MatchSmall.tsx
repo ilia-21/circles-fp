@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Match } from "../../types/Match";
 import { Player } from "../../types/Player";
 import { Team } from "../../types/Team";
@@ -49,7 +50,6 @@ const MatchSmall = ({ match, content }: Props) => {
 			);
 		}
 	};
-
 	const createLink = (who: Team | Player) => {
 		if (match.type == "1v1") {
 			return (
@@ -62,7 +62,8 @@ const MatchSmall = ({ match, content }: Props) => {
 			return (
 				<a href={`/#/team/${(who as Team).id}`}>
 					<img src={`${(who as Team).logo}`} alt="" />
-					<TeamCardSmall team={who as Team} />
+					{typeof who != "number" && <TeamCardSmall team={who as Team} />}
+					{/* stupid backend has 1% chance of not sending team info */}
 				</a>
 			);
 		}

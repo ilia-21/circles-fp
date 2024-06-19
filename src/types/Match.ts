@@ -3,6 +3,7 @@ import { Team } from "./Team";
 import { MatchEvent as Event, PickEvent } from "./MatchEvent";
 
 export interface Match {
+	match: MatchInfo;
 	id: number;
 	events: (Event | PickEvent)[];
 	users: PlayerLite[];
@@ -19,4 +20,10 @@ export interface Match {
 interface MatchData {
 	stage: string;
 	picks: PickEvent[];
+}
+interface MatchInfo {
+	id: number;
+	start_time: string;
+	end_time: string;
+	name: string;
 }

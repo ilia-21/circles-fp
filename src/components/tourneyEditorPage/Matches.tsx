@@ -7,6 +7,7 @@ import { BracketMatch } from "../../types/BracketMatches";
 import { PlayerLite } from "../../types/Player";
 import { Team } from "../../types/Team";
 import BracketCard from "../tourneyPage/BracketCard";
+import genRanHex from "../../functions/GetRanHex";
 
 interface Props {
 	tourney: Tourney;
@@ -16,26 +17,11 @@ interface Props {
 const newMatch: BracketMatch = {
 	id: "0",
 	name: "Lower Final",
-	nextMatchId: "0",
-	nextLooserMatchId: "0",
+	nextMatchId: "",
+	nextLooserMatchId: "",
 	startTime: "2024-06-04T16:51:14+03:00",
-	state: "DONE",
-	participants: [
-		{
-			id: "0",
-			resultText: "",
-			isWinner: false,
-			status: null,
-			name: "Player name",
-		},
-		{
-			id: "1",
-			resultText: "",
-			isWinner: false,
-			status: null,
-			name: "Player2 name",
-		},
-	],
+	state: "SCORE_DONE",
+	participants: [],
 };
 
 const Matches = ({ tourney, setTourneyData }: Props) => {
@@ -47,6 +33,13 @@ const Matches = ({ tourney, setTourneyData }: Props) => {
 		setLocalTourneyData(tourney);
 		updateParticipants();
 	}, [tourney]);
+	useEffect(() => {
+		if (tourney.data.bracket.lower.length == 0 || tourney.data.bracket.upper.length == 0) {
+			setMatchesErrored(true);
+		} else {
+			setMatchesErrored(false);
+		}
+	}, []);
 
 	const updateParticipants = useCallback(() => {
 		const participants = tourney.data.participants.map((p) => (p.who as PlayerLite).username || (p.who as Team).title);
@@ -55,7 +48,7 @@ const Matches = ({ tourney, setTourneyData }: Props) => {
 
 	const addBlankMatch = useCallback(
 		(br: "upper" | "lower") => {
-			const updatedMatch = [...localTourneyData.data.bracket[br], { ...newMatch, id: String(Date.now()) }];
+			const updatedMatch = [...localTourneyData.data.bracket[br], { ...newMatch, id: `${br}-${genRanHex(4)}` }];
 			const updatedBracket = { ...localTourneyData.data.bracket, [br]: updatedMatch };
 			const updatedTourneyData = { ...localTourneyData, data: { ...localTourneyData.data, bracket: updatedBracket } };
 			setLocalTourneyData(updatedTourneyData);
@@ -90,8 +83,9 @@ const Matches = ({ tourney, setTourneyData }: Props) => {
 		(br: "upper" | "lower") => {
 			return localTourneyData.data.bracket[br].map((match, i) => <Match key={match.id} matchIndex={i} matchBracket={br} match={match} removeMatch={removeMatch} updateMatch={updateMatch} allParticipants={allParticipants} allMatches={[...tourney.data.bracket.lower, ...tourney.data.bracket.upper]} setMatchesErrored={setMatchesErrored} allPools={tourney.data.pool.map((p) => p.title)} />);
 		},
-		[localTourneyData.data.bracket, allParticipants, removeMatch, updateMatch]
+		[localTourneyData.data.bracket, allParticipants, removeMatch, updateMatch, tourney.data.bracket, setMatchesErrored, tourney.data.pool]
 	);
+
 	const drawIncorrectBlock = () => {
 		return (
 			<div>

@@ -7,7 +7,6 @@ interface condition {
 	value: any;
 }
 let IsEditor = (condition: condition, user: PlayerLite | Player) => {
-	console.log(user);
 	if (user.cfp.roles.DEV || user.cfp.roles.MOD) return true;
 	let allowed: boolean = false;
 	switch (condition.condition) {

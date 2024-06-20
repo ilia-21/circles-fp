@@ -2,7 +2,7 @@ import { Tourney } from "../types/Tourney";
 
 let ProcessTournamentBracket = (t: Tourney) => {
 	let bracket = t.data.bracket;
-	bracket.upper.map((m, i) => {
+	bracket.upper.map((m) => {
 		Number(m.mpID) ? (m.href = `/#/match/${m.mpID}`) : (m.href = ``);
 		if (new Date(m.startTime)) {
 			m.startTime = new Intl.DateTimeFormat("en-US", {
@@ -11,7 +11,7 @@ let ProcessTournamentBracket = (t: Tourney) => {
 			}).format(new Date(m.startTime));
 		}
 	});
-	bracket.lower.map((m, i) => {
+	bracket.lower.map((m) => {
 		Number(m.mpID) ? (m.href = `/#/match/${m.mpID}`) : (m.href = ``);
 	});
 	return bracket;

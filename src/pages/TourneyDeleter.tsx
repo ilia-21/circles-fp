@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { PlayerLite } from "../types/Player";
 import { Tourney } from "../types/Tourney";
@@ -72,7 +72,7 @@ const TourneyDeleter = () => {
 
 		initialize();
 	}, []);
-	const handleInputChange = (e: ChangeEventHandler<HTMLInputElement>) => {
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		//@ts-ignore
 		if (e.target.value == `Confirm the deletion of ${tourneyData?.title}`) {
 			setConfirmation(true);
@@ -83,7 +83,6 @@ const TourneyDeleter = () => {
 	const deleteTournament = async () => {
 		if (!confirmation) return;
 		try {
-			const toSend = { id: tourneyData.id };
 			const response = await fetch(`${import.meta.env.VITE_API_URL}/delete/tourney`, {
 				method: "DELETE",
 				headers: {
@@ -93,7 +92,7 @@ const TourneyDeleter = () => {
 				credentials: "include",
 				body: JSON.stringify(tourneyData),
 			});
-			const data = await response.json();
+			//const data = await response.json();
 			if (response.status == 401) {
 				window.open("https://c.tenor.com/5laBYESlyu8AAAAC/tenor.gif", "_self");
 			}
@@ -153,7 +152,7 @@ const TourneyDeleter = () => {
 						Confirm
 					</div>
 					<div className="fullscreenMessage-button">
-						<a href={`/#/tourneys/${tourneyData.id}`}>Turn back</a>
+						<a href={`/#/tourneys/${tourneyData?.id}`}>Turn back</a>
 					</div>
 				</div>
 			</div>

@@ -1,6 +1,5 @@
 import { MatchEvent as MatchEventType, PickEvent, Score } from "../../types/MatchEvent";
 import { PlayerLite } from "../../types/Player";
-import { Team } from "../../types/Team";
 import BeatmapMod from "../universal/BeatmapMod";
 import "./MatchDetails.css";
 
@@ -15,6 +14,7 @@ const MatchEvent = ({ event, next, first, second }: Props) => {
 	//typescript is a blessing and a curse
 	if ((event as MatchEventType).id) {
 		event = event as MatchEventType;
+
 		if (event.detail.type != "other") {
 			return <></>;
 		}
@@ -26,7 +26,7 @@ const MatchEvent = ({ event, next, first, second }: Props) => {
 		const beatmap = event.game.beatmap;
 		// @ts-ignore: Object is possibly 'null'.
 		const mod = event.game.mods[1] || "NM";
-
+		if (!firstScore?.score || !secondScore?.score) return <></>;
 		const drawScoreDetails = (who: Score) => {
 			return (
 				<div>

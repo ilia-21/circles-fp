@@ -143,7 +143,7 @@ const Colors = ({ userSettings, setUserSettings, importSettings, exportSettings 
 							<div
 								className="settings-color-preview"
 								style={{ background: hex }}
-								onClick={(e) => {
+								onClick={() => {
 									setCurrentColor(color);
 									setShowPicker(true);
 								}}

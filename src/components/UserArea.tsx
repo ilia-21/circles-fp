@@ -10,7 +10,7 @@ interface Props {
 	onLogout: () => void;
 }
 
-const UserArea = ({ avatar, name, userid, onLogout }: Props) => {
+const UserArea = ({ avatar, name, onLogout }: Props) => {
 	const [menuVisible, setMenuVisible] = useState(false);
 	const [settings, setSettings] = useState<UserSettings | null>(null);
 	const menuRef = useRef<HTMLDivElement>(null);

@@ -6,3 +6,4 @@ export enum ModType {
 	FM = "FM",
 	TB = "TB",
 }
+export type Mod = "NM" | "HR" | "HD" | "DT";

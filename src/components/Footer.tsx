@@ -30,7 +30,7 @@ const Footer = () => {
 	return (
 		<div className="footer">
 			<a href="https://github.com/ilia-21/circles-fp">Source</a>
-			<a href="">About</a>
+			<a href="/#/info/about">About</a>
 			<a href="https://discord.gg/WsXtQ9YC2d">Contact</a>
 			{loading || !ilia21 || !effectXolodka ? (
 				<p>

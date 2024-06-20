@@ -1,4 +1,5 @@
 import { MappoolMod } from "./Beatmap";
+import { Mod } from "./Mod";
 import { PlayerLitest } from "./Player";
 
 export interface MatchEvent {
@@ -10,7 +11,7 @@ export interface MatchEvent {
 }
 
 export interface Detail {
-	type: "match-created" | "player-joined" | "other" | "player-left" | "match-disbanded" | "pick" | "ban" | "tb";
+	type: "match-created" | "player-joined" | "other" | "player-left" | "match-disbanded" | "pickban" | "tb";
 	text?: string;
 }
 
@@ -81,7 +82,7 @@ export interface Score {
 	max_combo: number;
 	mode: string;
 	mode_int: number;
-	mods: string[];
+	mods: Mod[];
 	passed: boolean;
 	perfect: number;
 	pp: any;

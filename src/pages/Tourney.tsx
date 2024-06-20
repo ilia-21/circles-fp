@@ -10,6 +10,7 @@ import TourneySchedulePage from "../components/tourneyPage/Schedule/TourneySched
 import TourneyStatsPage from "../components/tourneyPage/Stats/TourneyStatsPage";
 import randomLoadingMessage from "../functions/loadingMessages";
 import ErrorPage from "./ErrorPage";
+
 interface Props {
 	page: "info" | "upcoming" | "results" | "stats";
 }
@@ -19,8 +20,10 @@ const Tourney = ({ page }: Props) => {
 	const [loading, setLoading] = useState<boolean>(true);
 	const [gone, setGone] = useState<boolean>(false);
 	const [tourneyData, setTourneyData] = useState<Tourney>();
+
 	useEffect(() => {
 		const fetchOneTourney = async () => {
+			setLoading(true);
 			try {
 				const response = await fetch(`${import.meta.env.VITE_API_URL}/tourney/${id}`, {
 					headers: {
@@ -29,24 +32,25 @@ const Tourney = ({ page }: Props) => {
 					credentials: "include",
 				});
 				console.log(response.status);
-				if (response.status == 410) {
+				if (response.status === 410) {
 					setGone(true);
-				}
-				if (!response.ok) {
+				} else if (!response.ok) {
 					throw new Error(`Error fetching data: ${response.statusText}`);
+				} else {
+					const data = await response.json();
+					setTourneyData(data);
+					setGone(false);
 				}
-
-				const data = await response.json();
-				setTourneyData(data);
 			} catch (error) {
-				console.log(error);
+				console.error(error);
 			} finally {
 				setLoading(false);
 			}
 		};
 
 		fetchOneTourney();
-	}, []);
+	}, [id]);
+
 	if (loading) {
 		return (
 			<div className="mainContent">
@@ -54,25 +58,26 @@ const Tourney = ({ page }: Props) => {
 			</div>
 		);
 	}
+
 	if (gone) {
-		return <ErrorPage error={[410, "Gone"]} />;
+		return <ErrorPage error={[410, "Gone"]} description="This tournament has been deleted by the host" />;
 	}
+
 	const drawContent = () => {
 		switch (page) {
 			case "info":
 				return <TourneyCardhero tourney={tourneyData as Tourney} />;
-				break;
 			case "upcoming":
 				return <TourneySchedulePage tourney={tourneyData as Tourney} />;
-				break;
 			case "results":
 				return <TourneyResultsPage tourney={tourneyData as Tourney} />;
-				break;
 			case "stats":
 				return <TourneyStatsPage tourney={tourneyData as Tourney} />;
-				break;
+			default:
+				return null;
 		}
 	};
+
 	return (
 		<div className="mainContent">
 			<div className="tourneyPage">

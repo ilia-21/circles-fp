@@ -3,7 +3,6 @@ import { CiTrash } from "react-icons/ci";
 import Tooltip from "../universal/Tooltip";
 import { TourneyParticipant } from "../../types/Tourney";
 import { PlayerLitest } from "../../types/Player";
-import { realpathSync } from "fs";
 import { Team } from "../../types/Team";
 
 interface Props {

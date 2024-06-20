@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Match } from "../../types/Match";
 import { Player } from "../../types/Player";
 import { Team } from "../../types/Team";

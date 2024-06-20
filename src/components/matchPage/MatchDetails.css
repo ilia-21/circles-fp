@@ -165,3 +165,8 @@
 		text-align: end;
 	}
 }
+.match-DoubleStat-block {
+	display: flex;
+	justify-content: space-between;
+	gap: 10em;
+}

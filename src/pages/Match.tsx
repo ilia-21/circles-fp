@@ -49,6 +49,9 @@ const Match = () => {
 				if (response.status == 401) {
 					setError(["401", "You need to log in"]);
 				}
+				if (response.status == 404) {
+					setError(["404", "Match not found"]);
+				}
 				if (!response.ok) {
 					throw new Error(`Error fetching data: ${response.statusText}`);
 				}

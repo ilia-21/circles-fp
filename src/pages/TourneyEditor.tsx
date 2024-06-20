@@ -16,6 +16,7 @@ import CheckTournament from "../functions/CheckTournament";
 import MappoolEditor from "../components/tourneyEditorPage/MappoolEditor";
 import IsEditor from "../functions/IsEditor";
 import GetEmptyTourney from "../functions/GetEmptyTourney";
+import Logo from "../components/tourneyEditorPage/Logo";
 
 const TourneyEditor = () => {
 	const [tourneyData, setTourneyData] = useState<Tourney | null>(null);
@@ -138,6 +139,7 @@ const TourneyEditor = () => {
 				</div>
 			</div>
 			<Banner tourney={tourneyData as Tourney} setTourneyData={setTourneyData} setMessage={setMessage} />
+			<Logo tourney={tourneyData as Tourney} setTourneyData={setTourneyData} setMessage={setMessage} />
 			<MainDetails tourney={tourneyData as Tourney} setTourneyData={setTourneyData} />
 			<h1>Participants</h1>
 			<Participants tourney={tourneyData as Tourney} setTourneyData={setTourneyData} />

@@ -9,7 +9,7 @@ let GetEmptyTourney = () => {
 		data: {
 			description: "Click to edit description",
 			banner: "https://ilia21.s-ul.eu/BOWcvdqU",
-			icon: "https://ilia21.s-ul.eu/paGJXO8U",
+			icon: "https://ilia21.s-ul.eu/rg7LF4Q5",
 			prize: "Can be anything!",
 			stream: "https://twitch.tv/you",
 			date: { start: "2027-07-27T00:00:00+00:00", end: "2028-07-27T00:00:00+00:00" },

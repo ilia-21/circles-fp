@@ -4,13 +4,17 @@ import { Match } from "../types/Match";
 import { Tourney } from "../types/Tourney";
 import randomLoadingMessage from "../functions/loadingMessages";
 import ErrorPage from "./ErrorPage";
-import MatchCardBig from "../components/matchPage/MatchCardBig";
 import { PickEvent } from "../types/MatchEvent";
 import { IoMdAdd } from "react-icons/io";
 import Pick from "../components/matchEditorPage/Pick";
 import { MappoolMod } from "../types/Beatmap";
 import "./MatchEditor.css";
 import { BsChevronLeft, BsFloppy } from "react-icons/bs";
+import { Team } from "../types/Team";
+import TeamCardSmall from "../components/mainPage/TeamCardSmall";
+import { PlayerLite } from "../types/Player";
+import DateConverter from "../functions/DateConverter";
+import Tooltip from "../components/universal/Tooltip";
 
 const BlankPick: PickEvent = {
 	who: "first",
@@ -26,7 +30,58 @@ const MatchEditor = () => {
 	const [message, setMessage] = useState<string[] | null>(null);
 	const [error, setError] = useState<string[] | null>(null);
 	const [pickData, setPickData] = useState<PickEvent[] | null>(null);
+	const [score, setScore] = useState<string[] | null>(null);
 	const [availableMaps, setAvailableMaps] = useState<string[] | null>(null);
+
+	const drawParty = (which: "first" | "second") => {
+		if (!matchData) return;
+		if (!(matchData[which] as Team).logo) {
+			const party = matchData[which] as PlayerLite;
+			return (
+				<div className="matchDataCardBigPlayer">
+					<a href={`/#/profile/${party.id}`}>
+						<img src={party.avatar_url} alt="" />
+						<p>{party.username}</p>
+					</a>
+				</div>
+			);
+		} else {
+			const party = matchData[which] as Team;
+			const team = {
+				id: 0,
+				title: party.title,
+				logo: party.logo,
+				leader: party.players[0],
+				players: party.players,
+			} as Team;
+			return (
+				<div className="MatchCardBigPlayer">
+					<img src={party.logo} alt="" />
+					<p>{party.title}</p>
+					<TeamCardSmall team={team} height="-20em" />
+				</div>
+			);
+		}
+	};
+	const drawcontent = () => {
+		if (!matchData) return;
+		if (new Date(matchData.timestamp) > new Date(Date.now())) {
+			return (
+				<p style={{ fontSize: "2em" }}>
+					{DateConverter(new Date(matchData.timestamp), "HH:MM")} <Tooltip content={DateConverter(new Date(matchData.timestamp), "full")} />
+				</p>
+			);
+		} else {
+			if (!score) return;
+			return (
+				<div style={{ display: "flex", borderBottom: "1px solid var(--cfp-accent)" }}>
+					<input type="text" name="score.first" className="minimalisticInput" inputMode="numeric" value={score[0]} style={{ width: "1em", textAlign: "center", borderBottom: "none" }} onChange={(e) => setScore([e.target.value, score[1]])} />
+					<p> - </p>
+					<input type="text" name="score.second" className="minimalisticInput" inputMode="numeric" value={score[1]} style={{ width: "1em", textAlign: "center", borderBottom: "none" }} onChange={(e) => setScore([score[0], e.target.value])} />
+				</div>
+			);
+		}
+	};
 
 	useEffect(() => {
 		const fetchMatch = async () => {
@@ -46,6 +101,7 @@ const MatchEditor = () => {
 				}
 				const data = await response.json();
 				setMatchData({ ...data, id });
+				setScore([data.result[0], data.result[1]]);
 			} catch (error) {
 				console.error(error);
 				setError(["500", "Failed to fetch match data"]);
@@ -110,7 +166,7 @@ const MatchEditor = () => {
 	}, [pickData, availableMaps, matchData]);
 	const submitMatch = async () => {
 		setMessage(["yellow", "Submitting..."]);
-		let merged = matchData;
+		let merged = matchData as Match;
 		//@ts-ignore
 		if (pickData?.length > 0) {
 			//this line is so stupid
@@ -120,6 +176,8 @@ const MatchEditor = () => {
 			//@ts-ignore
 			merged.data = { stage: matchData?.data?.stage };
 		}
+
+		if (score) merged.result = [+score[0], +score[1]];
 		try {
 			const response = await fetch(`${import.meta.env.VITE_API_URL}/edit/match/${id}`, {
 				method: "POST",
@@ -172,7 +230,11 @@ const MatchEditor = () => {
 					</div>
 				</div>
 				<h1>{matchData.match.name}</h1>
-				<MatchCardBig match={matchData} />
+				<div className="MatchCardBig">
+					{drawParty("first")}
+					{drawcontent()}
+					{drawParty("second")}
+				</div>
 			</div>
 			<div className="content-section">
 				<div>

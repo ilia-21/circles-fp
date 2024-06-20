@@ -32,7 +32,7 @@ export interface Beatmap {
 	url: string;
 	checksum: string;
 	beatmapset: Beatmapset;
-	failtimes: Failtimes;
+	failtimes?: Failtimes;
 	max_combo: number;
 }
 
@@ -64,14 +64,14 @@ export interface Beatmapset {
 	is_scoreable: boolean;
 	last_updated: string;
 	legacy_thread_url: string;
-	nominations_summary: NominationsSummary;
+	nominations_summary?: NominationsSummary;
 	ranked: number;
 	ranked_date: string;
 	storyboard: boolean;
 	submitted_date: string;
 	tags: string;
-	availability: Availability;
-	ratings: number[];
+	availability?: Availability;
+	ratings?: number[];
 }
 
 export interface Covers {

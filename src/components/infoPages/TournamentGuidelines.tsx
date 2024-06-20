@@ -5,13 +5,13 @@ const TourneyGuidelines = () => {
 			<p>If you are a host of a tournament, your tournament should follow these rules:</p>
 			<ol>
 				<li>
-					<b> Legitimacy:</b> All tournaments created must be real, legitimate events. Dummy or simulated tournaments are not allowed.{" "}
+					<b>Legitimacy:</b> All tournaments created must be real, legitimate events. Dummy or simulated tournaments are not allowed.{" "}
 				</li>
 				<li>
 					<b>Prize fulfillment</b>: If prizes are announced, they must actually be given to the winners as stated.{" "}
 				</li>
 				<li>
-					<b>Original Assets:</b> All graphics, logos and assets used in the tournament must be either original or used with proper permission from the copyright holders.
+					<b>Follow Imgae guidelies:</b> All graphics, logos and assets used in the tournament must follow our <a href="/#/info/image-guidelines">image guidelines</a>
 				</li>
 				<li>
 					<b>Fair Competition:</b> Tournaments must be conducted fairly, with equal opportunity for all participants. Any form of cheating, use of bugs/glitches, or unfair advantages will not be tolerated.{" "}

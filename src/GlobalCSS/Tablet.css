@@ -148,6 +148,11 @@
 	.MatchCardBigPlayer > a > img {
 		max-width: 75%;
 	}
+	.match-DoubleStat-block {
+		display: flex;
+		justify-content: space-between;
+		gap: 18%;
+	}
 	/* Cookie warning */
 	.cfpWarningPopupContent {
 		width: 90%;

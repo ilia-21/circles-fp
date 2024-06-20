@@ -117,15 +117,15 @@ const Settings = () => {
 	};
 	const drawSettings = () => {
 		let elements = [];
-		let isUpdated = false;
+		//let isUpdated = false;
 		if (!userSettings) return <>{randomLoadingMessage()}</>;
 		if (!userSettings.colors) {
 			userSettings.colors = defaultColors;
-			isUpdated = true;
+			//isUpdated = true;
 		}
 		if (!userSettings.profileButtons) {
 			userSettings.profileButtons = defaultProfileButtons;
-			isUpdated = true;
+			//isUpdated = true;
 		}
 		elements.push(<Colors userSettings={userSettings} setUserSettings={setUserSettings} importSettings={importSettings} exportSettings={exportSettings} />);
 		elements.push(<Links userSettings={userSettings} setUserSettings={setUserSettings} importSettings={importSettings} exportSettings={exportSettings} />);

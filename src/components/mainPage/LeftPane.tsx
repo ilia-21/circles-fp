@@ -1,7 +1,7 @@
 import "./panes.css";
 import TourneycardSmall from "./TourneycardSmall";
 import genRanHex from "../../functions/GetRanHex";
-import { Tourney, TourneyLite } from "../../types/Tourney";
+import { TourneyLite } from "../../types/Tourney";
 import { useEffect, useState } from "react";
 import randomLoadingMessage from "../../functions/loadingMessages";
 

@@ -36,13 +36,13 @@ const Match: React.FC<Props> = React.memo(({ match, matchBracket, matchIndex, re
 		[allMatches, setMatchesErrored]
 	);
 
-	const checkForMpLink = useCallback(
-		(matchId: string) => {
-			const found = allMatches.find((m) => m.id === matchId);
-			found ? setMatchesErrored(false) : setMatchesErrored(true);
-		},
-		[allMatches, setMatchesErrored]
-	);
+	// const checkForMpLink = useCallback(
+	// 	(matchId: string) => {
+	// 		const found = allMatches.find((m) => m.id === matchId);
+	// 		found ? setMatchesErrored(false) : setMatchesErrored(true);
+	// 	},
+	// 	[allMatches, setMatchesErrored]
+	// );
 
 	const handleInputBlur = useCallback(
 		(e: React.FocusEvent<HTMLInputElement>) => {

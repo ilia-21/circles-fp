@@ -93,7 +93,9 @@ const MatchTeamEvent = ({ event, next, first }: Props) => {
 					</div>
 					<div className={secondTotal > firstTotal ? "MatchScoreContainer winner" : "MatchScoreContainer looser"}>
 						<p className="MatchScorePoints">{secondTotal}</p>
-						<div className="matchGrid">{drawScoreDetails(secondScores)}</div>
+						<table>
+							<tbody>{drawScoreDetails(secondScores)}</tbody>
+						</table>
 					</div>
 				</div>
 			</div>

@@ -92,11 +92,47 @@ export interface PlayerLitest {
 	username: string;
 }
 
-interface Cfp {
+export interface Cfp {
 	roles: Roles;
+	stats: CfpStats;
 }
 
-interface Roles {
+interface CfpStats {
+	period: "allTime" | "lastMonth" | "lastYear";
+	Rates: Rates;
+}
+interface Rates {
+	NM: Rate;
+	HR: Rate;
+	HD: Rate;
+	DT: Rate;
+	FM: Rate;
+}
+/**
+ * Rates for map picks/bans/wins/looses
+ *
+ * @timesWon Amount of maps won
+ * @timesLost Amount of maps lost
+ * @outOf  Total amount of maps
+ */
+interface Rate {
+	timesWon: Times;
+	timesLost: Times;
+	outOf: Times;
+}
+/**
+ * Times for picks/bans/wins/looses
+ * this is prob unoptimized af, but I'll fix in later™
+ * @ownPick Amount of own picks
+ * @oppPick Amount of opponent picks
+ *
+ */
+interface Times {
+	ownPick: number;
+	oppPick: number;
+}
+
+export interface Roles {
 	[name: string]: string[];
 }
 

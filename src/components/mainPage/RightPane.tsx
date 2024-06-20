@@ -29,11 +29,23 @@ const RightPane = () => {
 
 		fetchMatches();
 	}, []);
+	if (loading) {
+		return (
+			<div className="rightPane">
+				<div>
+					<p>Upcoming matches</p>
+					<p>{randomLoadingMessage()}</p>
+				</div>
+			</div>
+		);
+	}
 	return (
 		<div className="rightPane">
 			<div>
 				<p>Upcoming matches</p>
-				{loading ? <p>{randomLoadingMessage()}</p> : matchData.map((match) => <MatchSmall key={match.id} match={match} content="upcoming" />)}
+				{matchData.map((match) => (
+					<MatchSmall key={match.id} match={match} content="upcoming" />
+				))}
 			</div>
 		</div>
 	);

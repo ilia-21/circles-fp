@@ -116,6 +116,9 @@ export interface Match {
 	pass: boolean;
 }
 export interface PickEvent {
+	detail: {
+		type: "pickban";
+	};
 	who: "first" | "second" | "tb";
 	type: "ban" | "pick" | "tb";
 	map: MappoolMod;

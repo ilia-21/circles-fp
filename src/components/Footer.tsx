@@ -12,10 +12,10 @@ const Footer = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const player1 = await GetPlayer(17258441);
+				const player1 = (await GetPlayer(17258441)) as PlayerLite;
 				setIlia21(player1);
 
-				const player2 = await GetPlayer(27057916);
+				const player2 = (await GetPlayer(27057916)) as PlayerLite;
 				setEffectXolodka(player2);
 			} catch (error) {
 				console.error("Error fetching player data:", error);
@@ -29,6 +29,7 @@ const Footer = () => {
 
 	return (
 		<div className="footer">
+			<p>{import.meta.env.VITE_VERSION}</p>
 			<a href="https://github.com/ilia-21/circles-fp">Source</a>
 			<a href="/#/info/about">About</a>
 			<a href="https://discord.gg/WsXtQ9YC2d">Contact</a>

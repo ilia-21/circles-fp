@@ -57,10 +57,14 @@ const Logo = ({ tourney, setTourneyData, setMessage }: Props) => {
 	};
 
 	return (
-		<div className="TourneyEditor-Banner-Container">
-			<img src={localTourneyData.data.icon} onClick={() => document.getElementById("data.icon")?.click()} className="TourneyEditor-Banner-img" alt="Banner" style={{ width: "10em" }} />
+		<div className="TourneyEditor-Banner-Container" onClick={() => document.getElementById("data.icon")?.click()}>
+			<div className="TourneyEditor-Banner-Wrapper">
+				<img src={localTourneyData.data.icon} className="TourneyEditor-Banner-img" alt="Logo" style={{ width: "10em" }} />
+				<div className="TourneyEditor-Banner-Overlay">
+					<p>Click to change Icon</p>
+				</div>
+			</div>
 			<input id="data.icon" type="file" accept="image/*" style={{ display: "none" }} onChange={handleBannerChange} />
-			<p>Click on an icon to change it</p>
 		</div>
 	);
 };

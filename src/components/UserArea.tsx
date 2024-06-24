@@ -9,12 +9,17 @@ interface Props {
 	userid: number;
 	onLogout: () => void;
 }
-
-const UserArea = ({ avatar, name, onLogout }: Props) => {
+const setlocalId = (id: string) => {
+	//Only for local operations, there are still server-side checks for important stuff
+	const cached = localStorage.getItem("localuserID");
+	if (cached && cached == id) return;
+	localStorage.setItem("localuserID", id);
+};
+const UserArea = ({ avatar, name, userid, onLogout }: Props) => {
 	const [menuVisible, setMenuVisible] = useState(false);
 	const [settings, setSettings] = useState<UserSettings | null>(null);
 	const menuRef = useRef<HTMLDivElement>(null);
-
+	setlocalId("" + userid);
 	const toggleMenu = () => {
 		setMenuVisible(!menuVisible);
 	};

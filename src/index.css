@@ -38,6 +38,13 @@
 	--cfp-accent: var(--blue); /* here comes the customizablity! */
 	--cfp-text: var(--text);
 
+	/* Toastify styles */
+	--toastify-color-dark: var(--cfp-bg-tertiary);
+	--toastify-text-color-dark: var(--cfp-text);
+	--toastify-color-progress-dark: var(--cfp-accent);
+	--toastify-color-progress-bgo: 0.2;
+	--toastify-color-progress-success: var(--green);
+
 	/* whatever react/vite left here */
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;

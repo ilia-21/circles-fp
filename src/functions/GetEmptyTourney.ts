@@ -3,7 +3,7 @@ import { Tourney } from "../types/Tourney";
 let GetEmptyTourney = () => {
 	const newTourney: Tourney = {
 		id: 4,
-		title: "Fake tournament 2025",
+		title: "Tournament title 2025",
 		//@ts-ignore
 		host: { id: 2 },
 		data: {

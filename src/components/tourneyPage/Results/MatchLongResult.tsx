@@ -47,7 +47,7 @@ const MatchLongResult = ({ match }: Props) => {
 	return (
 		<div className="MatchLongResult">
 			{renderFirstParty()}
-			{!match.result ? <a href={`/#/match/${match.id}`}>{`Score - not found`}</a> : <a href={`/#/match/${match.id}`}>{`${match.result[0]} - ${match.result[1]}`}</a>}
+			{!match.result ? <a href={`/#/match/${match.id}`}>{`? - ?`}</a> : <a href={`/#/match/${match.id}`}>{`${match.result[0]} - ${match.result[1]}`}</a>}
 			{renderSecondParty()}
 		</div>
 	);

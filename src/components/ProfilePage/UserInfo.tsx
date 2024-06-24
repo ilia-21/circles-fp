@@ -7,8 +7,12 @@ const UserInfo = ({ id }: Props) => {
 	id;
 	return (
 		<div>
-			<div className="userDetails">UserInfo</div>
-			<div className="userDetailsAdvanced">asd</div>
+			<div className="userDetails">
+				<p>stats </p>
+			</div>
+			<div className="userDetailsAdvanced">
+				<p>under construction</p>
+			</div>
 		</div>
 	);
 

@@ -9,6 +9,13 @@
 	text-align: center;
 	border-bottom: 1px solid #ffffff10;
 }
+
+.leftPane > div > p,
+.rightPane > div > p {
+	width: 100%;
+	text-align: center;
+	border-bottom: 1px solid #ffffff20;
+}
 .leftPane {
 }
 .centerPane {

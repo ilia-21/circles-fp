@@ -23,7 +23,9 @@ const TourneyCard = ({ tourney }: Props) => {
 
 	return (
 		<div className="tourneyCard">
-			<img src={tourney.data.banner} alt="" />
+			<a href={`/#/tourney/${tourney.id}`}>
+				<img src={tourney.data.banner} alt="" className="tourneyCard-Banner" />
+			</a>
 			<p className="tourneyCardTitle">{tourney.title}</p>
 			<div className="tourneyCardButtons">
 				<a href={`/#/tourney/${tourney.id}`}>Info</a>

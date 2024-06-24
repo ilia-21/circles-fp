@@ -1,3 +1,5 @@
+import { PlayerLite } from "../types/Player";
+
 let GetPlayer = async (id: number) => {
 	try {
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/user/${id}`, {
@@ -10,7 +12,7 @@ let GetPlayer = async (id: number) => {
 			throw new Error(`Error fetching data: ${response.statusText}`);
 		}
 		let player = await response.json();
-		return player;
+		return player as PlayerLite;
 	} catch (error) {
 		console.error(error);
 	}

@@ -23,7 +23,7 @@ const MatchCardMed = ({ match, content }: Props) => {
 
 	const createContent = () => {
 		if (content == "score") {
-			return <p>{score ? `${score[0]} - ${score[1]}` : "Score not found"}</p>;
+			return <p>{score ? `${score[0]} - ${score[1]}` : "? - ?"}</p>;
 		} else if (content == "upcoming") {
 			if (!upcoming) {
 				return (

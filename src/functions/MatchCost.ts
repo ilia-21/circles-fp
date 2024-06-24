@@ -67,7 +67,6 @@ export const calculateMatchcost = (games: Game[], nPrime: number): number => {
 export const convertAndCalculateMatchcost = (match: Match, user: number): number => {
 	let n = 0;
 	let nPrime = 0;
-	let m = 0;
 	let modCombos: Mod[][] = [];
 
 	let games: Game[] = [];
@@ -121,7 +120,6 @@ export const convertAndCalculateMatchcost = (match: Match, user: number): number
 		const sortedCombo = combo.slice().sort().join(",");
 		uniqueCombinations.add(sortedCombo);
 	}
-	m = uniqueCombinations.size;
 
 	const MatchCost = calculateMatchcost(games, nPrime);
 	return MatchCost;

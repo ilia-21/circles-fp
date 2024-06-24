@@ -94,7 +94,7 @@ export interface PlayerLitest {
 
 export interface Cfp {
 	roles: Roles;
-	stats: CfpStats;
+	stats?: CfpStats;
 }
 
 interface CfpStats {

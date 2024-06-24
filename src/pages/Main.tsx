@@ -4,60 +4,70 @@ import LeftPane from "../components/mainPage/LeftPane";
 import RightPane from "../components/mainPage/RightPane";
 import { useEffect, useState } from "react";
 import Bannertop from "../components/universal/Bannertop";
-import { Tourney } from "../types/Tourney";
 import randomLoadingMessage from "../functions/loadingMessages";
 import NoConnectionPopup from "../components/universal/NoConnectionPopup";
+import { useQuery } from "@tanstack/react-query";
+
+const fetchTourneys = async () => {
+	const response = await fetch(`${import.meta.env.VITE_API_URL}/tourneys`, {
+		headers: {
+			"x-api-key": import.meta.env.VITE_API_KEY,
+		},
+		credentials: "include",
+	});
+	if (!response.ok) {
+		throw new Error("Network response was not ok");
+	}
+	return response.json();
+};
+
+const checkConnection = async () => {
+	const response = await fetch(`${import.meta.env.VITE_API_URL}/ping`, {
+		headers: {
+			"x-api-key": import.meta.env.VITE_API_KEY,
+		},
+		credentials: "include",
+	});
+	if (response.status == 503) {
+		throw new Error(await response.text());
+	}
+	if (!response.ok) {
+		throw new Error("Failed to ping server");
+	}
+	return response.json();
+};
 
 const Main = () => {
-	const [tourneyData, setTourneyData] = useState<Tourney[]>([]);
-	const [loading, setLoading] = useState(true);
-	const [connection, setConnection] = useState(true);
+	const [showNoConnectionPopup, setShowNoConnectionPopup] = useState(false);
+	const [serverLockdown, setServerLockdown] = useState<string | null>(null);
+
+	const {
+		isLoading: loading,
+		isError,
+		data: tourneyData,
+	} = useQuery({
+		queryKey: ["tourneysData"],
+		queryFn: fetchTourneys,
+		retry: false,
+	});
 
 	useEffect(() => {
-		const fetchTourneys = async () => {
-			try {
-				const response = await fetch(`${import.meta.env.VITE_API_URL}/tourneys`, {
-					headers: {
-						"x-api-key": import.meta.env.VITE_API_KEY,
-					},
-					credentials: "include",
-				});
-				if (!response.ok) {
-					throw new Error(`Error fetching data: ${response.statusText}`);
+		const handleError = async () => {
+			if (isError) {
+				try {
+					await checkConnection();
+				} catch (error: any) {
+					if (error.message != "Failed to ping server") {
+						setServerLockdown(error.message);
+					} else {
+						setShowNoConnectionPopup(true);
+					}
 				}
-				const data = await response.json();
-				setTourneyData(data);
-			} catch (error) {
-				console.log(error);
-			} finally {
-				setLoading(false);
 			}
 		};
 
-		const checkConnection = async () => {
-			try {
-				const response = await fetch(`${import.meta.env.VITE_API_URL}/ping`, {
-					headers: {
-						"x-api-key": import.meta.env.VITE_API_KEY,
-					},
-					credentials: "include",
-				});
-				if (response.status != 200) {
-					setConnection(false);
-				}
-			} catch (error) {
-				console.log(error);
-				setConnection(false);
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		fetchTourneys();
-		if (tourneyData.length == 0) {
-			checkConnection();
-		}
-	}, []);
+		handleError();
+	}, [isError]);
 
 	if (loading) {
 		return (
@@ -66,13 +76,18 @@ const Main = () => {
 			</div>
 		);
 	}
-	if (!connection) {
+
+	if (showNoConnectionPopup) {
 		return <NoConnectionPopup />;
+	}
+
+	if (serverLockdown) {
+		return <NoConnectionPopup text={serverLockdown} />;
 	}
 
 	return (
 		<div className="mainContent">
-			{tourneyData.length > 0 && <Bannertop banner={tourneyData[0].data.banner} />}
+			{tourneyData && tourneyData.length > 0 && <Bannertop banner={tourneyData[0].data.banner} />}
 			<LeftPane />
 			<CenterPane tourneyData={tourneyData} />
 			<RightPane />

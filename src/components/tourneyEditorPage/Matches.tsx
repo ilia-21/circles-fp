@@ -87,12 +87,20 @@ const Matches = ({ tourney, setTourneyData }: Props) => {
 	);
 
 	const drawIncorrectBlock = () => {
-		return (
-			<div>
-				<p style={{ color: "var(--red)" }}>Your matches are incorrect! Bracket preview is not available</p>
-				<p>Click on save tournament to check what is wrong. (Tournament data won't be updated)</p>
-			</div>
-		);
+		if ([...localTourneyData.data.bracket.lower, ...localTourneyData.data.bracket.upper].length <= 2) {
+			return (
+				<div>
+					<p>Add some matches to see the bracket</p>
+				</div>
+			);
+		} else {
+			return (
+				<div>
+					<p style={{ color: "var(--red)" }}>Your matches are incorrect! Bracket preview is not available</p>
+					<p>Click on save tournament to check what is wrong. (Tournament data won't be updated)</p>
+				</div>
+			);
+		}
 	};
 
 	return (

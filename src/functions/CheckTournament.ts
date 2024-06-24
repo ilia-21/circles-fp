@@ -1,3 +1,4 @@
+import { Id, toast } from "react-toastify";
 import { MappoolMod } from "../types/Beatmap";
 import { Tourney } from "../types/Tourney";
 const sendTournament = async (id: string, tourneyData: Tourney, setMessage: (message: string[]) => void, created?: boolean) => {
@@ -36,12 +37,39 @@ const highlightMatches = (foundIn: string[]) => {
 		setTimeout(() => document.getElementById(`match-${m}`)?.classList.remove("glowing-red"), 10000);
 	}
 };
+const updateToast = (current: Id, text: string) => {
+	if (!current) return;
+	setTimeout(() => {
+		toast.update(current, { render: text, autoClose: 5000, type: "error" });
+	}, 1000);
+};
 let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, setMessage: (message: string[]) => void, created?: boolean) => {
+	const toastId = toast.warning("Checking", { autoClose: false });
 	let foundIn: any = [];
-	// Test 1
-	// Check for matches without any routes for winner
-	// There should only be one match without a nextMatchId: the last one.
 	let counter: number | null = 0;
+	const allBracketMatchs = [...tourneyData.data.bracket.upper, ...tourneyData.data.bracket.lower];
+
+	// Test 0
+	// Check if there's even a something
+	if (allBracketMatchs.length <= 2) {
+		counter++;
+		foundIn.push("at least 3 matches");
+	}
+	if (tourneyData.data.participants.length <= 0) {
+		counter++;
+		foundIn.push("at least 4 participants");
+	}
+	if (tourneyData.data.pool.length <= 0) {
+		counter++;
+		foundIn.push("at least 1 mappool");
+	}
+	if (counter > 0) {
+		updateToast(toastId, `Your tournament is incorrect! Every tournament should have ${foundIn.join(", ")}`);
+		return false;
+	}
+	counter = 0;
+	foundIn = [];
+
 	for (const match of tourneyData.data.bracket.upper) {
 		if (!match.nextMatchId) {
 			counter++;
@@ -55,7 +83,7 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 		}
 	}
 	if (counter > 1) {
-		setMessage(["red", `Your matches are incorrect! There can be only one match without "Next match for winner": the Grand Finals, but you have ${counter}: ${foundIn.join(", ")}`]);
+		updateToast(toastId, `Your matches are incorrect! There can be only one match without "Next match for winner": the Grand Finals, but you have ${counter}: ${foundIn.join(", ")}`);
 		highlightMatches(foundIn);
 		return false;
 	}
@@ -77,7 +105,7 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 		}
 	}
 	if (found) {
-		setMessage(["red", `Your matches are incorrect! All finished matches must have both players selected. These matches dont: ${foundIn.join(", ")}`]);
+		updateToast(toastId, `Your matches are incorrect! All finished matches must have both players selected. These matches dont: ${foundIn.join(", ")}`);
 		highlightMatches(foundIn);
 		return false;
 	}
@@ -103,7 +131,7 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 		}
 	}
 	if (counter > 1) {
-		setMessage(["red", `Your matches are incorrect! All matches, execpt grand finals must have real match id in "Next match for winner". These don't: ${foundIn.join(", ")}`]);
+		updateToast(toastId, `Your matches are incorrect! All matches, execpt grand finals must have real match id in "Next match for winner". These don't: ${foundIn.join(", ")}`);
 		highlightMatches(foundIn);
 		return false;
 	}
@@ -147,7 +175,7 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 	}
 	highlightMatches(foundIn);
 	if (counter > 0) {
-		setMessage(["red", `Your matches are incorrect! All winners should go to the "Next match for winner", and all loosers should go to the "Next match for looser", but these don't: ${foundIn.join(", ")}`]);
+		updateToast(toastId, `Your matches are incorrect! All winners should go to the "Next match for winner", and all loosers should go to the "Next match for looser", but these don't: ${foundIn.join(", ")}`);
 		if (foundIn.length == 1) {
 			setTimeout(() => document.getElementById(`match-${foundIn[0]}`)?.scrollIntoView(), 1000);
 		}
@@ -166,7 +194,7 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 	}
 	highlightMatches(foundIn);
 	if (counter > 0) {
-		setMessage(["red", `Your matches are incorrect! All finished matches MUST have a valid osu mp link, but these don't: ${foundIn.join(", ")}`]);
+		updateToast(toastId, `Your matches are incorrect! All finished matches MUST have a valid osu mp link, but these don't: ${foundIn.join(", ")}`);
 		if (foundIn.length == 1) {
 			setTimeout(() => document.getElementById(`match-${foundIn[0]}`)?.scrollIntoView(), 1000);
 		}
@@ -177,7 +205,8 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 	foundIn = [];
 	// Test 6
 	// Check if all finished matches have a mappool assigned
-	for (const match of [...tourneyData.data.bracket.upper, ...tourneyData.data.bracket.lower]) {
+	for (const match of allBracketMatchs) {
+		console.log(match);
 		if (!tourneyData.data.pool.find((p) => p.title == match.tournamentRoundText) && match.state == "DONE") {
 			counter++;
 			foundIn.push(match.id);
@@ -185,7 +214,8 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 	}
 	highlightMatches(foundIn);
 	if (counter > 0) {
-		setMessage(["red", `Your matches are incorrect! All finished matches MUST have a valid stage, but these don't: ${foundIn.join(", ")}`]);
+		updateToast(toastId, `Your matches are incorrect! All finished matches MUST have a valid stage, but these don't: ${foundIn.join(", ")}`);
+
 		if (foundIn.length == 1) {
 			setTimeout(() => document.getElementById(`match-${foundIn[0]}`)?.scrollIntoView(), 1000);
 		}
@@ -208,7 +238,7 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 	}
 	highlightMatches(foundIn);
 	if (counter > 0) {
-		setMessage(["red", `Your map pools are incorrect! All map pool MUST have only one Tiebreaker, but these don't: ${foundIn.join(", ")}`]);
+		updateToast(toastId, `Your map pools are incorrect! All map pool MUST have only one Tiebreaker, but these don't: ${foundIn.join(", ")}`);
 
 		return false;
 	}
@@ -222,9 +252,9 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 	for (const url of urls) {
 		const domain = new URL(url).hostname.split(".").slice(-2).join(".");
 		if (!allowedDomains.some((allowedDomain) => domain.endsWith(allowedDomain))) {
-			setMessage(["red", `Your tournament description contains a link to an unknown source, please use one of the allowed image hostings: ${allowedDomains.join(", ")}`]);
+			updateToast(toastId, `Your tournament description contains a link to an unknown source, please use one of the allowed image hostings: ${allowedDomains.join(", ")}`);
+			return false;
 		}
-		return false;
 	}
 	// Test 9
 	// Check for fake links in description
@@ -237,7 +267,7 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 
 		if (visibleText.startsWith("http://") || visibleText.startsWith("https://")) {
 			if (visibleText !== actualUrl) {
-				setMessage(["red", `Your tournament description contains fake link. What are you trying to do? Please remove it. Links can only be like this: [https://ourwebsite.com](https://ourwebsite.com) or [our website](https://ourwebsite.com)`]);
+				updateToast(toastId, `Your tournament description contains fake link. What are you trying to do? Please remove it. Links can only be like this: [https://ourwebsite.com](https://ourwebsite.com) or [our website](https://ourwebsite.com)`);
 				return false;
 			}
 		}
@@ -246,7 +276,7 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 	if (send) {
 		sendTournament(id, tourneyData, setMessage, created);
 	} else {
-		setMessage(["green", "No errors found in your tournament, click again to confirm"]);
+		toast.update(toastId, { render: "No errors found in your tournament", autoClose: 5000, type: "success" });
 	}
 	return true;
 };

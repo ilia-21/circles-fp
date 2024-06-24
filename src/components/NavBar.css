@@ -14,7 +14,8 @@
 }
 
 .logo {
-	height: 40px;
+	width: 8em;
+	filter: invert(91%) sepia(3%) saturate(4906%) hue-rotate(186deg) brightness(99%) contrast(92%);
 }
 .navBar > a {
 	flex-basis: 15%;
@@ -44,7 +45,7 @@
 	filter: brightness(69%);
 }
 .navBarLink > img {
-	max-height: 6vh;
+	max-height: 3em;
 	filter: invert(100%);
 }
 .navBarLinkUnderline {

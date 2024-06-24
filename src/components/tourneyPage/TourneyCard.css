@@ -11,7 +11,7 @@ p {
 	font-size: large;
 	font-weight: bolder;
 }
-.tourneyCard > img {
+.tourneyCard-Banner {
 	width: 100%;
 }
 .tourneyCardButtons {

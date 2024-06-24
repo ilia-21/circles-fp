@@ -1,38 +1,36 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Player, PlayerLite } from "../../types/Player";
-import PlayerCardSmall from "../mainPage/PlayerCardSmall";
+import PlayerCardSmall from "../../components/mainPage/PlayerCardSmall";
 import GetPlayer from "../../functions/GetPlayer";
 
-interface Props {
-	user: Player | PlayerLite;
-	noColor?: boolean;
-}
+type Props =
+	| {
+			user?: null;
+			userid: number;
+			noColor?: boolean;
+	  }
+	| {
+			user: Player | PlayerLite;
+			userid?: null;
+			noColor?: boolean;
+	  };
 
-const PlayerLink = ({ user, noColor }: Props) => {
-	const [player, setPlayer] = useState<PlayerLite | null>(null);
-	const [loading, setLoading] = useState<boolean>(true);
+const fetchPlayer = async (id: number) => {
+	const player = (await GetPlayer(id)) as PlayerLite;
+	return player;
+};
 
-	useEffect(() => {
-		const fetchPlayer = async () => {
-			if (user && user.id) {
-				const fetchedPlayer = await GetPlayer(user.id);
-				setPlayer(fetchedPlayer);
-			}
-			setLoading(false);
-		};
-
-		if (!user.cover_url) {
-			fetchPlayer();
-		} else {
-			setPlayer(user as PlayerLite);
-			setLoading(false);
-		}
-	}, [user]);
-
-	if (loading) {
+const PlayerLink = ({ user, userid, noColor }: Props) => {
+	const { data: player, isLoading } = useQuery({
+		queryKey: ["playerData", userid || user?.id],
+		enabled: !!userid, // Only fetch if userid is provided
+		queryFn: () => fetchPlayer(userid as number),
+		initialData: user || undefined, // Use initial data if user is provided
+	});
+	if (isLoading) {
 		return (
 			<a
-				href={`/#/profile/${user.id}`}
+				href={`/#/profile/2`}
 				style={{
 					position: "relative",
 					textDecoration: noColor ? "none" : "unset",
@@ -43,10 +41,9 @@ const PlayerLink = ({ user, noColor }: Props) => {
 			</a>
 		);
 	}
-
 	return (
 		<a
-			href={`/#/profile/${user.id}`}
+			href={`/#/profile/${userid || (user as PlayerLite).id}`}
 			style={{
 				position: "relative",
 				textDecoration: noColor ? "none" : "unset",

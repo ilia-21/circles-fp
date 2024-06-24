@@ -15,17 +15,14 @@ const Banner = ({ tourney, setTourneyData, setMessage }: Props) => {
 	}, [tourney]);
 
 	const handleBannerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		// This gets called every time the banner changes
 		if (e.target.files && e.target.files[0]) {
 			const selectedFile = e.target.files[0];
 
 			if (selectedFile.size > 9 * 1024 * 1024) {
-				// Check if the banner is bigger than 9 MB
 				setMessage(["red", "File size should be less than 9 MB"]);
 				return;
 			}
 
-			// Convert the image to a base64 string
 			const reader = new FileReader();
 
 			reader.onloadend = () => {
@@ -37,16 +34,14 @@ const Banner = ({ tourney, setTourneyData, setMessage }: Props) => {
 					const aspectLimit = [5, 3];
 
 					if (img.width > 2048) {
-						// Check file resolution
 						setMessage(["red", "Banner width should not exceed 2048 pixels"]);
 					} else if (aspect > aspectLimit[0] || aspect < aspectLimit[1]) {
 						setMessage(["red", `Incorrect aspect ratio: 1:${aspect}. Allowed aspect ratio: between 1:${aspectLimit[0]} and 1:${aspectLimit[1]}`]);
 					} else {
-						// Update the tourney data with the new banner
 						const updatedData = { ...localTourneyData.data, banner: base64String };
 						const updatedTourney = { ...localTourneyData, data: updatedData };
 						setLocalTourneyData(updatedTourney);
-						setTourneyData(updatedTourney); // Update parent state
+						setTourneyData(updatedTourney);
 						setMessage(null);
 					}
 				};
@@ -58,11 +53,16 @@ const Banner = ({ tourney, setTourneyData, setMessage }: Props) => {
 	};
 
 	return (
-		<div className="TourneyEditor-Banner-Container">
-			<img src={localTourneyData.data.banner} onClick={() => document.getElementById("data.banner")?.click()} className="TourneyEditor-Banner-img" alt="Banner" height={"-10em"} />
+		<div className="TourneyEditor-Banner-Container" onClick={() => document.getElementById("data.banner")?.click()}>
+			<div className="TourneyEditor-Banner-Wrapper">
+				<img src={localTourneyData.data.banner} className="TourneyEditor-Banner-img" alt="Banner" />
+				<div className="TourneyEditor-Banner-Overlay">
+					<p>Click to change banner</p>
+				</div>
+			</div>
 			<input id="data.banner" type="file" accept="image/*" style={{ display: "none" }} onChange={handleBannerChange} />
-			<p>Click on a banner to pick a new one</p>
 		</div>
 	);
 };
+
 export default Banner;

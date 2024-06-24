@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { CiTrash } from "react-icons/ci";
 import { BracketMatch } from "../../types/BracketMatches";
 import InputWithSuggestions from "../universal/InputWithSuggestions";
@@ -43,7 +43,9 @@ const Match: React.FC<Props> = React.memo(({ match, matchBracket, matchIndex, re
 	// 	},
 	// 	[allMatches, setMatchesErrored]
 	// );
-
+	useEffect(() => {
+		updateMatch(matchIndex, bracket, { ...match, state: matchState });
+	}, [matchState]);
 	const handleInputBlur = useCallback(
 		(e: React.FocusEvent<HTMLInputElement>) => {
 			const value = e.target.value;

@@ -90,11 +90,12 @@ Daily website build (except weekends): [circlesfrontpage.iii.cl](https://circles
 │   ├─ participantspool
 │   └─ Date
 │
+├─── Beta stage, announcements, spreading the word
+│
 ├─┬─ Add info for tournament players
 │ ├─ Player's upcoming matches with detailed stats about the opponent
 │ ├─ Player's stats (but more detailed than public, I guess?)
 │ └─ Player's upcoming tournaments
-│
 ├─── Clean up
 │
 ├─┬─ (Sidequest) Discord bot for announcing new tournaments, tournament winners, important matches
@@ -108,7 +109,7 @@ Daily website build (except weekends): [circlesfrontpage.iii.cl](https://circles
 ┆
 │
 │
-╰── First stable release
+╰── Stable Stage
 ```
 
 # circles-fp

@@ -1,7 +1,7 @@
 # THIS IS A README THAT WILL BE SHOWN ONCE THE PROJECT IS FINISHED
 
 <h1 align="center">
-  <img src="./src/assets/PlaceholderLogo512.png" alt="CirclesFP log0" width="200">
+  <img src="./public/logoInlineV3-White.png" alt="CirclesFP log0" width="400">
   <br>
   Circles Front Page
   <br>

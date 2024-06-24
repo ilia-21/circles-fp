@@ -30,12 +30,14 @@ const MatchDetails = ({ match, tournament }: Props) => {
 	};
 	if (!first.title) {
 		return (
-			<div className="contentSlim-section">
-				{drawLinks()}
-				<p></p>
-				<OneStat first={`#${(first as PlayerLite).statistics.global_rank}`} second={`#${(second as PlayerLite).statistics.global_rank}`} stat="World ranking" condition="less" />
-				{matchCosts[0] != 0 && matchCosts[1] != 0 && <OneStat first={`${Math.round(matchCosts[0] * 1000) / 1000}`} second={`${Math.round(matchCosts[1] * 1000) / 1000}`} stat="Match costs" condition="more" />}
-			</div>
+			<>
+				<div className="contentSlim-section">{drawLinks()}</div>
+
+				<div className="contentSlim-section">
+					<OneStat first={`#${(first as PlayerLite).statistics.global_rank}`} second={`#${(second as PlayerLite).statistics.global_rank}`} stat="World ranking" condition="less" />
+					{matchCosts[0] != 0 && matchCosts[1] != 0 && <OneStat first={`${Math.round(matchCosts[0] * 1000) / 1000}`} second={`${Math.round(matchCosts[1] * 1000) / 1000}`} stat="Match costs" condition="more" />}
+				</div>
+			</>
 		);
 	} else {
 		const drawTeamCosts = () => {
@@ -60,11 +62,13 @@ const MatchDetails = ({ match, tournament }: Props) => {
 			playersWithMatchcosts[1].push([p, Math.round(convertAndCalculateMatchcost(match, p.id) * 1000) / 1000]);
 		});
 		return (
-			<div className="contentSlim-section">
-				{drawLinks()}
-				<p style={{ textAlign: "center" }}>Match costs</p>
-				{drawTeamCosts()}
-			</div>
+			<>
+				<div className="contentSlim-section">{drawLinks()}</div>
+				<div className="contentSlim-section">
+					<p style={{ textAlign: "center" }}>Match costs</p>
+					{drawTeamCosts()}
+				</div>
+			</>
 		);
 	}
 };

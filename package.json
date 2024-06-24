@@ -17,6 +17,7 @@
 	},
 	"dependencies": {
 		"@g-loot/react-tournament-brackets": "^1.0.31-rc",
+		"@tanstack/react-query": "^5.45.1",
 		"dompurify": "^3.1.5",
 		"dotenv": "^16.4.5",
 		"marked": "^13.0.0",
@@ -28,6 +29,7 @@
 		"react-loading-skeleton": "^3.4.0",
 		"react-oauth2-login": "^1.0.0",
 		"react-router-dom": "^6.23.1",
+		"react-toastify": "^10.0.5",
 		"styled-components": "^6.1.11"
 	},
 	"devDependencies": {

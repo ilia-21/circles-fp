@@ -3,13 +3,15 @@ import { PlayerLite } from "../../types/Player";
 import { Team } from "../../types/Team";
 import PlayerCardSmall from "../mainPage/PlayerCardSmall";
 import PlayerLink from "../universal/PlayerLink";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ErrorPage from "../../pages/ErrorPage";
 import "../universal/universal.css";
 import GetPlayer from "../../functions/GetPlayer";
 import genRanHex from "../../functions/GetRanHex";
 import randomLoadingMessage from "../../functions/loadingMessages";
 import IsEditor from "../../functions/IsEditor";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 interface Props {
 	team: Team;
@@ -17,33 +19,15 @@ interface Props {
 
 const TeamEditor = ({ team }: Props) => {
 	const [leader, setLeader] = useState<PlayerLite | null>(team.leader);
-	const [user, setUser] = useState<PlayerLite | null>(null);
-	const [loading, setLoading] = useState<boolean>(true);
 	const [teamData, setTeamData] = useState<{ id: number; title?: string; leader?: number; logo?: string }>({ id: team.id, title: team.title, leader: team.leader.id });
 	const [logoPreview, setLogoPreview] = useState<string | null>(`${team.logo}`);
-	const [error, setError] = useState<string | null>(null);
-	const [success, setSuccess] = useState<string | null>(null);
-
-	useEffect(() => {
-		const fetchSession = async () => {
-			try {
-				const response = await fetch(`${import.meta.env.VITE_API_URL}/api/session`, {
-					credentials: "include",
-				});
-				const data = await response.json();
-				if (data.isLoggedIn) {
-					setUser(data.user);
-					setLoading(false);
-				} else {
-					setUser(data.user);
-				}
-			} catch (error) {
-				console.error("Error fetching session data:", error);
-			}
-		};
-
-		fetchSession();
-	}, []);
+	const { isPending: loading, data: user } = useQuery({
+		queryKey: ["userData"],
+		queryFn: () =>
+			fetch(`${import.meta.env.VITE_API_URL}/api/session`, {
+				credentials: "include",
+			}).then((response) => response.json()),
+	});
 
 	if (loading) {
 		return <h1>{randomLoadingMessage()}</h1>;
@@ -75,23 +59,28 @@ const TeamEditor = ({ team }: Props) => {
 		// I may have to add comments because returning to this I don't understand a single thing
 		try {
 			// POSTing edited data to the api
-			const response = await fetch(`${import.meta.env.VITE_API_URL}/edit/team/${team.id}`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					"x-api-key": import.meta.env.VITE_API_KEY,
-				},
-				credentials: "include",
-				body: JSON.stringify(teamData),
-			});
+			const response = await toast.promise(
+				fetch(`${import.meta.env.VITE_API_URL}/edit/team/${team.id}`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						"x-api-key": import.meta.env.VITE_API_KEY,
+					},
+					credentials: "include",
+					body: JSON.stringify(teamData),
+				}),
+				{
+					pending: "Updating...",
+					success: "Team upadted successfully",
+					error: "Error while updating team",
+				}
+			);
 			if (response.status == 401) {
 				window.open("https://c.tenor.com/5laBYESlyu8AAAAC/tenor.gif", "_self");
 			}
 			if (!response.ok) {
 				throw new Error(`Error saving data: ${response.statusText}`);
 			}
-
-			setSuccess("Team updated");
 		} catch (error) {
 			console.error("Error saving data:", error);
 		}
@@ -104,7 +93,7 @@ const TeamEditor = ({ team }: Props) => {
 
 			if (selectedFile.size > 9 * 1024 * 1024) {
 				// Check if logo is bigger than 9 MB
-				setError("File size should be less than 9 MB");
+				toast.error("File size should be less than 9 MB");
 				return;
 			}
 			// Thing to read buffer from image
@@ -118,7 +107,7 @@ const TeamEditor = ({ team }: Props) => {
 				img.onload = () => {
 					if (img.width > 512 || img.height > 512) {
 						// Check file resolution
-						setError("Image dimensions should not exceed 512x512 pixels");
+						toast.error("Image dimensions should not exceed 512x512 pixels");
 					} else {
 						// Changing src of the preview
 						setLogoPreview(base64String);
@@ -127,7 +116,6 @@ const TeamEditor = ({ team }: Props) => {
 							...prevData,
 							logo: base64String,
 						}));
-						setError(null);
 					}
 				};
 				img.src = base64String;
@@ -139,8 +127,6 @@ const TeamEditor = ({ team }: Props) => {
 
 	return (
 		<div className="profilePageThe2st">
-			{error && <p style={{ color: "var(--red)" }}>{error}</p>}
-			{success && <p style={{ color: "var(--green)" }}>{success}</p>}
 			<div className="teamProfilePlayersSegment">
 				{team.players.map((player: PlayerLite) => (
 					<a key={player.id + genRanHex(4)} style={{ flex: `1 0 calc(${100 / Math.ceil(team.players.length / 2)}% - 10px)` }} href={`/#/profile/${player.id}`}>

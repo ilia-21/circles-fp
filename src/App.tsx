@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import NavBar from "./components/NavBar";
@@ -17,30 +17,22 @@ import TourneyEditor from "./pages/TourneyEditor";
 import Settings from "./pages/Settings";
 import SettingsLoader from "./components/universal/SettingsLoader";
 import MatchEditor from "./pages/MatchEditor";
-import { PlayerLite } from "./types/Player";
 import TourneyDeleter from "./pages/TourneyDeleter";
+import { useQuery } from "@tanstack/react-query";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-	const [user, setUser] = useState<PlayerLite | null>(null);
 	const [showPopup, setShowPopup] = useState(false);
 	const [currentPage] = useState(-1);
-
-	useEffect(() => {
-		fetch(`${import.meta.env.VITE_API_URL}/api/session`, {
-			credentials: "include",
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				if (data.isLoggedIn) {
-					setUser(data.user as PlayerLite);
-				}
-			})
-			.catch((error) => console.error("Error fetching session:", error));
-
-		if (!localStorage.getItem("hasSeenCookieWarning")) {
-			setShowPopup(true);
-		}
-	}, []);
+	const { isPending, data } = useQuery({
+		queryKey: ["userData"],
+		queryFn: () =>
+			fetch(`${import.meta.env.VITE_API_URL}/api/session`, {
+				credentials: "include",
+			}).then((response) => response.json()),
+	});
+	// react-query YIPPIE
 	let links = [
 		{ title: "Tournaments", location: "/#/tourneys" },
 		{ title: "Matches", location: "/#/matches" },
@@ -50,7 +42,7 @@ function App() {
 		localStorage.setItem("hasSeenCookieWarning", "true");
 		setShowPopup(false);
 	};
-	if (user && user.username != "ilia21") {
+	if (!isPending && data && data.user && data.user.username != "ilia21") {
 		console.log("%c" + "Hold Up!", "color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
 		console.log("%c Do not paste anything here!", "color:red;font-size:20px");
 		console.log("%c If someone told you to do so, you are probably getting hacked!", "color:red;font-weight:bold");
@@ -60,11 +52,12 @@ function App() {
 		<Router>
 			{showPopup && <CookieWarningPopup onClose={handleClosePopup} />}
 			<SettingsLoader />
-			<NavBar selected={currentPage} links={links} user={user} />
+			<ToastContainer position="bottom-right" theme="dark" draggable icon={false} />
+			<NavBar selected={currentPage} links={links} />
 			<ErrorBoundary fallbackRender={SomethingWentWrong}>
 				<Routes>
 					<Route path="/" element={<MainPage />} />
-					<Route path="profile" element={<Profile loggedInUser={user} />}>
+					<Route path="profile" element={<Profile />}>
 						<Route path=":uid" element={<Profile />} />
 					</Route>
 					<Route path="tourneys" element={<Tourneys />} />

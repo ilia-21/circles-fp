@@ -20,7 +20,7 @@ const SomethingWentWrong = ({ error }: FallbackProps) => {
 	};
 	return (
 		<div className="somethingWentWrong">
-			<h1 style={{ marginBottom: 0 }}>400 Something went wrong</h1>
+			<h1 style={{ marginBottom: 0 }}>400: Something went wrong</h1>
 			<h2 style={{ marginTop: 0 }}>{randomErrorMessage()}</h2>
 			<h3>What happened?</h3>
 			<p>The page you are trying to access causes an error, page loading has been stoped</p>

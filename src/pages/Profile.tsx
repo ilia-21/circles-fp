@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import UserCardFull from "../components/ProfilePage/UserCardFull";
 import UserInfo from "../components/ProfilePage/UserInfo";
@@ -6,41 +5,35 @@ import "./Profile.css";
 import Bannertop from "../components/universal/Bannertop";
 import OptoutPage from "../components/ProfilePage/OptoutPage";
 import randomLoadingMessage from "../functions/loadingMessages";
+import { useQuery } from "@tanstack/react-query";
 
-interface Props {
-	loggedInUser?: any;
-}
-const Profile = ({ loggedInUser }: Props) => {
+const fetchProfileData = async (uid: string | undefined) => {
+	console.log("called", uid);
+	const queryUrl = uid ? `${import.meta.env.VITE_API_URL}/user/${uid}?full=true` : `${import.meta.env.VITE_API_URL}/api/session`;
+	const response = await fetch(queryUrl, {
+		credentials: "include",
+	});
+	if (!response.ok) {
+		throw new Error(`Error fetching data: ${response.statusText}`);
+	}
+	let data = await response.json();
+	if (!uid) data = data.user;
+	console.log("returning", data);
+	return data;
+};
+
+const Profile = () => {
 	const { uid } = useParams<{ uid: string }>();
-	const [user, setUser] = useState<any>(null);
-	const [loading, setLoading] = useState<boolean>(true);
-	useEffect(() => {
-		const id = uid || loggedInUser?.id;
-		if (id) {
-			fetch(`${import.meta.env.VITE_API_URL}/user/${id}?full=true`, {
-				headers: {
-					"x-api-key": import.meta.env.VITE_API_KEY,
-				},
-				credentials: "include",
-			})
-				.then((response) => response.json())
-				.then((data) => {
-					setUser(data);
-					setLoading(false);
-				})
-				.catch((error) => {
-					console.error("Error fetching user data:", error);
-					setLoading(false);
-				});
-		} else if (loggedInUser) {
-			setUser(loggedInUser);
-			setLoading(false);
-		} else {
-			setLoading(false);
-		}
-	}, [uid, loggedInUser]);
+	const {
+		isLoading,
+		error,
+		data: user,
+	} = useQuery({
+		queryKey: ["profileData", uid || localStorage.getItem("localuserID")],
+		queryFn: () => fetchProfileData(uid),
+	});
 
-	if (loading) {
+	if (isLoading) {
 		return (
 			<div className="profilePage">
 				<div className="profilePageThe2st">
@@ -49,7 +42,7 @@ const Profile = ({ loggedInUser }: Props) => {
 			</div>
 		);
 	}
-	if (!user) {
+	if (error) {
 		return (
 			<div className="profilePage">
 				<div className="profilePageThe2st">
@@ -62,11 +55,11 @@ const Profile = ({ loggedInUser }: Props) => {
 			</div>
 		);
 	}
-	if (user.optout) {
+	if (user?.optout) {
 		return (
 			<div className="profilePage">
 				<div className="profilePageThe2st">
-					<OptoutPage id={uid || loggedInUser?.id} />
+					<OptoutPage id={Number(uid)} />
 				</div>
 			</div>
 		);
@@ -79,7 +72,6 @@ const Profile = ({ loggedInUser }: Props) => {
 				<UserCardFull user={user} />
 				<UserInfo id={user.id} />
 			</div>
-			{/* <UserInfo /> */}
 		</div>
 	);
 };

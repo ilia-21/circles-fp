@@ -1,3 +1,4 @@
+import DateConverter from "../../functions/DateConverter";
 import { Match } from "../../types/Match";
 import { Player } from "../../types/Player";
 import { Team } from "../../types/Team";
@@ -9,7 +10,7 @@ interface Props {
 	match: Match;
 	content: "upcoming" | "score";
 }
-
+const datesAreOnSameDay = (first: Date, second: Date) => first.getFullYear() === second.getFullYear() && first.getMonth() === second.getMonth() && first.getDate() === second.getDate();
 const MatchSmall = ({ match, content }: Props) => {
 	let openMatchPage = (id: number) => {
 		window.open(`/#/match/${id}`, "_self");
@@ -22,25 +23,31 @@ const MatchSmall = ({ match, content }: Props) => {
 	const id = match.id;
 	let createContent = () => {
 		if (content == "score") {
-			return <p onClick={() => openMatchPage(id)}>{score ? `${score[0]} - ${score[1]}` : "Score not found"}</p>;
+			return <p onClick={() => openMatchPage(id)}>{score ? `${score[0]} - ${score[1]}` : "? - ?"}</p>;
 		} else if (content == "upcoming") {
 			if (!upcoming) {
 				return (
 					<p onClick={() => openMatchPage(id)}>
-						"6:66 AM"
+						"0:00 AM"
 						<Tooltip content={"Time not found"} />
 					</p>
 				);
 			}
 			const timestamp = new Date(upcoming);
-			const shortLocalizedTimeString = new Intl.DateTimeFormat("en-US", {
-				hour: "2-digit",
-				minute: "2-digit",
-			}).format(timestamp);
+
+			let shortLocalizedTimeString;
 			const longLocalizedTimeString = new Intl.DateTimeFormat("en-US", {
 				dateStyle: "full",
 				timeStyle: "long",
 			}).format(timestamp);
+			if (datesAreOnSameDay(timestamp, new Date(Date.now()))) {
+				shortLocalizedTimeString = new Intl.DateTimeFormat("en-US", {
+					hour: "2-digit",
+					minute: "2-digit",
+				}).format(timestamp);
+			} else {
+				shortLocalizedTimeString = DateConverter(timestamp, "MM DD");
+			}
 			return (
 				<p onClick={() => openMatchPage(id)}>
 					{shortLocalizedTimeString}

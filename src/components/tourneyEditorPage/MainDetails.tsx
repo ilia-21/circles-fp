@@ -4,8 +4,6 @@ import PlayerLink from "../universal/PlayerLink";
 import { CiWarning } from "react-icons/ci";
 import Tooltip from "../universal/Tooltip";
 import ParseMarkdown from "../universal/ParseMarkdown";
-import { PlayerLite } from "../../types/Player";
-import GetPlayer from "../../functions/GetPlayer";
 import DateConverter from "../../functions/DateConverter";
 import { convertTime, getTimeZone } from "../../functions/TimeOperations";
 
@@ -15,7 +13,6 @@ interface Props {
 }
 const MainDetails = ({ tourney, setTourneyData }: Props) => {
 	const [localTourneyData, setLocalTourneyData] = useState<Tourney>(tourney);
-	const [host, setHost] = useState<PlayerLite>(tourney.host);
 	const [descriptionTab, setDescriptionTab] = useState<"edit" | "preview">("preview");
 	const [startTimestamp, setStartTimestamp] = useState<string[] | null>(convertTime(tourney.data.date.start) || null);
 	const [endTimestamp, setEndTimestamp] = useState<string[] | null>(convertTime(tourney.data.date.end) || null);
@@ -23,9 +20,6 @@ const MainDetails = ({ tourney, setTourneyData }: Props) => {
 	useEffect(() => {
 		setLocalTourneyData(tourney);
 	}, [tourney]);
-	const updateHost = async () => {
-		setHost(await GetPlayer(localTourneyData.host.id));
-	};
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
 		const { id, value } = e.target;
 		const updatedTourney = { ...localTourneyData, [id]: value };
@@ -112,7 +106,6 @@ const MainDetails = ({ tourney, setTourneyData }: Props) => {
 			</div>
 		);
 	};
-
 	return (
 		<div>
 			<input className="minimalisticInput" id="title" value={localTourneyData.title} onChange={handleInputChange} style={{ fontSize: "2em", fontWeight: "bold" }} />
@@ -120,15 +113,34 @@ const MainDetails = ({ tourney, setTourneyData }: Props) => {
 				<p>Prize:</p>
 				<input className="minimalisticInput" id="data.prize" value={localTourneyData.data.prize} onChange={handleInputDataChange} />
 			</div>
-			<div className="TourneyEditor-MainDetails-Line">
+			<div className="TourneyEditor-MainDetails-Line" style={{ margin: "1em 0" }}>
 				<p>Host:</p>
-				<input className="minimalisticInput" id="host" value={host.id} onChange={handleHostChange} onBlur={updateHost} />
-				<PlayerLink user={host} />
-				<CiWarning style={{ color: "var(--red)" }} />
-				<Tooltip content={"Be careful! Changing this may revoke your right to edit the tournament."} />
+				<div className="toggler">
+					<span
+						className={localTourneyData.host.id == Number(localStorage.getItem("localuserID")) ? "selected" : "disabled"}
+						onClick={() => {
+							const updatedHost = { ...localTourneyData.host, id: Number(localStorage.getItem("localuserID")) };
+							const updatedTourney = { ...localTourneyData, host: updatedHost };
+							console.log(updatedTourney);
+							setLocalTourneyData(updatedTourney);
+							setTourneyData(updatedTourney);
+						}}
+						style={{ color: "var(--cfp-accent)" }}
+					>
+						Me
+					</span>
+				</div>
+				<input className="minimalisticInput" id="host" value={localTourneyData.host.id} onChange={handleHostChange} onBlur={handleInputDataChange} />
+
+				<PlayerLink userid={localTourneyData.host.id} />
+				<div>
+					<CiWarning style={{ color: "var(--red)" }} />
+					<Tooltip content={"Be careful! Changing this may revoke your right to edit the tournament."} />
+				</div>
 			</div>
+
 			<div className="TourneyEditor-MainDetails-Line">
-				<p style={{ width: "15em" }}>Steam link (twitch or youtube):</p>
+				<p style={{ width: "15.5em" }}>Steam link (twitch or youtube):</p>
 				<input className="minimalisticInput" id="data.stream" value={localTourneyData.data.stream} onChange={handleInputDataChange} />
 			</div>
 			<div className="TourneyEditor-MainDetails-Line" style={{ margin: "1em 0" }}>

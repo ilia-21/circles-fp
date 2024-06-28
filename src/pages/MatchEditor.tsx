@@ -15,11 +15,15 @@ import TeamCardSmall from "../components/mainPage/TeamCardSmall";
 import { PlayerLite } from "../types/Player";
 import DateConverter from "../functions/DateConverter";
 import Tooltip from "../components/universal/Tooltip";
+import { toast } from "react-toastify";
 
 const BlankPick: PickEvent = {
 	who: "first",
 	type: "pick",
 	map: "NM1",
+	detail: {
+		type: "pickban",
+	},
 };
 
 const MatchEditor = () => {
@@ -27,12 +31,11 @@ const MatchEditor = () => {
 	const [matchData, setMatchData] = useState<Match | null>(null);
 	const [tournamentData, setTournamentData] = useState<Tourney | null>(null);
 	const [loading, setLoading] = useState(true);
-	const [message, setMessage] = useState<string[] | null>(null);
 	const [error, setError] = useState<string[] | null>(null);
 	const [pickData, setPickData] = useState<PickEvent[] | null>(null);
 	const [score, setScore] = useState<string[] | null>(null);
 	const [availableMaps, setAvailableMaps] = useState<string[] | null>(null);
-
+	let toastId;
 	const drawParty = (which: "first" | "second") => {
 		if (!matchData) return;
 		if (!(matchData[which] as Team).logo) {
@@ -165,7 +168,7 @@ const MatchEditor = () => {
 		return pickData.map((p, index) => <Pick key={index} first={matchData.first} second={matchData.second} pick={p} index={index} pickData={pickData} setPickData={setPickData} availableMaps={availableMapsFiltered} />);
 	}, [pickData, availableMaps, matchData]);
 	const submitMatch = async () => {
-		setMessage(["yellow", "Submitting..."]);
+		toastId = toast.warning("Submitting...", { autoClose: false });
 		let merged = matchData as Match;
 		//@ts-ignore
 		if (pickData?.length > 0) {
@@ -192,10 +195,10 @@ const MatchEditor = () => {
 				window.open("https://c.tenor.com/5laBYESlyu8AAAAC/tenor.gif", "_self");
 			}
 			if (!response.ok) {
-				setMessage(["red", "Error, while updating match"]);
+				toast.update(toastId, { render: `Error, while updating match`, autoClose: 5000, type: "error" });
 				throw new Error(`Error saving data: ${response.statusText}`);
 			}
-			setMessage(["green", "Match information updated successfully"]);
+			toast.update(toastId, { render: `Match information updated successfully`, autoClose: 5000, type: "success" });
 			return true;
 		} catch (error) {
 			console.error(error);
@@ -214,6 +217,7 @@ const MatchEditor = () => {
 	if (!matchData) {
 		return <ErrorPage error={[500, "Failed to load match data"]} />;
 	}
+	document.title = `CFP: Editing Match`;
 
 	return (
 		<div>
@@ -225,7 +229,6 @@ const MatchEditor = () => {
 						</a>
 					</div>
 					<div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
-						{message && <p style={{ color: `var(--${message[0]})` }}>{message[1]}</p>}
 						<BsFloppy style={{ fontSize: "2em" }} onClick={submitMatch} />
 					</div>
 				</div>

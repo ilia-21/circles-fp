@@ -67,7 +67,6 @@ const Pick = ({ first, second, pick, index, pickData, setPickData, availableMaps
 				}}
 			>
 				<BsArrowLeftRight style={{ color: "var(--cfp-accent)" }} />
-				<p>Swap</p>
 			</div>
 		);
 	};
@@ -75,7 +74,7 @@ const Pick = ({ first, second, pick, index, pickData, setPickData, availableMaps
 	return (
 		<div className="matchEditor-pick-container">
 			{pick.who === "first" ? drawData() : drawEmpty()}
-			<CiTrash onClick={delPick} style={{ color: "var(--cfp-accent)" }} />
+			<CiTrash onClick={delPick} style={{ color: "var(--cfp-accent)", fontSize: "1.5em" }} />
 			{pick.who === "second" ? drawData() : drawEmpty()}
 		</div>
 	);

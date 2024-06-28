@@ -1,11 +1,11 @@
-.TourneyEditor-saveButton {
+.TourneyEditor-mainToolbar {
 	display: flex;
 	gap: 1em;
 	width: 100%;
 	justify-content: end;
 	margin: 1em 0;
 }
-.TourneyEditor-saveButton > div > svg {
+.TourneyEditor-mainToolbar > div > svg {
 	font-size: 2em;
 }
 .TourneyEditor-MainDetails-Line {
@@ -298,4 +298,34 @@
 .bracketCardContainer {
 	overflow-x: hidden;
 	width: 100%;
+}
+.TourneyEditor-section-toolbar {
+	display: flex;
+	justify-content: space-between;
+}
+.TourneyEditor-section-toolbar > div {
+	display: flex;
+	gap: 1em;
+}
+.TourneyEditor-section-toolbar-icon {
+	font-size: 2em;
+	color: var(--cfp-text);
+}
+.TourneyEditor-section-toolbar-smaller {
+	display: flex;
+	justify-content: space-between;
+	gap: 1em;
+	width: 100%;
+}
+.TourneyEditor-section-toolbar-smaller > div {
+	display: flex;
+	gap: 1em;
+}
+.TourneyEditor-sections > div {
+	margin: 2em 0;
+}
+.TourneyEditor-mainToolbar svg,
+.TourneyEditor-section-toolbar svg,
+.TourneyEditor-section-toolbar-smaller svg {
+	cursor: pointer;
 }

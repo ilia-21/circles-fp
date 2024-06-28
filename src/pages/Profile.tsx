@@ -6,6 +6,9 @@ import Bannertop from "../components/universal/Bannertop";
 import OptoutPage from "../components/ProfilePage/OptoutPage";
 import randomLoadingMessage from "../functions/loadingMessages";
 import { useQuery } from "@tanstack/react-query";
+import setEmbed from "../functions/DiscordEmbedMabager";
+import { Player } from "../types/Player";
+import ErrorPage from "./ErrorPage";
 
 const fetchProfileData = async (uid: string | undefined) => {
 	console.log("called", uid);
@@ -18,8 +21,7 @@ const fetchProfileData = async (uid: string | undefined) => {
 	}
 	let data = await response.json();
 	if (!uid) data = data.user;
-	console.log("returning", data);
-	return data;
+	return data as Player;
 };
 
 const Profile = () => {
@@ -55,6 +57,8 @@ const Profile = () => {
 			</div>
 		);
 	}
+	user && (document.title = `CFP: ${user.username}'s profile`);
+	user && setEmbed(`${user.username}'s profile`, `Check out ${user.username}'s stats, recent and upcoming matches, on Circles Front Page!`, user.cover.custom_url || undefined);
 	if (user?.optout) {
 		return (
 			<div className="profilePage">
@@ -64,6 +68,7 @@ const Profile = () => {
 			</div>
 		);
 	}
+	if (!user) return <ErrorPage />;
 	return (
 		<div className="profilePage">
 			<Bannertop banner={user.cover_url} />

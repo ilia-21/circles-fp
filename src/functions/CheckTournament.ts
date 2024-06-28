@@ -1,7 +1,10 @@
 import { Id, toast } from "react-toastify";
 import { MappoolMod } from "../types/Beatmap";
-import { Tourney } from "../types/Tourney";
-const sendTournament = async (id: string, tourneyData: Tourney, setMessage: (message: string[]) => void, created?: boolean) => {
+import { Tourney, TourneyParticipant } from "../types/Tourney";
+import { PlayerLite } from "../types/Player";
+import { Team } from "../types/Team";
+import FinalizeTournmaent from "./FinalizeTournmaent";
+const sendTournament = async (id: string, tourneyData: Tourney, created?: boolean, toastId?: Id) => {
 	const url = created ? `${import.meta.env.VITE_API_URL}/new/tourney` : `${import.meta.env.VITE_API_URL}/edit/tourney/${id}`;
 	try {
 		const response = await fetch(url, {
@@ -18,13 +21,23 @@ const sendTournament = async (id: string, tourneyData: Tourney, setMessage: (mes
 			window.open("https://c.tenor.com/5laBYESlyu8AAAAC/tenor.gif", "_self");
 		}
 		if (!response.ok) {
-			setMessage(["red", "Error, while updating tournament"]);
+			if (toastId) {
+				const str = created ? " creating " : " updating ";
+				setTimeout(() => {
+					toast.update(toastId, { render: `Error, while ${str} tournament`, autoClose: 5000, type: "error" });
+				}, 1000);
+			}
 			throw new Error(`Error saving data: ${response.statusText}`);
 		}
 		if (created) {
 			window.open(`${window.location.origin}/#/tourney/${data.id}`);
 		} else {
-			setMessage(["green", "Tournament information updated successfully"]);
+			if (toastId) {
+				const str = created ? " created " : " updated ";
+				setTimeout(() => {
+					toast.update(toastId, { render: `Tournament ${str} successfully`, autoClose: 5000, type: "error" });
+				}, 1000);
+			}
 		}
 		return true;
 	} catch (error) {
@@ -43,15 +56,22 @@ const updateToast = (current: Id, text: string) => {
 		toast.update(current, { render: text, autoClose: 5000, type: "error" });
 	}, 1000);
 };
-let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, setMessage: (message: string[]) => void, created?: boolean) => {
+let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, setMessage: (message: string[]) => void, created?: boolean, skip?: boolean) => {
+	// note: there are skill server side checks
+	// so no, you can't just manipulate them
 	const toastId = toast.warning("Checking", { autoClose: false });
 	let foundIn: any = [];
 	let counter: number | null = 0;
-	const allBracketMatchs = [...tourneyData.data.bracket.upper, ...tourneyData.data.bracket.lower];
+	const allBracketMatches = [...tourneyData.data.bracket.upper, ...tourneyData.data.bracket.lower];
+	if (skip) {
+		toast.update(toastId, { render: "Checks skipped, sending...", type: "error", autoClose: false });
+		tourneyData = FinalizeTournmaent(tourneyData);
+		sendTournament(id, tourneyData, created, toastId);
+	}
 
 	// Test 0
 	// Check if there's even a something
-	if (allBracketMatchs.length <= 2) {
+	if (allBracketMatches.length <= 2) {
 		counter++;
 		foundIn.push("at least 3 matches");
 	}
@@ -205,7 +225,7 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 	foundIn = [];
 	// Test 6
 	// Check if all finished matches have a mappool assigned
-	for (const match of allBracketMatchs) {
+	for (const match of allBracketMatches) {
 		console.log(match);
 		if (!tourneyData.data.pool.find((p) => p.title == match.tournamentRoundText) && match.state == "DONE") {
 			counter++;
@@ -273,8 +293,12 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 		}
 	}
 
+	// After tests
+	// Some data modification, so it works on server
+	tourneyData = FinalizeTournmaent(tourneyData);
 	if (send) {
-		sendTournament(id, tourneyData, setMessage, created);
+		const toastId = toast.warning("Sending", { autoClose: false });
+		sendTournament(id, tourneyData, created, toastId);
 	} else {
 		toast.update(toastId, { render: "No errors found in your tournament", autoClose: 5000, type: "success" });
 	}

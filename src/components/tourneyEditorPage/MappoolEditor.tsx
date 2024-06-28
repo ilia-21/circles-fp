@@ -3,7 +3,9 @@ import { Tourney, TourneyMappool } from "../../types/Tourney";
 import { useState, useEffect } from "react";
 import "./TourneyEditorPage.css";
 import Mappool from "./Mappool";
-
+import { BsDisc, BsFloppy } from "react-icons/bs";
+import Tooltip from "../universal/Tooltip";
+import Tie from "../../functions/TournamentImportExport";
 interface Props {
 	tourney: Tourney;
 	setTourneyData: (tourney: Tourney) => void;
@@ -48,13 +50,28 @@ const MappoolEditor = ({ tourney, setTourneyData }: Props) => {
 	};
 
 	return (
-		<div className="TourneyEditor-Mappools">
-			{localTourneyData.data.pool && drawPools()}
-			<div style={{ display: "flex", alignItems: "center", flexDirection: "column" }} onClick={addBlankPool}>
-				<IoMdAdd className="TourneyEditor-Participants-Icon" />
-				<p>Add new Pool</p>
+		<>
+			<div className="TourneyEditor-section-toolbar">
+				<h1>Map pool</h1>
+				<div>
+					<div onClick={() => Tie.mpools.exp(localTourneyData as Tourney)}>
+						<BsFloppy className="TourneyEditor-section-toolbar-icon" />
+						<Tooltip content={"Save entire map pool to your device"} />
+					</div>
+					<div onClick={() => Tie.mpools.imp(setTourneyData, localTourneyData)}>
+						<BsDisc className="TourneyEditor-section-toolbar-icon" />
+						<Tooltip content={"Load entire map pool from your device"} />
+					</div>
+				</div>
 			</div>
-		</div>
+			<div className="TourneyEditor-Mappools">
+				{localTourneyData.data.pool && drawPools()}
+				<div style={{ display: "flex", alignItems: "center", flexDirection: "column" }} onClick={addBlankPool}>
+					<IoMdAdd className="TourneyEditor-Participants-Icon" />
+					<p>Add new Pool</p>
+				</div>
+			</div>
+		</>
 	);
 };
 export default MappoolEditor;

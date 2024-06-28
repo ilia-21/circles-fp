@@ -10,7 +10,7 @@ interface Props {
 }
 
 const NavBar = ({ selected, links }: Props) => {
-	const { isPending, error, data } = useQuery({
+	const { data } = useQuery({
 		queryKey: ["userData"],
 		queryFn: () =>
 			fetch(`${import.meta.env.VITE_API_URL}/api/session`, {
@@ -27,11 +27,11 @@ const NavBar = ({ selected, links }: Props) => {
 	};
 
 	const handleLogin = () => {
-		window.location.href = `${import.meta.env.VITE_API_URL}/login?from=${btoa(window.location.href)}`;
+		window.open(`${import.meta.env.VITE_API_URL}/login`, "Circles front page login", "height=800,width=450");
 	};
 
 	const handleLogout = () => {
-		window.location.href = `${import.meta.env.VITE_API_URL}/logout?from=${btoa(window.location.href)}`;
+		window.location.href = `${import.meta.env.VITE_API_URL}/logout`;
 	};
 	const drawUserArea = () => {
 		if (data.isLoggedIn) {

@@ -21,6 +21,9 @@ import TourneyDeleter from "./pages/TourneyDeleter";
 import { useQuery } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import MetaTags from "./components/universal/MetaTags";
+import Announcement from "./components/universal/Announcement";
+import AuthDone from "./pages/AuthDone";
 
 function App() {
 	const [showPopup, setShowPopup] = useState(false);
@@ -51,12 +54,15 @@ function App() {
 	return (
 		<Router>
 			{showPopup && <CookieWarningPopup onClose={handleClosePopup} />}
+			<MetaTags />
 			<SettingsLoader />
+			<Announcement />
 			<ToastContainer position="bottom-right" theme="dark" draggable icon={false} />
 			<NavBar selected={currentPage} links={links} />
 			<ErrorBoundary fallbackRender={SomethingWentWrong}>
 				<Routes>
 					<Route path="/" element={<MainPage />} />
+					<Route path="authdone" element={<AuthDone />} />
 					<Route path="profile" element={<Profile />}>
 						<Route path=":uid" element={<Profile />} />
 					</Route>

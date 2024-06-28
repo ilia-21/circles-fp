@@ -1,13 +1,13 @@
+import { toast } from "react-toastify";
 import { Tourney } from "../../types/Tourney";
 import { useState, useEffect } from "react";
 
 interface Props {
 	tourney: Tourney;
 	setTourneyData: (tourney: Tourney) => void;
-	setMessage: (message: string[] | null) => void;
 }
 
-const Banner = ({ tourney, setTourneyData, setMessage }: Props) => {
+const Banner = ({ tourney, setTourneyData }: Props) => {
 	const [localTourneyData, setLocalTourneyData] = useState<Tourney>(tourney);
 
 	useEffect(() => {
@@ -19,7 +19,7 @@ const Banner = ({ tourney, setTourneyData, setMessage }: Props) => {
 			const selectedFile = e.target.files[0];
 
 			if (selectedFile.size > 9 * 1024 * 1024) {
-				setMessage(["red", "File size should be less than 9 MB"]);
+				toast.error("File size should be less than 9 MB");
 				return;
 			}
 
@@ -34,15 +34,14 @@ const Banner = ({ tourney, setTourneyData, setMessage }: Props) => {
 					const aspectLimit = [5, 3];
 
 					if (img.width > 2048) {
-						setMessage(["red", "Banner width should not exceed 2048 pixels"]);
+						toast.error("Banner width should not exceed 2048 pixels");
 					} else if (aspect > aspectLimit[0] || aspect < aspectLimit[1]) {
-						setMessage(["red", `Incorrect aspect ratio: 1:${aspect}. Allowed aspect ratio: between 1:${aspectLimit[0]} and 1:${aspectLimit[1]}`]);
+						toast.error(`Incorrect aspect ratio: 1:${aspect}. Allowed aspect ratio: between 1:${aspectLimit[0]} and 1:${aspectLimit[1]}`);
 					} else {
 						const updatedData = { ...localTourneyData.data, banner: base64String };
 						const updatedTourney = { ...localTourneyData, data: updatedData };
 						setLocalTourneyData(updatedTourney);
 						setTourneyData(updatedTourney);
-						setMessage(null);
 					}
 				};
 				img.src = base64String;

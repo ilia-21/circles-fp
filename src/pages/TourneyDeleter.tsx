@@ -134,6 +134,14 @@ const TourneyDeleter = () => {
 		<div className="fullscreen">
 			<div className="fullscreenMessage" style={{ alignItems: "center" }}>
 				<h1 style={{ color: "var(--red)" }}>Are you sure you want to delete {tourneyData?.title}?</h1>
+				<p>After you delete the tournament:</p>
+				<ul>
+					<li>The tournament page will no longer be acessible</li>
+					<li>All assets will be deleted after few days</li>
+					<li>
+						<b>No matches</b> will be deleted
+					</li>
+				</ul>
 				<p>
 					This action <b>can't be undone</b>!
 				</p>
@@ -146,7 +154,7 @@ const TourneyDeleter = () => {
 				<p>Type "Confirm⠀the⠀deletion⠀of⠀{tourneyData?.title}" in the field below (no pasting)</p>
 				{/* all spaces in the message above are replaced with braile spaces, so no copypasting will work, he-he*/}
 
-				<input type="text" className="minimalisticInput" onChange={handleInputChange} />
+				<input type="text" className="minimalisticInput" style={{ width: `25em` }} onChange={handleInputChange} />
 				<div style={{ display: "flex", justifyContent: "center", gap: "1em" }}>
 					<div style={{ background: "var(--red)", color: "var(--cfp-bg)" }} className={`fullscreenMessage-button ${!confirmation ? "disabled" : ""}`} onClick={deleteTournament}>
 						Confirm

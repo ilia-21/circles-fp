@@ -38,27 +38,42 @@ const MatchTeamEvent = ({ event, next, first }: Props) => {
 		const beatmap = event.game.beatmap;
 		// @ts-ignore: Object is possibly 'null'.
 		const mod = event.game.mods[1] || "NM";
-
+		const drawMods = (s: Score) => {
+			if (s.mods.length > 1) {
+				return (
+					<div className="matchGrid-item-mod">
+						<p>+{s.mods.slice(1).join("+")}</p>
+					</div>
+				);
+			} else {
+				return (
+					<div className="matchGrid-item-mod">
+						<p> </p>
+					</div>
+				);
+			}
+		};
 		const drawScoreDetails = (who: Score[]) => {
 			const scoreElements = who.map((s) => {
 				return (
 					<div className="matchGrid-row">
-						<div className="matchGrid-item">
-							<a href={`/#/${s.player.id}`}>
+						<div className="matchGrid-item-pfp">
+							<a href={`/#/profile/${s.player.id}`}>
 								<img src={s.player.avatar_url} />
 								<Tooltip content={s.player.username} height="2em" />
 							</a>
 						</div>
-						<div className="matchGrid-item">
+						{mod == "FM" && drawMods(s)}
+						<div className="matchGrid-item-combo">
 							<p>{s.max_combo}x</p>
 						</div>
-						<div className="matchGrid-item">
+						<div className="matchGrid-item-acc">
 							<p>{Math.round(s.accuracy * 10000) / 100}%</p>
 						</div>
-						<div className="matchGrid-item">
+						<div className="matchGrid-item-stats">
 							<p>{`{${s.statistics.count_300}/${s.statistics.count_100}/${s.statistics.count_50}/${s.statistics.count_miss}}`}</p>
 						</div>
-						<div className="matchGrid-item">
+						<div className="matchGrid-item-score">
 							<p style={{ fontWeight: "bolder" }}>{s.score}</p>
 						</div>
 					</div>

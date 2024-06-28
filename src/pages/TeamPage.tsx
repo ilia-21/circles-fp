@@ -11,6 +11,7 @@ import ErrorPage from "./ErrorPage";
 import TeamProfile from "../components/teamPage/TeamProfile";
 import TeamEditor from "../components/teamPage/TeamEditor";
 import randomLoadingMessage from "../functions/loadingMessages";
+import setEmbed from "../functions/DiscordEmbedMabager";
 
 const TeamPage = () => {
 	const [queryParameters] = useSearchParams();
@@ -58,7 +59,8 @@ const TeamPage = () => {
 			</div>
 		);
 	}
-
+	document.title = `CFP: ${team.title} team`;
+	setEmbed(`Profile for "${team.title}" team`, `Check out their stats, recent and upcoming matches, on Circles Front Page!`);
 	return <div className="profilePage">{edit ? <TeamEditor team={team} /> : <TeamProfile team={team} />}</div>;
 };
 

@@ -67,11 +67,14 @@ const Participants = ({ tourney, setTourneyData }: Props) => {
 	};
 
 	return (
-		<div className="TourneyEditor-Participants">
-			{localTourneyData.data.participants && drawParticipants()}
-			<div className="TourneyEditor-Participants-Block new" onClick={addBlankParticipant}>
-				<IoMdAdd className="TourneyEditor-Participants-Icon" />
-				<p>Add new participant</p>
+		<div>
+			<h1>Participants</h1>
+			<div className="TourneyEditor-Participants">
+				{localTourneyData.data.participants && drawParticipants()}
+				<div className="TourneyEditor-Participants-Block new" onClick={addBlankParticipant}>
+					<IoMdAdd className="TourneyEditor-Participants-Icon" />
+					<p>Add new participant</p>
+				</div>
 			</div>
 		</div>
 	);

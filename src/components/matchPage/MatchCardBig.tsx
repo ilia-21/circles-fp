@@ -47,7 +47,7 @@ const MatchCardBig = ({ match }: Props) => {
 				</p>
 			);
 		} else {
-			return <p>{`${match.result[0]} - ${match.result[1]}`}</p>;
+			return <p>{`${match.result ? match.result[0] : "?"} - ${match.result ? match.result[1] : "?"}`}</p>;
 		}
 	};
 

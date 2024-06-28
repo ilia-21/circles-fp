@@ -1,13 +1,13 @@
+import { toast } from "react-toastify";
 import { Tourney } from "../../types/Tourney";
 import { useState, useEffect } from "react";
 
 interface Props {
 	tourney: Tourney;
 	setTourneyData: (tourney: Tourney) => void;
-	setMessage: (message: string[] | null) => void;
 }
 
-const Logo = ({ tourney, setTourneyData, setMessage }: Props) => {
+const Logo = ({ tourney, setTourneyData }: Props) => {
 	const [localTourneyData, setLocalTourneyData] = useState<Tourney>(tourney);
 
 	useEffect(() => {
@@ -21,7 +21,7 @@ const Logo = ({ tourney, setTourneyData, setMessage }: Props) => {
 
 			if (selectedFile.size > 9 * 1024 * 1024) {
 				// Check if the banner is bigger than 9 MB
-				setMessage(["red", "File size should be less than 9 MB"]);
+				toast.error("File size should be less than 9 MB");
 				return;
 			}
 
@@ -37,16 +37,15 @@ const Logo = ({ tourney, setTourneyData, setMessage }: Props) => {
 
 					if (img.width > 512) {
 						// Check file resolution
-						setMessage(["red", "Logo width and height should not exceed 512 pixels"]);
+						toast.error("Logo width and height should not exceed 512 pixels");
 					} else if (aspect != 1) {
-						setMessage(["red", `Incorrect aspect ratio: 1:${aspect}. Allowed aspect ratio for logo: 1:1`]);
+						toast.error(`Incorrect aspect ratio: 1:${aspect}. Allowed aspect ratio for logo: 1:1`);
 					} else {
 						// Update the tourney data with the new banner
 						const updatedData = { ...localTourneyData.data, icon: base64String };
 						const updatedTourney = { ...localTourneyData, data: updatedData };
 						setLocalTourneyData(updatedTourney);
 						setTourneyData(updatedTourney); // Update parent state
-						setMessage(null);
 					}
 				};
 				img.src = base64String;

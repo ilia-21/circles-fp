@@ -6,6 +6,7 @@ interface Props {
 }
 
 const ErrorPage = ({ error, description }: Props) => {
+	document.title = "CFP: Error";
 	return (
 		<div className="somethingWentWrong">
 			<h1 style={{ marginBottom: 0 }}>{error ? `${error[0]}: ${error[1]}` : "404: Not found"}</h1>

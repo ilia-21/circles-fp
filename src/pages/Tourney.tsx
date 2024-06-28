@@ -10,6 +10,7 @@ import TourneySchedulePage from "../components/tourneyPage/Schedule/TourneySched
 import TourneyStatsPage from "../components/tourneyPage/Stats/TourneyStatsPage";
 import randomLoadingMessage from "../functions/loadingMessages";
 import ErrorPage from "./ErrorPage";
+import setEmbed from "../functions/DiscordEmbedMabager";
 
 interface Props {
 	page: "info" | "upcoming" | "results" | "stats";
@@ -20,7 +21,6 @@ const Tourney = ({ page }: Props) => {
 	const [loading, setLoading] = useState<boolean>(true);
 	const [gone, setGone] = useState<boolean>(false);
 	const [tourneyData, setTourneyData] = useState<Tourney>();
-
 	useEffect(() => {
 		const fetchOneTourney = async () => {
 			setLoading(true);
@@ -77,7 +77,8 @@ const Tourney = ({ page }: Props) => {
 				return null;
 		}
 	};
-
+	document.title = `CFP: ${tourneyData?.title}`;
+	tourneyData && setEmbed(tourneyData.title, `Check out all the information about ${tourneyData?.title} on Circles Front Page!`, tourneyData.data.banner);
 	return (
 		<div className="mainContent">
 			<div className="tourneyPage">

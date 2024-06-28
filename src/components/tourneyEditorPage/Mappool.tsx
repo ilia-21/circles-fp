@@ -8,6 +8,8 @@ import { Beatmap, MappoolMod } from "../../types/Beatmap";
 import { ModType } from "../../types/Mod";
 import { CiTrash } from "react-icons/ci";
 import Tooltip from "../universal/Tooltip";
+import { BsDisc, BsFloppy } from "react-icons/bs";
+import Tie from "../../functions/TournamentImportExport";
 
 interface Props {
 	mapPool: TourneyMappool;
@@ -98,9 +100,19 @@ const Mappool = ({ mapPool, index, removePool, updatePool }: Props) => {
 
 	return (
 		<div className="TourneyEditor-Mappool">
-			<div className="TourneyEditor-Mappool-Toolbar">
+			<div className="TourneyEditor-section-toolbar-smaller">
 				<input type="text" className="minimalisticInput" value={localPoolData.title} style={{ fontSize: "1.5em" }} onChange={updatePoolName} />
+
 				<div>
+					<div onClick={() => Tie.mpool.exp(localPoolData)}>
+						<BsFloppy className="TourneyEditor-section-toolbar-icon" />
+						<Tooltip content={"Save maps for this stage to your device"} />
+					</div>
+					<div onClick={() => Tie.mpool.imp(syncPools, index)}>
+						<BsDisc className="TourneyEditor-section-toolbar-icon" />
+						<Tooltip content={"Load maps for this stage from your device"} />
+					</div>
+
 					<CiTrash
 						className="TourneyEditor-Mappool-Toolbar-Delete"
 						onClick={() => {
@@ -115,6 +127,7 @@ const Mappool = ({ mapPool, index, removePool, updatePool }: Props) => {
 					{deleteConfirm && <Tooltip content={"Are you sure?"} />}
 				</div>
 			</div>
+
 			{localPoolData && drawMaps()}
 			<div className="TourneyEditor-Map-Container empty" onClick={addBlankMap}>
 				<IoMdAdd className="TourneyEditor-Participants-Icon" />

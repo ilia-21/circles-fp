@@ -58,7 +58,7 @@ const NoConnectionPopup = ({ text }: Props) => {
 			<div>
 				<h1>{text?.startsWith("Server is locked down") ? text : "Can't connect to the server"}</h1>
 				{text2 && <h2>{text2}</h2>}
-				<p>{randomErrorMessage()}</p>
+				{!text2 && <p>{randomErrorMessage()}</p>}
 				<p
 					onClick={() => {
 						setDetailsOpen(!detailsOpen);

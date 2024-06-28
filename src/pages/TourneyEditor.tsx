@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { PlayerLite } from "../types/Player";
 import MainDetails from "../components/tourneyEditorPage/MainDetails";
-import { BsCloudUpload, BsDisc, BsFloppy, BsSave } from "react-icons/bs";
+import { BsCloudUpload, BsDisc, BsFloppy } from "react-icons/bs";
 import { Tourney } from "../types/Tourney";
 import ErrorPage from "./ErrorPage";
 import randomLoadingMessage from "../functions/loadingMessages";
@@ -25,6 +25,7 @@ const fetchUser = async () => {
 		credentials: "include",
 	});
 	const data = await response.json();
+	console.log(data);
 	if (data.isLoggedIn) {
 		return data.user;
 	}
@@ -65,6 +66,7 @@ const TourneyEditor = () => {
 		queryKey: ["currentUserData"],
 		queryFn: fetchUser,
 		staleTime: 0,
+		retry: false,
 	});
 
 	const {
@@ -106,7 +108,7 @@ const TourneyEditor = () => {
 	const saveTourneyData = async () => {
 		const created = id === "new";
 		if (!confirmation) {
-			const checkResult = await CheckTournament(false, id as string, tourneyData as Tourney, setMessage, created);
+			const checkResult = await CheckTournament(false, id as string, tourneyData as Tourney, setMessage, created, true);
 			checkResult && setConfirmation(true);
 			return;
 		}
@@ -133,21 +135,16 @@ const TourneyEditor = () => {
 		);
 	}
 
-	if (userError) {
+	if ((userError && userError.message != "User not logged in") || tourneyError) {
 		return <ErrorPage />;
 	}
-
-	if (tourneyError) {
-		return <ErrorPage />;
-	}
-
 	if (!user || (id !== "new" && !IsEditor({ key: `${user.id}`, condition: "equals", value: tourneyData?.host.id }, user as PlayerLite))) {
 		return <ErrorPage error={[401, "You are not supposed to be here"]} />;
 	}
-
+	document.title = `CFP: editing ${tourneyData?.title}`;
 	return (
 		<div className="content" style={{ position: "relative" }}>
-			<div className="TourneyEditor-saveButton">
+			<div className="TourneyEditor-mainToolbar">
 				{message && <p style={{ color: `var(--${message[0]})` }}>{message[1]}</p>}
 				<div style={{ display: "flex", gap: "1em" }}>
 					<div onClick={() => Tie.exp(tourneyData as Tourney)}>
@@ -165,17 +162,14 @@ const TourneyEditor = () => {
 				</div>
 			</div>
 			{tourneyData && (
-				<>
-					<Banner tourney={tourneyData} setTourneyData={setTourneyData} setMessage={setMessage} />
-					<Logo tourney={tourneyData} setTourneyData={setTourneyData} setMessage={setMessage} />
+				<div className="TourneyEditor-sections">
+					<Banner tourney={tourneyData} setTourneyData={setTourneyData} />
+					<Logo tourney={tourneyData} setTourneyData={setTourneyData} />
 					<MainDetails tourney={tourneyData} setTourneyData={setTourneyData} />
-					<h1>Participants</h1>
 					<Participants tourney={tourneyData} setTourneyData={setTourneyData} />
-					<h1>Matches</h1>
 					<Matches tourney={tourneyData} setTourneyData={setTourneyData} />
-					<h1>Map pool</h1>
 					<MappoolEditor tourney={tourneyData} setTourneyData={setTourneyData} />
-				</>
+				</div>
 			)}
 		</div>
 	);

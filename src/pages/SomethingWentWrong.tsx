@@ -18,6 +18,7 @@ const SomethingWentWrong = ({ error }: FallbackProps) => {
 		}
 		return stackElements;
 	};
+	document.title = `CFP: Error`;
 	return (
 		<div className="somethingWentWrong">
 			<h1 style={{ marginBottom: 0 }}>400: Something went wrong</h1>

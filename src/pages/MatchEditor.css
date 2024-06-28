@@ -28,6 +28,7 @@
 	align-items: center;
 	justify-content: center;
 	gap: 0.5em;
+	margin: 1em 0;
 }
 .matchEditor-pick-user {
 	cursor: pointer;

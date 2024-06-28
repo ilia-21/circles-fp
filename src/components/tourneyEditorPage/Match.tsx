@@ -143,7 +143,7 @@ const Match: React.FC<Props> = React.memo(({ match, matchBracket, matchIndex, re
 				<div style={{ flexDirection: "column" }}>
 					<p>Mp id</p>
 					<input type="text" name="match.mpID" className="minimalisticInput" value={match.mpID} onChange={handleInputBlur} />
-					<Tooltip content={`A osu mp id, for example in match https://osu.ppy.sh/community/matches/111554331, you should paste 111554331 `} />
+					<Tooltip content={`An osu mp id, for example in match https://osu.ppy.sh/community/matches/111554331, you should paste 111554331 `} />
 				</div>
 				<div style={{ flexDirection: "column" }}>
 					<p>Tournament stage</p>

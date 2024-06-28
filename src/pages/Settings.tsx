@@ -131,7 +131,7 @@ const Settings = () => {
 		elements.push(<Links userSettings={userSettings} setUserSettings={setUserSettings} importSettings={importSettings} exportSettings={exportSettings} />);
 		return elements;
 	};
-
+	document.title = `CFP: Settings`;
 	return (
 		<div className="content">
 			<div className="settings-header">

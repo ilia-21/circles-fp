@@ -104,23 +104,26 @@ const Matches = ({ tourney, setTourneyData }: Props) => {
 	};
 
 	return (
-		<div className="TourneyEditor-Participants">
-			<div style={{ width: "100%" }}>
-				<h2>Bracket preview</h2>
-				{!matchesErrored ? <BracketCard tourney={localTourneyData} bracketWidth={1000} /> : drawIncorrectBlock()}
-			</div>
-			<div className="TourneyEditor-Matches-Block">
-				<h2 style={{ width: "100%" }}>Upper bracket</h2>
-				{localTourneyData.data.bracket.upper && drawMatches("upper")}
-				<div className="TourneyEditor-Match-Container empty" onClick={() => addBlankMatch("upper")}>
-					<IoMdAdd className="TourneyEditor-Participants-Icon" />
-					<p>Add new Match</p>
+		<div>
+			<h1>Matches</h1>
+			<div className="TourneyEditor-Participants">
+				<div style={{ width: "100%" }}>
+					<h2>Bracket preview</h2>
+					{!matchesErrored ? <BracketCard tourney={localTourneyData} bracketWidth={1000} /> : drawIncorrectBlock()}
 				</div>
-				<h2 style={{ width: "100%" }}>Lower bracket</h2>
-				{localTourneyData.data.bracket.lower && drawMatches("lower")}
-				<div className="TourneyEditor-Match-Container empty" onClick={() => addBlankMatch("lower")}>
-					<IoMdAdd className="TourneyEditor-Participants-Icon" />
-					<p>Add new Match</p>
+				<div className="TourneyEditor-Matches-Block">
+					<h2 style={{ width: "100%" }}>Upper bracket</h2>
+					{localTourneyData.data.bracket.upper && drawMatches("upper")}
+					<div className="TourneyEditor-Match-Container empty" onClick={() => addBlankMatch("upper")}>
+						<IoMdAdd className="TourneyEditor-Participants-Icon" />
+						<p>Add new Match</p>
+					</div>
+					<h2 style={{ width: "100%" }}>Lower bracket</h2>
+					{localTourneyData.data.bracket.lower && drawMatches("lower")}
+					<div className="TourneyEditor-Match-Container empty" onClick={() => addBlankMatch("lower")}>
+						<IoMdAdd className="TourneyEditor-Participants-Icon" />
+						<p>Add new Match</p>
+					</div>
 				</div>
 			</div>
 		</div>

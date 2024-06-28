@@ -4,6 +4,7 @@ import { Player } from "../../types/Player";
 import { Team } from "../../types/Team";
 import PlayerCardSmall from "../mainPage/PlayerCardSmall";
 import TeamCardSmall from "../mainPage/TeamCardSmall";
+import Spoiler from "../universal/Spoiler";
 import Tooltip from "../universal/Tooltip";
 import "./MatchSmall.css";
 interface Props {
@@ -23,7 +24,11 @@ const MatchSmall = ({ match, content }: Props) => {
 	const id = match.id;
 	let createContent = () => {
 		if (content == "score") {
-			return <p onClick={() => openMatchPage(id)}>{score ? `${score[0]} - ${score[1]}` : "? - ?"}</p>;
+			return (
+				<Spoiler>
+					<p onClick={() => openMatchPage(id)}>{score ? `${score[0]} - ${score[1]}` : "? - ?"}</p>
+				</Spoiler>
+			);
 		} else if (content == "upcoming") {
 			if (!upcoming) {
 				return (

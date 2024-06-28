@@ -28,3 +28,16 @@ interface MatchInfo {
 	end_time: string;
 	name: string;
 }
+export interface MatchDB {
+	id: number;
+	type: "team" | "1v1";
+	tournament: number;
+	result: number[];
+	first: number;
+	second: number;
+	data: MatchData;
+	timestamp: string;
+	osump?: number;
+	stats?: null;
+	stage?: string;
+}

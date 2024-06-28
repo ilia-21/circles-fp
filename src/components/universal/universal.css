@@ -101,3 +101,16 @@ li {
 	color: var(--cfp-text);
 	border-radius: 0.5em;
 }
+.spoiler-hidden {
+	background-color: var(--crust);
+	padding: 0.5em;
+	border-radius: 0.5em;
+}
+.spoiler-hidden p {
+	color: var(--crust) !important;
+}
+.spoiler-revealed {
+	background-color: transparent;
+	padding: 0.5em;
+	border-radius: 0.5em;
+}

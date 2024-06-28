@@ -15,6 +15,7 @@ import MatchTeamEvent from "../components/matchPage/MatchTeamEvent";
 import { BsChevronLeft } from "react-icons/bs";
 import IsEditor from "../functions/IsEditor";
 import { LuPencil } from "react-icons/lu";
+import setEmbed from "../functions/DiscordEmbedMabager";
 
 const Match = () => {
 	const { id } = useParams<{ id: string }>();
@@ -40,14 +41,14 @@ const Match = () => {
 	useEffect(() => {
 		const fetchMatch = async () => {
 			try {
-				const response = await fetch(`${import.meta.env.VITE_API_URL}/match/${id}`, {
+				const response = await fetch(`${import.meta.env.VITE_API_URL}/match/${id}?on=matchPage`, {
 					headers: {
 						"x-api-key": import.meta.env.VITE_API_KEY,
 					},
 					credentials: "include",
 				});
 				if (response.status == 401) {
-					setError(["401", "You need to log in"]);
+					setError(["401", "Log in to see match data"]);
 				}
 				if (response.status == 404) {
 					setError(["404", "Match not found"]);
@@ -154,6 +155,8 @@ const Match = () => {
 		}
 		return elements;
 	};
+	document.title = `CFP: ${(first as Team).title || (first as PlayerLite)?.username} vs ${(second as Team)?.title || (second as PlayerLite)?.username}`;
+	setEmbed(`${(first as Team).title || (first as PlayerLite)?.username} vs ${(second as Team)?.title || (second as PlayerLite)?.username}`, `Check out all the information about this match on Circles Front Page!`);
 	return (
 		<>
 			<div className="contentSlim">
@@ -177,7 +180,7 @@ const Match = () => {
 			<MatchDetails match={matchData} tournament={tournamentData as Tourney} />
 			<div className="contentSlim-section">
 				{matchData.extra && drawExtra()}
-				{drawEvents()}
+				{matchData.extra != "dbOnly" && drawEvents()}
 			</div>
 		</>
 	);

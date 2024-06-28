@@ -1,3 +1,5 @@
+import { PlayerStats } from "./Stats";
+
 export interface Player {
 	avatar_url: string;
 	country_code: string;
@@ -65,6 +67,7 @@ export interface Player {
 	ranked_and_approved_beatmapset_count: number;
 	unranked_beatmapset_count: number;
 	cfp: Cfp;
+	optout: boolean;
 }
 /**
  * Lighter version of player data to save bandwith
@@ -80,6 +83,7 @@ export interface PlayerLite {
 	country: Country;
 	cover: Cover;
 	cfp: Cfp;
+	optout: boolean;
 }
 /**
  * Lightest possible version of player data, containing only id, avatar and username
@@ -94,42 +98,7 @@ export interface PlayerLitest {
 
 export interface Cfp {
 	roles: Roles;
-	stats?: CfpStats;
-}
-
-interface CfpStats {
-	period: "allTime" | "lastMonth" | "lastYear";
-	Rates: Rates;
-}
-interface Rates {
-	NM: Rate;
-	HR: Rate;
-	HD: Rate;
-	DT: Rate;
-	FM: Rate;
-}
-/**
- * Rates for map picks/bans/wins/looses
- *
- * @timesWon Amount of maps won
- * @timesLost Amount of maps lost
- * @outOf  Total amount of maps
- */
-interface Rate {
-	timesWon: Times;
-	timesLost: Times;
-	outOf: Times;
-}
-/**
- * Times for picks/bans/wins/looses
- * this is prob unoptimized af, but I'll fix in later™
- * @ownPick Amount of own picks
- * @oppPick Amount of opponent picks
- *
- */
-interface Times {
-	ownPick: number;
-	oppPick: number;
+	stats?: PlayerStats;
 }
 
 export interface Roles {

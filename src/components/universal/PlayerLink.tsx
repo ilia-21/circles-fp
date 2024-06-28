@@ -8,11 +8,13 @@ type Props =
 			user?: null;
 			userid: number;
 			noColor?: boolean;
+			pfp?: boolean;
 	  }
 	| {
 			user: Player | PlayerLite;
 			userid?: null;
 			noColor?: boolean;
+			pfp?: boolean;
 	  };
 
 const fetchPlayer = async (id: number) => {
@@ -20,7 +22,7 @@ const fetchPlayer = async (id: number) => {
 	return player;
 };
 
-const PlayerLink = ({ user, userid, noColor }: Props) => {
+const PlayerLink = ({ user, userid, noColor, pfp }: Props) => {
 	const { data: player, isLoading } = useQuery({
 		queryKey: ["playerData", userid || user?.id],
 		enabled: !!userid, // Only fetch if userid is provided
@@ -48,8 +50,12 @@ const PlayerLink = ({ user, userid, noColor }: Props) => {
 				position: "relative",
 				textDecoration: noColor ? "none" : "unset",
 				color: noColor ? "var(--text)" : "var(--cfp-accent)",
+				display: pfp ? "flex" : "inline",
+				gap: "1em",
+				alignItems: "center",
 			}}
 		>
+			{player && pfp && <img src={player.avatar_url} style={{ height: "2.5em", borderRadius: "1em" }} />}
 			{player && player.username}
 			{player && <PlayerCardSmall player={player as PlayerLite} />}
 		</a>

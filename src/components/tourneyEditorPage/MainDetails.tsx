@@ -121,7 +121,6 @@ const MainDetails = ({ tourney, setTourneyData }: Props) => {
 						onClick={() => {
 							const updatedHost = { ...localTourneyData.host, id: Number(localStorage.getItem("localuserID")) };
 							const updatedTourney = { ...localTourneyData, host: updatedHost };
-							console.log(updatedTourney);
 							setLocalTourneyData(updatedTourney);
 							setTourneyData(updatedTourney);
 						}}

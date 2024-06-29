@@ -1,7 +1,8 @@
 import { Match } from "../../types/Match";
-import { Player } from "../../types/Player";
+import { Player, PlayerLite } from "../../types/Player";
 import { Team } from "../../types/Team";
 import PlayerCardSmall from "../mainPage/PlayerCardSmall";
+import TeamLink from "../universal/TeamLink";
 import Tooltip from "../universal/Tooltip";
 import "./MatchCardMed.css";
 
@@ -18,7 +19,7 @@ const MatchCardMed = ({ match, content }: Props) => {
 	const second = match.second;
 	const id = match.id;
 	const openMatchPage = (id: number) => {
-		window.open(`/#/match/${id}`, "_blank");
+		window.open(`/#/match/id/${id}`, "_blank");
 	};
 
 	const createContent = () => {
@@ -28,7 +29,7 @@ const MatchCardMed = ({ match, content }: Props) => {
 			if (!upcoming) {
 				return (
 					<p>
-						"6:66 AM"
+						"0:00 AM"
 						<Tooltip content={"Time not found"} />
 					</p>
 				);
@@ -51,18 +52,19 @@ const MatchCardMed = ({ match, content }: Props) => {
 		}
 	};
 
-	const createLink = (who: Team | Player) => {
-		if ((first as Player).avatar_url) {
+	const createLink = (who: Team | PlayerLite) => {
+		if ((first as PlayerLite).avatar_url) {
 			return (
 				<a href={`profile/${(who as Player).id}`}>
 					<img src={(who as Player).avatar_url} alt="" />
-					<PlayerCardSmall player={who as Player} />
+					{(who as Player).id != 1 ? <PlayerCardSmall player={who as Player} /> : "TBD"}
 				</a>
 			);
 		} else {
 			return (
 				<a href="">
-					<img src={`${import.meta.env.VITE_API_URL}/f/flags/${who}.png`} alt="NO TEAM AVATARS CURRENTLY" />
+					<img src={`${(match.second as Team).logo}`} alt="" />
+					{(who as Player).id != 1 ? <TeamLink team={who as Team} noColor /> : "TBD"}
 				</a>
 			);
 		}

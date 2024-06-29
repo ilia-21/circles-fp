@@ -1,7 +1,7 @@
 import "./TourneySchedule.css";
 import { Match } from "../../../types/Match";
 import DateConverter from "../../../functions/DateConverter";
-import { Player } from "../../../types/Player";
+import { Player, PlayerLite } from "../../../types/Player";
 import PlayerLink from "../../universal/PlayerLink";
 import { Team } from "../../../types/Team";
 import TeamLink from "../../universal/TeamLink";
@@ -11,36 +11,20 @@ interface Props {
 }
 
 const MatchLong = ({ match }: Props) => {
-	const renderFirstParty = () => {
+	const drawParty = (who: Team | PlayerLite) => {
+		console.log(who.id);
 		if (match.type == "team") {
 			return (
 				<div className="MatchLongPlayerSmol">
-					<img src={`${(match.first as Team).logo}`} alt="" />
-					<TeamLink team={match.first as Team} noColor />
+					<img src={`${(who as Team).logo}`} alt="" />
+					{who.id != 1 ? <TeamLink team={who as Team} noColor /> : <p>TBD</p>}
 				</div>
 			);
 		} else {
 			return (
 				<div className="MatchLongPlayerSmol">
-					<img src={(match.first as Player).avatar_url} alt="" />
-					<PlayerLink user={match.first as Player} noColor />
-				</div>
-			);
-		}
-	};
-	const renderSecondParty = () => {
-		if (match.type == "team") {
-			return (
-				<div className="MatchLongPlayerSmol">
-					<img src={`${(match.second as Team).logo}`} alt="" />
-					<TeamLink team={match.second as Team} noColor />
-				</div>
-			);
-		} else {
-			return (
-				<div className="MatchLongPlayerSmol">
-					<img src={(match.second as Player).avatar_url} alt="" />
-					<PlayerLink user={match.second as Player} noColor />
+					<img src={(who as Player).avatar_url} alt="" />
+					{who.id != 1 ? <PlayerLink user={who as Player} noColor /> : <p>TBD</p>}
 				</div>
 			);
 		}
@@ -52,10 +36,10 @@ const MatchLong = ({ match }: Props) => {
 				<Tooltip content={DateConverter(new Date(match.timestamp), "full")} />
 			</p>
 			<div className="MatchLongPlayerBox">
-				{renderFirstParty()}
-				{renderSecondParty()}
+				{drawParty(match.first)}
+				{drawParty(match.second)}
 			</div>
-			<a href={`/#/match/${match.id}`}>Details</a>
+			<a href={`/#/match/id/${match.id}`}>Details</a>
 
 			{/* <p>Quaterfinal / Final / whatever</p> TODO */}
 		</div>

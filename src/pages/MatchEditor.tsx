@@ -89,7 +89,7 @@ const MatchEditor = () => {
 	useEffect(() => {
 		const fetchMatch = async () => {
 			try {
-				const response = await fetch(`${import.meta.env.VITE_API_URL}/match/${id}`, {
+				const response = await fetch(`${import.meta.env.VITE_API_URL}/match/id/${id}`, {
 					headers: {
 						"x-api-key": import.meta.env.VITE_API_KEY,
 					},
@@ -224,7 +224,7 @@ const MatchEditor = () => {
 			<div className="content">
 				<div className="matchEditor-toolbar">
 					<div>
-						<a href={`/#/match/${matchData.id}`} style={{ display: "flex", gap: "0.5em", alignItems: "center" }}>
+						<a href={`/#/match/id/${matchData.id}`} style={{ display: "flex", gap: "0.5em", alignItems: "center" }}>
 							<BsChevronLeft /> Back to the match Page
 						</a>
 					</div>

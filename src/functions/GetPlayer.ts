@@ -1,8 +1,8 @@
-import { PlayerLite } from "../types/Player";
+import { PlayerLite, Size } from "../types/Player";
 
-let GetPlayer = async (id: number) => {
+let GetPlayer = async (id: number, size: Size) => {
 	try {
-		const response = await fetch(`${import.meta.env.VITE_API_URL}/user/${id}`, {
+		const response = await fetch(`${import.meta.env.VITE_API_URL}/user/${id}?size=${size}`, {
 			headers: {
 				"x-api-key": import.meta.env.VITE_API_KEY,
 			},

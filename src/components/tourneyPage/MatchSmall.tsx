@@ -14,7 +14,7 @@ interface Props {
 const datesAreOnSameDay = (first: Date, second: Date) => first.getFullYear() === second.getFullYear() && first.getMonth() === second.getMonth() && first.getDate() === second.getDate();
 const MatchSmall = ({ match, content }: Props) => {
 	let openMatchPage = (id: number) => {
-		window.open(`/#/match/${id}`, "_self");
+		window.open(`/#/match/id/${id}`, "_self");
 	};
 	if ((content == "upcoming" && new Date(match.timestamp) < new Date(Date.now())) || (content == "score" && new Date(match.timestamp) > new Date(Date.now()))) return;
 	const score = match.result;

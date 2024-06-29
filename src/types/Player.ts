@@ -1,5 +1,5 @@
 import { PlayerStats } from "./Stats";
-
+export type Size = "full" | "lite" | "litest";
 export interface Player {
 	avatar_url: string;
 	country_code: string;

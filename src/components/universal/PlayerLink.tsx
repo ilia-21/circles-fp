@@ -18,7 +18,7 @@ type Props =
 	  };
 
 const fetchPlayer = async (id: number) => {
-	const player = (await GetPlayer(id)) as PlayerLite;
+	const player = (await GetPlayer(id, "lite")) as PlayerLite;
 	return player;
 };
 
@@ -28,6 +28,7 @@ const PlayerLink = ({ user, userid, noColor, pfp }: Props) => {
 		enabled: !!userid, // Only fetch if userid is provided
 		queryFn: () => fetchPlayer(userid as number),
 		initialData: user || undefined, // Use initial data if user is provided
+		retry: false,
 	});
 	if (isLoading) {
 		return (

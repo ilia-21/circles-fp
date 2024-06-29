@@ -28,31 +28,39 @@ const Matches = ({ tourney, setTourneyData }: Props) => {
 	const [localTourneyData, setLocalTourneyData] = useState<Tourney>(tourney);
 	const [allParticipants, setAllParticipants] = useState<string[]>([]);
 	const [matchesErrored, setMatchesErrored] = useState<boolean>(false);
+	const [brackedPreviewed, setBrackedPreviewed] = useState<boolean>(false);
 
 	useEffect(() => {
 		setLocalTourneyData(tourney);
 		updateParticipants();
-	}, [tourney]);
-	useEffect(() => {
 		if (tourney.data.bracket.lower.length == 0 || tourney.data.bracket.upper.length == 0) {
 			setMatchesErrored(true);
 		} else {
 			setMatchesErrored(false);
 		}
-	}, []);
+	}, [tourney]);
 
 	const updateParticipants = useCallback(() => {
 		const participants = tourney.data.participants.map((p) => (p.who as PlayerLite).username || (p.who as Team).title);
 		setAllParticipants(participants);
 	}, [tourney.data.participants]);
-
+	const updateTournmaent = (updatedTourneyData: Tourney) => {
+		setBrackedPreviewed(false);
+		setLocalTourneyData(updatedTourneyData);
+		setTourneyData(updatedTourneyData);
+	};
 	const addBlankMatch = useCallback(
 		(br: "upper" | "lower") => {
-			const updatedMatch = [...localTourneyData.data.bracket[br], { ...newMatch, id: `${br}-${genRanHex(4)}` }];
+			let id = `${br}-${genRanHex(4)}`;
+			const allMatches = [...tourney.data.bracket.lower, ...tourney.data.bracket.upper];
+			while (allMatches.find((m) => m.id == id)) {
+				//generate another id if this one is already exists
+				id = `${br}-${genRanHex(4)}`;
+			}
+			const updatedMatch = [...localTourneyData.data.bracket[br], { ...newMatch, id: id }];
 			const updatedBracket = { ...localTourneyData.data.bracket, [br]: updatedMatch };
 			const updatedTourneyData = { ...localTourneyData, data: { ...localTourneyData.data, bracket: updatedBracket } };
-			setLocalTourneyData(updatedTourneyData);
-			setTourneyData(updatedTourneyData);
+			updateTournmaent(updatedTourneyData);
 		},
 		[localTourneyData, setTourneyData]
 	);
@@ -62,8 +70,7 @@ const Matches = ({ tourney, setTourneyData }: Props) => {
 			const updatedMatches = localTourneyData.data.bracket[bracket].filter((_, i) => i !== index);
 			const updatedBracket = { ...localTourneyData.data.bracket, [bracket]: updatedMatches };
 			const updatedTourneyData = { ...localTourneyData, data: { ...localTourneyData.data, bracket: updatedBracket } };
-			setLocalTourneyData(updatedTourneyData);
-			setTourneyData(updatedTourneyData);
+			updateTournmaent(updatedTourneyData);
 		},
 		[localTourneyData, setTourneyData]
 	);
@@ -73,10 +80,9 @@ const Matches = ({ tourney, setTourneyData }: Props) => {
 			const updatedMatches = { ...localTourneyData.data.bracket, [bracket]: [...localTourneyData.data.bracket[bracket]] };
 			updatedMatches[bracket][index] = updatedMatch;
 			const updatedTourneyData = { ...localTourneyData, data: { ...localTourneyData.data, bracket: updatedMatches } };
-			setLocalTourneyData(updatedTourneyData);
-			setTourneyData(updatedTourneyData);
+			updateTournmaent(updatedTourneyData);
 		},
-		[localTourneyData, setTourneyData]
+		[localTourneyData, tourney.data.bracket]
 	);
 
 	const drawMatches = useCallback(
@@ -102,15 +108,31 @@ const Matches = ({ tourney, setTourneyData }: Props) => {
 			);
 		}
 	};
-
+	const drawBracket = () => {
+		if (brackedPreviewed) {
+			return (
+				<div style={{ width: "100%" }}>
+					<h2>Bracket preview</h2>
+					{!matchesErrored && localTourneyData ? <BracketCard tourney={localTourneyData} bracketWidth={1000} /> : drawIncorrectBlock()}
+				</div>
+			);
+		} else {
+			return (
+				<div style={{ width: "100%" }}>
+					<h2>Bracket preview</h2>
+					<p style={{ color: "var(--cfp-accent)", cursor: "pointer" }} onClick={() => setBrackedPreviewed(true)}>
+						Render
+					</p>
+				</div>
+			);
+		}
+	};
 	return (
 		<div>
 			<h1>Matches</h1>
 			<div className="TourneyEditor-Participants">
-				<div style={{ width: "100%" }}>
-					<h2>Bracket preview</h2>
-					{!matchesErrored ? <BracketCard tourney={localTourneyData} bracketWidth={1000} /> : drawIncorrectBlock()}
-				</div>
+				{drawBracket()}
+
 				<div className="TourneyEditor-Matches-Block">
 					<h2 style={{ width: "100%" }}>Upper bracket</h2>
 					{localTourneyData.data.bracket.upper && drawMatches("upper")}

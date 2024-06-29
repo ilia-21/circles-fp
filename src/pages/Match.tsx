@@ -18,7 +18,7 @@ import { LuPencil } from "react-icons/lu";
 import setEmbed from "../functions/DiscordEmbedMabager";
 
 const Match = () => {
-	const { id } = useParams<{ id: string }>();
+	const { id, identifier } = useParams<{ id: string; identifier: "mp" | "id" }>();
 	const [user, setUser] = useState<PlayerLite | null>(null);
 	const [matchData, setMatchData] = useState<Match | null>(null);
 	const [tournamentData, setTournamentData] = useState<Tourney | null>(null);
@@ -41,7 +41,7 @@ const Match = () => {
 	useEffect(() => {
 		const fetchMatch = async () => {
 			try {
-				const response = await fetch(`${import.meta.env.VITE_API_URL}/match/${id}?on=matchPage`, {
+				const response = await fetch(`${import.meta.env.VITE_API_URL}/match/${identifier}/${id}?on=matchPage`, {
 					headers: {
 						"x-api-key": import.meta.env.VITE_API_KEY,
 					},
@@ -69,7 +69,7 @@ const Match = () => {
 		};
 
 		fetchMatch();
-	}, [id]);
+	}, [id, identifier]);
 
 	useEffect(() => {
 		const fetchTournament = async () => {

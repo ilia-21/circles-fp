@@ -11,7 +11,6 @@ import { Player } from "../types/Player";
 import ErrorPage from "./ErrorPage";
 
 const fetchProfileData = async (uid: string | undefined) => {
-	console.log("called", uid);
 	const queryUrl = uid ? `${import.meta.env.VITE_API_URL}/user/${uid}?full=true` : `${import.meta.env.VITE_API_URL}/api/session`;
 	const response = await fetch(queryUrl, {
 		credentials: "include",

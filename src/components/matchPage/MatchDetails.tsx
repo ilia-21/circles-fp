@@ -41,6 +41,14 @@ const MatchDetails = ({ match, tournament }: Props) => {
 		);
 	} else {
 		const drawTeamCosts = () => {
+			const playersWithMatchcosts: [PlayerLite, number][][] = [[], []];
+
+			(first as Team).players.map((p) => {
+				playersWithMatchcosts[0].push([p, Math.round(convertAndCalculateMatchcost(match, p.id) * 1000) / 1000]);
+			});
+			(second as Team).players.map((p) => {
+				playersWithMatchcosts[1].push([p, Math.round(convertAndCalculateMatchcost(match, p.id) * 1000) / 1000]);
+			});
 			//not using .map because sometimes teams are different sizes
 			let elements = [];
 			const longest = playersWithMatchcosts[0] > playersWithMatchcosts[1] ? 0 : 1;
@@ -53,21 +61,15 @@ const MatchDetails = ({ match, tournament }: Props) => {
 			return elements;
 		};
 		//sort by matchcost then display
-		const playersWithMatchcosts: [PlayerLite, number][][] = [[], []];
-
-		(first as Team).players.map((p) => {
-			playersWithMatchcosts[0].push([p, Math.round(convertAndCalculateMatchcost(match, p.id) * 1000) / 1000]);
-		});
-		(second as Team).players.map((p) => {
-			playersWithMatchcosts[1].push([p, Math.round(convertAndCalculateMatchcost(match, p.id) * 1000) / 1000]);
-		});
 		return (
 			<>
 				<div className="contentSlim-section">{drawLinks()}</div>
-				<div className="contentSlim-section">
-					<p style={{ textAlign: "center" }}>Match costs</p>
-					{drawTeamCosts()}
-				</div>
+				{match.events && (
+					<div className="contentSlim-section">
+						<p style={{ textAlign: "center" }}>Match costs</p>
+						{drawTeamCosts()}
+					</div>
+				)}
 			</>
 		);
 	}

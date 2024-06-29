@@ -145,7 +145,7 @@ const TourneyEditor = () => {
 	return (
 		<div className="content" style={{ position: "relative" }}>
 			<div className="TourneyEditor-mainToolbar">
-				{message && <p style={{ color: `var(--${message[0]})` }}>{message[1]}</p>}
+				<h1>{tourneyData?.title}</h1>
 				<div style={{ display: "flex", gap: "1em" }}>
 					<div onClick={() => Tie.exp(tourneyData as Tourney)}>
 						<BsFloppy color="var(--cfp-text)" style={{ fontSize: "2em" }} />

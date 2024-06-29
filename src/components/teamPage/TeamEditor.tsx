@@ -47,7 +47,7 @@ const TeamEditor = ({ team }: Props) => {
 	const handleBlur = async () => {
 		if (teamData.leader) {
 			try {
-				const player = await GetPlayer(Number(teamData.leader));
+				const player = await GetPlayer(Number(teamData.leader), "lite");
 				setLeader(player);
 			} catch (error) {
 				console.error("Error fetching player data:", error);

@@ -56,7 +56,7 @@ const Participants = ({ tourney, setTourneyData }: Props) => {
 		if (tourney.data.type == "team") {
 			playerData = await GetTeam(partyId);
 		} else {
-			playerData = await GetPlayer(partyId);
+			playerData = await GetPlayer(partyId, "lite");
 		}
 		const updatedParticipant = { ...localTourneyData.data.participants[index], who: playerData };
 		updateParticipant(index, updatedParticipant);

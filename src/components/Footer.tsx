@@ -12,10 +12,10 @@ const Footer = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const player1 = (await GetPlayer(17258441)) as PlayerLite;
+				const player1 = (await GetPlayer(17258441, "lite")) as PlayerLite;
 				setIlia21(player1);
 
-				const player2 = (await GetPlayer(27057916)) as PlayerLite;
+				const player2 = (await GetPlayer(27057916, "lite")) as PlayerLite;
 				setEffectXolodka(player2);
 			} catch (error) {
 				console.error("Error fetching player data:", error);

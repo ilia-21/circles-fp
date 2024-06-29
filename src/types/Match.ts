@@ -11,8 +11,8 @@ export interface Match {
 	type: "1v1" | "team";
 	tournament: number;
 	result: number[];
-	first: Team | Player;
-	second: Team | Player;
+	first: Team | PlayerLite;
+	second: Team | PlayerLite;
 	timestamp: string;
 	data?: MatchData;
 	date: string;

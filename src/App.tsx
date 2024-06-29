@@ -81,7 +81,7 @@ function App() {
 					<Route path="deleter">
 						<Route path="tourney/:id" element={<TourneyDeleter />} />
 					</Route>
-					<Route path="match/:id" element={<Match />} />
+					<Route path="match/:identifier/:id" element={<Match />} />
 					<Route path="team/:id" element={<TeamPage />} />
 					<Route path="info/*" element={<Infopage />} />
 					<Route path="settings/" element={<Settings />} />

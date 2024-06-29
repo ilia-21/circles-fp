@@ -63,7 +63,7 @@ const BracketCard = ({ tourney, bracketWidth }: Props) => {
 	return (
 		<ErrorBoundary
 			fallbackRender={(Props: FallbackProps) => {
-				console.log(Props.error, tourney);
+				console.log(Props.error, tourney.data.bracket);
 				return <p>Bracket could not be rendered</p>;
 			}}
 		>

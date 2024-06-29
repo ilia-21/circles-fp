@@ -5,6 +5,9 @@ import InputWithSuggestions from "../universal/InputWithSuggestions";
 import Tooltip from "../universal/Tooltip";
 import DateConverter from "../../functions/DateConverter";
 import { convertTime, getTimeZone } from "../../functions/TimeOperations";
+import genRanHex from "../../functions/GetRanHex";
+import { BsCopy } from "react-icons/bs";
+import { FaRegCopy } from "react-icons/fa";
 
 interface Props {
 	match: BracketMatch;
@@ -83,7 +86,7 @@ const Match: React.FC<Props> = React.memo(({ match, matchBracket, matchIndex, re
 					newTimestamp[1] = `${value}${getTimeZone()}`;
 				}
 				setTimestamp(newTimestamp);
-
+				console.log(newTimestamp);
 				const startTime = newTimestamp.join("");
 				if (new Date(startTime) instanceof Date && !isNaN(new Date(startTime).getTime())) {
 					const updatedMatch = { ...match, startTime: startTime };
@@ -111,18 +114,25 @@ const Match: React.FC<Props> = React.memo(({ match, matchBracket, matchIndex, re
 		const time = DateConverter(new Date(match.startTime), "HH:MM 24");
 		return (
 			<div style={{ display: "flex", gap: "1em" }}>
-				<input type="date" name="time.date" id="" value={date} className="minimalisticInput" onBlur={handleInputBlur} />
-				<input type="time" name="time.time" id="" value={time} className="minimalisticInput" onBlur={handleInputBlur} />
+				<input type="date" name="time.date" id="" value={date} className="minimalisticInput" onChange={handleInputBlur} />
+				<input type="time" name="time.time" id="" value={time} className="minimalisticInput" onChange={handleInputBlur} />
 			</div>
 		);
 	};
-
 	return (
 		<div className={`TourneyEditor-Match-Container`} id={`match-${match.id}`}>
 			<div className="TourneyEditor-Match-Toolbar">
-				<p>Match identifier (any text): </p>
-				<input type="text" name="match.id" className="minimalisticInput" value={match.id} onChange={handleInputBlur} />
-				<Tooltip content={`Unique name for this match. Will be used as reference by other matches`} />
+				<p>Match id: {match.id} </p>
+				<Tooltip content={`Unique id for this match. Will be used as reference by other matches`} />
+				<FaRegCopy
+					style={{
+						cursor: "pointer",
+						color: "var(--cfp-accent)",
+					}}
+					onClick={(e) => {
+						navigator.clipboard.writeText(String(match.id));
+					}}
+				/>
 			</div>
 			<div className="TourneyEditor-Matches-Content-Block">
 				<InputWithSuggestions value={match.participants[0] ? match.participants[0].name : "TBD"} name="participant.first" onBlur={handleInputBlur} suggestions={allParticipants} inputStyle={{ textAlign: "right", fontSize: "1.25em", width: "100%" }} containerStyle={{ maxWidth: "35%" }} />
@@ -173,7 +183,7 @@ const Match: React.FC<Props> = React.memo(({ match, matchBracket, matchIndex, re
 							if (winnerMatch) winnerMatch.classList.remove("glowing-green");
 						}}
 					/>
-					<Tooltip content={"Winner will advance to match with tis identifier"} />
+					<Tooltip content={"Winner will advance to match with this id"} />
 				</div>
 				<div>
 					<p>Next match for looser: </p>
@@ -196,7 +206,7 @@ const Match: React.FC<Props> = React.memo(({ match, matchBracket, matchIndex, re
 							if (looserMatch) looserMatch.classList.remove("glowing-red");
 						}}
 					/>
-					<Tooltip content={`Looser will go to match with tis identifier `} />
+					<Tooltip content={`Looser will go to match with this id `} />
 				</div>
 			</div>
 			<div className="TourneyEditor-Match-Footer">

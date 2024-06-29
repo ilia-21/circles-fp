@@ -7,6 +7,7 @@ const FinalizeTournmaent = (tourneyData: Tourney) => {
 	const updatedMatches = {
 		upper: tourneyData.data.bracket.upper.map((match) => {
 			if (match.participants[0]) {
+				console.log(match.participants[0].id);
 				const firstParticipantID = tourneyData.data.participants.find((p: TourneyParticipant) => (p.who as PlayerLite).username === match.participants[0].id || (p.who as Team).title === match.participants[0].id)?.who.id;
 				const firstParticipant = { ...match.participants[0], id: `` + firstParticipantID };
 				match.participants = [firstParticipant, match.participants[1]];

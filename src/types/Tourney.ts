@@ -18,7 +18,7 @@ export interface TourneyLite {
 export interface Tourney {
 	id: number;
 	title: string;
-	host: Player;
+	host: PlayerLite;
 	data: TourneyData;
 	visits: any;
 	popularity: number;

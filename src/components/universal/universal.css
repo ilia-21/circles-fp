@@ -114,3 +114,20 @@ li {
 	padding: 0.5em;
 	border-radius: 0.5em;
 }
+.collapsible-container {
+}
+
+.collapsible-button {
+	cursor: pointer;
+	color: white;
+	border: none;
+	border-radius: 4px;
+}
+
+.collapsible-content {
+}
+.collapsible-header {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+}

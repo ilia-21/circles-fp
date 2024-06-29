@@ -8,6 +8,10 @@
 	flex-direction: column;
 	align-items: center;
 	position: relative;
+	width: 40%;
+}
+.MatchCardBigPlayer img {
+	width: 7.27em;
 }
 .MatchCardBigPlayer > a {
 	display: flex;

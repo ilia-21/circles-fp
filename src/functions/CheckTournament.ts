@@ -4,8 +4,9 @@ import { Tourney, TourneyParticipant } from "../types/Tourney";
 import { PlayerLite } from "../types/Player";
 import { Team } from "../types/Team";
 import FinalizeTournmaent from "./FinalizeTournmaent";
+import { getTimeZone } from "./TimeOperations";
 const sendTournament = async (id: string, tourneyData: Tourney, created?: boolean, toastId?: Id) => {
-	const url = created ? `${import.meta.env.VITE_API_URL}/new/tourney` : `${import.meta.env.VITE_API_URL}/edit/tourney/${id}`;
+	const url = created ? `${import.meta.env.VITE_API_URL}/new/tourney?tz=${getTimeZone().replace("+", "plus").replace("-", "minus")}` : `${import.meta.env.VITE_API_URL}/edit/tourney/${id}`;
 	try {
 		const response = await fetch(url, {
 			method: "POST",

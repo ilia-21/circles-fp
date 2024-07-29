@@ -24,6 +24,7 @@ import "react-toastify/dist/ReactToastify.css";
 import MetaTags from "./components/universal/MetaTags";
 import Announcement from "./components/universal/Announcement";
 import AuthDone from "./pages/AuthDone";
+import ConnectionCheck from "./components/universal/ConnectionCheck";
 
 function App() {
 	const [showPopup, setShowPopup] = useState(false);
@@ -57,6 +58,7 @@ function App() {
 			<MetaTags />
 			<SettingsLoader />
 			<Announcement />
+			<ConnectionCheck />
 			<ToastContainer position="bottom-right" theme="dark" draggable icon={false} />
 			<NavBar selected={currentPage} links={links} />
 			<ErrorBoundary fallbackRender={SomethingWentWrong}>
@@ -76,7 +78,7 @@ function App() {
 					</Route>
 					<Route path="editor">
 						<Route path="tourney/:id" element={<TourneyEditor />} />
-						<Route path="match/:id" element={<MatchEditor />} />
+						<Route path="match/:identifier/:id" element={<MatchEditor />} />
 					</Route>
 					<Route path="deleter">
 						<Route path="tourney/:id" element={<TourneyDeleter />} />

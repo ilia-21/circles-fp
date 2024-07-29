@@ -1,47 +1,59 @@
-import { useState, useEffect } from "react";
 import GetPlayer from "../functions/GetPlayer";
-import { PlayerLite } from "../types/Player";
+import { PlayerLite, Size } from "../types/Player";
 import "./Footer.css";
 import PlayerLink from "./universal/PlayerLink";
-
+import { useQuery } from "@tanstack/react-query";
+const fetchPlayer = async (id: number, type: Size): Promise<PlayerLite> => {
+	const response = await GetPlayer(id, type);
+	return response as PlayerLite;
+};
 const Footer = () => {
-	const [ilia21, setIlia21] = useState<PlayerLite | null>(null);
-	const [effectXolodka, setEffectXolodka] = useState<PlayerLite | null>(null);
-	const [loading, setLoading] = useState<boolean>(true);
-
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const player1 = (await GetPlayer(17258441, "lite")) as PlayerLite;
-				setIlia21(player1);
-
-				const player2 = (await GetPlayer(27057916, "lite")) as PlayerLite;
-				setEffectXolodka(player2);
-			} catch (error) {
-				console.error("Error fetching player data:", error);
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		fetchData();
-	}, []);
+	const { data: ilia21, isLoading: loading1 } = useQuery({
+		queryKey: ["ilia21Data"],
+		queryFn: () => fetchPlayer(17258441, "lite"),
+	});
+	const { data: effectXolodka, isLoading: loading2 } = useQuery({
+		queryKey: ["effectXolodkaData"],
+		queryFn: () => fetchPlayer(27057916, "lite"),
+	});
+	const { data: serverStats, isLoading: loading3 } = useQuery({
+		queryKey: ["serverData"],
+		queryFn: () =>
+			fetch(`${import.meta.env.VITE_API_URL}/db/stats`, {
+				headers: {
+					"x-api-key": import.meta.env.VITE_API_KEY,
+				},
+				credentials: "include",
+			}).then((response) => response.json()),
+		staleTime: 3600,
+	});
 
 	return (
 		<div className="footer">
-			<p>{import.meta.env.VITE_VERSION}</p>
-			<a href="https://github.com/ilia-21/circles-fp">Source</a>
-			<a href="/#/info/about">About</a>
-			<a href="https://discord.gg/WsXtQ9YC2d">Contact</a>
-			{loading || !ilia21 || !effectXolodka ? (
-				<p>
-					made with ♡ By ilia21, effect xolodka and <a href="https://github.com/ilia-21/circles-fp/graphs/contributors">you</a>
-				</p>
-			) : (
-				<p>
-					made with ♡ By <PlayerLink user={ilia21 as PlayerLite} />, <PlayerLink user={effectXolodka as PlayerLite} /> and <a href="https://github.com/ilia-21/circles-fp/graphs/contributors">you</a>
-				</p>
-			)}
+			<div>
+				{loading3 ? (
+					<p></p>
+				) : (
+					<p>
+						Stored ~{serverStats.matchCount} matches and ~{serverStats.tourneyCount} tournmaents for total of {serverStats.DBSize}
+					</p>
+				)}
+			</div>
+			<div>
+				<p>{import.meta.env.VITE_VERSION}</p>
+				<a href="https://github.com/ilia-21/circles-fp">Source</a>
+				<a href="/#/info/about">About</a>
+				<a href="https://discord.gg/WsXtQ9YC2d">Contact</a>
+				{loading1 || loading2 || !ilia21 || !effectXolodka ? (
+					<p>
+						made with ♡ By ilia21, effect xolodka and <a href="https://github.com/ilia-21/circles-fp/graphs/contributors">you</a>
+					</p>
+				) : (
+					<p>
+						made with ♡ By <PlayerLink user={ilia21 as PlayerLite} />, <PlayerLink user={effectXolodka as PlayerLite} /> and <a href="https://github.com/ilia-21/circles-fp/graphs/contributors">you</a>
+					</p>
+				)}
+			</div>
 		</div>
 	);
 };

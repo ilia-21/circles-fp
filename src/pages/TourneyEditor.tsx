@@ -25,7 +25,6 @@ const fetchUser = async () => {
 		credentials: "include",
 	});
 	const data = await response.json();
-	console.log(data);
 	if (data.isLoggedIn) {
 		return data.user;
 	}

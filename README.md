@@ -4,7 +4,7 @@
   Circles Front Page
   <br>
 </h1>
-<h3 align="center">Your homepage for <a href="https://osu.ppy.sh">osu!</a> tournaments</h5>
+<h3 align="center">The Pulse of <a href="https://osu.ppy.sh">osu!</a> Competitive Play</h5>
 <p align="center">
   <a href="https://circlesfrontpage.iii.cl/">Demo</a> •
   <a href="https://github.com/users/ilia-21/projects/1/views/2">Project plan</a> •

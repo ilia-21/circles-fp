@@ -199,6 +199,7 @@ interface UserAchievement {
 	achievement_id: number;
 }
 export interface UserSettings {
+	version: number;
 	colors: {
 		/* CFP styles */
 		cfpBgDark: string;
@@ -237,6 +238,9 @@ export interface UserSettings {
 		};
 	};
 	profileButtons: string[];
+	other: {
+		spoilerTime: number;
+	};
 }
 export interface Me extends Player {
 	settings: UserSettings | {};

@@ -122,7 +122,7 @@ const Match = () => {
 
 	const drawEvents = () => {
 		const events = [];
-		if (!matchData.first.title) {
+		if (!(matchData.first as Team).title) {
 			//for some reason this thing always sets matchData.type to "1v1" and I don't know why
 			for (let i = 0; i < matchData.events.length; i++) {
 				events.push(<MatchEvent key={genRanHex(4)} event={matchData.events[i]} first={matchData.first as PlayerLite} second={matchData.second as PlayerLite} next={matchData.events[i + 1]} />);
@@ -148,7 +148,7 @@ const Match = () => {
 			if (user && IsEditor({ key: `${user.id}`, condition: "equals", value: tournamentData?.host.id }, user) && matchData.extra == "noPickData") {
 				elements.push(
 					<p style={{ color: "var(--red)" }}>
-						Oh wait, you are the tournament editor, maybe <a href={`/#/editor/match/${matchData.id}`}>provide some pick/ban data?</a>
+						Oh wait, you are the tournament editor, maybe <a href={`/#/editor/match/${identifier}/${matchData.id}`}>provide some pick/ban data?</a>
 					</p>
 				);
 			}
@@ -167,7 +167,7 @@ const Match = () => {
 						</a>
 					)}
 					{user && IsEditor({ key: `${user.id}`, condition: "equals", value: tournamentData?.host.id }, user) && (
-						<a href={`/#/editor/match/${matchData.id}`} style={{ display: "flex", gap: "0.5em", alignItems: "center" }}>
+						<a href={`/#/editor/match/${identifier}/${matchData.id}`} style={{ display: "flex", gap: "0.5em", alignItems: "center" }}>
 							<LuPencil />
 						</a>
 					)}

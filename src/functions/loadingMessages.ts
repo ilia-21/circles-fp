@@ -8,6 +8,7 @@ const messages: [string, number][] = [
 	["Configuring keybinds", 1],
 	["Applying mods", 1],
 	["Beatmap difficulty calculation in progress", 1],
+	["Enjoying the game", 1],
 	["Reworking pp", 0.1],
 ];
 

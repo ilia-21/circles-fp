@@ -8,6 +8,9 @@ import "./Settings.css";
 import Colors from "../components/settingsPage/Colors";
 import Tooltip from "../components/universal/Tooltip";
 import Links from "../components/settingsPage/Links";
+import OtherSettings from "../components/settingsPage/Other";
+import ErrorPage from "./ErrorPage";
+import { toast } from "react-toastify";
 
 export const defaultColors = {
 	/* CFP styles */
@@ -49,17 +52,23 @@ export const defaultColors = {
 export const defaultProfileButtons = ["profile", "tourneys", "stats", "matches", "settings"];
 const Settings = () => {
 	const [userSettings, setUserSettings] = useState<UserSettings | null>(null);
+	const [userError, setUserError] = useState<string | null>(null);
 
 	useEffect(() => {
 		const fetchSettings = async () => {
-			const fetchedSettings: UserSettings = await loadSettings();
+			const fetchedSettings = await loadSettings();
+			console.log(fetchedSettings);
+			if (fetchedSettings == 401) setUserError("401");
 			setUserSettings(fetchedSettings);
 		};
 		fetchSettings();
 	}, []);
 
 	const saveSettings = (sync?: boolean) => {
-		updateSettings(userSettings as UserSettings, sync);
+		try {
+			updateSettings(userSettings as UserSettings, sync);
+			toast.success("Saved");
+		} catch (e) {}
 	};
 	const importSettings = (section: string) => {
 		const input = document.createElement("input");
@@ -81,11 +90,12 @@ const Settings = () => {
 							}));
 						} else if (section == "all") {
 							setUserSettings(importedSettings);
+							toast.success("Settings imported successfully");
 						} else {
-							console.error(`Invalid settings file. Section "${section}" not found.`);
+							toast.error(`Invalid settings file. Section "${section}" not found.`);
 						}
 					} catch (error) {
-						console.error("Invalid settings file.");
+						toast.error("Invalid settings file.");
 					}
 				};
 				reader.readAsText(file);
@@ -129,9 +139,13 @@ const Settings = () => {
 		}
 		elements.push(<Colors userSettings={userSettings} setUserSettings={setUserSettings} importSettings={importSettings} exportSettings={exportSettings} />);
 		elements.push(<Links userSettings={userSettings} setUserSettings={setUserSettings} importSettings={importSettings} exportSettings={exportSettings} />);
+		elements.push(<OtherSettings userSettings={userSettings} setUserSettings={setUserSettings} importSettings={importSettings} exportSettings={exportSettings} />);
 		return elements;
 	};
 	document.title = `CFP: Settings`;
+	if (userError) {
+		return <ErrorPage error={[401, "You need to log in"]} />;
+	}
 	return (
 		<div className="content">
 			<div className="settings-header">

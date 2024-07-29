@@ -16,6 +16,7 @@ import { PlayerLite } from "../types/Player";
 import DateConverter from "../functions/DateConverter";
 import Tooltip from "../components/universal/Tooltip";
 import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
 
 const BlankPick: PickEvent = {
 	who: "first",
@@ -26,15 +27,74 @@ const BlankPick: PickEvent = {
 	},
 };
 
+const fetchMatch = async (identifier: string, id: string) => {
+	const response = await fetch(`${import.meta.env.VITE_API_URL}/match/${identifier}/${id}`, {
+		headers: {
+			"x-api-key": import.meta.env.VITE_API_KEY,
+		},
+		credentials: "include",
+	});
+
+	if (response.status === 401) {
+		throw new Error("401: You need to log in");
+	}
+
+	if (!response.ok) {
+		throw new Error(`Error fetching data: ${response.statusText}`);
+	}
+
+	const data = await response.json();
+	return { ...data, id };
+};
+
+const fetchTournament = async (tournamentId: string) => {
+	const response = await fetch(`${import.meta.env.VITE_API_URL}/tourney/${tournamentId}?raw=true`, {
+		headers: {
+			"x-api-key": import.meta.env.VITE_API_KEY,
+		},
+		credentials: "include",
+	});
+
+	if (!response.ok) {
+		throw new Error(`Error fetching data: ${response.statusText}`);
+	}
+
+	const data = await response.json();
+	return data as Tourney;
+};
+
 const MatchEditor = () => {
 	const { id } = useParams<{ id: string }>();
-	const [matchData, setMatchData] = useState<Match | null>(null);
-	const [tournamentData, setTournamentData] = useState<Tourney | null>(null);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState<string[] | null>(null);
+	const { identifier } = useParams<{ identifier: string }>();
 	const [pickData, setPickData] = useState<PickEvent[] | null>(null);
 	const [score, setScore] = useState<string[] | null>(null);
 	const [availableMaps, setAvailableMaps] = useState<string[] | null>(null);
+	const {
+		data: matchData,
+		error: matchError,
+		isLoading: matchLoading,
+	} = useQuery({
+		queryKey: ["matchData", identifier, id],
+		queryFn: () => fetchMatch(identifier as string, id as string),
+		retry: false,
+	});
+
+	const {
+		data: tournamentData,
+		error: tournamentError,
+		isLoading: tournamentLoading,
+	} = useQuery({
+		queryKey: ["tournamentData", matchData?.tournament],
+		queryFn: () => fetchTournament(matchData?.tournament || ""),
+		enabled: !!matchData?.tournament,
+		retry: false,
+	});
+
+	useEffect(() => {
+		if (matchData?.result) {
+			setScore([matchData.result[0], matchData.result[1]]);
+		}
+	}, [matchData]);
 	let toastId;
 	const drawParty = (which: "first" | "second") => {
 		if (!matchData) return;
@@ -75,71 +135,15 @@ const MatchEditor = () => {
 				</p>
 			);
 		} else {
-			if (!score) return;
 			return (
 				<div style={{ display: "flex", borderBottom: "1px solid var(--cfp-accent)" }}>
-					<input type="text" name="score.first" className="minimalisticInput" inputMode="numeric" value={score[0]} style={{ width: "1em", textAlign: "center", borderBottom: "none" }} onChange={(e) => setScore([e.target.value, score[1]])} />
+					<input type="text" name="score.first" className="minimalisticInput" inputMode="numeric" value={score ? score[0] : "0"} style={{ width: "1em", textAlign: "center", borderBottom: "none" }} onChange={(e) => setScore([e.target.value, score ? score[1] : "0"])} />
 					<p> - </p>
-					<input type="text" name="score.second" className="minimalisticInput" inputMode="numeric" value={score[1]} style={{ width: "1em", textAlign: "center", borderBottom: "none" }} onChange={(e) => setScore([score[0], e.target.value])} />
+					<input type="text" name="score.second" className="minimalisticInput" inputMode="numeric" value={score ? score[1] : "0"} style={{ width: "1em", textAlign: "center", borderBottom: "none" }} onChange={(e) => setScore([score ? score[0] : "0", e.target.value])} />
 				</div>
 			);
 		}
 	};
-
-	useEffect(() => {
-		const fetchMatch = async () => {
-			try {
-				const response = await fetch(`${import.meta.env.VITE_API_URL}/match/id/${id}`, {
-					headers: {
-						"x-api-key": import.meta.env.VITE_API_KEY,
-					},
-					credentials: "include",
-				});
-				if (response.status === 401) {
-					setError(["401", "You need to log in"]);
-					return;
-				}
-				if (!response.ok) {
-					throw new Error(`Error fetching data: ${response.statusText}`);
-				}
-				const data = await response.json();
-				setMatchData({ ...data, id });
-				setScore([data.result[0], data.result[1]]);
-			} catch (error) {
-				console.error(error);
-				setError(["500", "Failed to fetch match data"]);
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		fetchMatch();
-	}, [id]);
-
-	useEffect(() => {
-		const fetchTournament = async () => {
-			if (!matchData || !matchData.tournament) return;
-
-			try {
-				const response = await fetch(`${import.meta.env.VITE_API_URL}/tourney/${matchData.tournament}?raw=true`, {
-					headers: {
-						"x-api-key": import.meta.env.VITE_API_KEY,
-					},
-					credentials: "include",
-				});
-				if (!response.ok) {
-					throw new Error(`Error fetching data: ${response.statusText}`);
-				}
-				const data = await response.json();
-				setTournamentData(data as Tourney);
-			} catch (error) {
-				console.error(error);
-				setError(["500", "Failed to fetch tournament data"]);
-			}
-		};
-
-		if (matchData?.tournament) fetchTournament();
-	}, [matchData]);
 
 	useEffect(() => {
 		if (matchData?.data?.picks) {
@@ -168,21 +172,21 @@ const MatchEditor = () => {
 		return pickData.map((p, index) => <Pick key={index} first={matchData.first} second={matchData.second} pick={p} index={index} pickData={pickData} setPickData={setPickData} availableMaps={availableMapsFiltered} />);
 	}, [pickData, availableMaps, matchData]);
 	const submitMatch = async () => {
-		toastId = toast.warning("Submitting...", { autoClose: false });
 		let merged = matchData as Match;
+		console.log(matchData);
 		//@ts-ignore
 		if (pickData?.length > 0) {
-			//this line is so stupid
 			//@ts-ignore
-			merged.data.picks = pickData;
+			merged.data = { ...merged.data, picks: pickData };
 		} else {
 			//@ts-ignore
 			merged.data = { stage: matchData?.data?.stage };
 		}
 
 		if (score) merged.result = [+score[0], +score[1]];
+		toastId = toast.warning("Submitting...", { autoClose: false });
 		try {
-			const response = await fetch(`${import.meta.env.VITE_API_URL}/edit/match/${id}`, {
+			const response = await fetch(`${import.meta.env.VITE_API_URL}/edit/match/${identifier}/${id}`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -204,27 +208,24 @@ const MatchEditor = () => {
 			console.error(error);
 		}
 	};
-	if (loading) {
+	if (tournamentLoading || matchLoading) {
 		return (
 			<div className="contentSlim">
 				<p>{randomLoadingMessage()}</p>
 			</div>
 		);
 	}
-	if (error) {
-		return <ErrorPage error={[Number(error[0]), error[1]]} />;
-	}
-	if (!matchData) {
+	if (tournamentError || matchError || !matchData) {
 		return <ErrorPage error={[500, "Failed to load match data"]} />;
 	}
-	document.title = `CFP: Editing Match`;
+	queryFn: document.title = `CFP: Editing Match`;
 
 	return (
 		<div>
 			<div className="content">
 				<div className="matchEditor-toolbar">
 					<div>
-						<a href={`/#/match/id/${matchData.id}`} style={{ display: "flex", gap: "0.5em", alignItems: "center" }}>
+						<a href={`/#/match/${identifier}/${matchData.id}`} style={{ display: "flex", gap: "0.5em", alignItems: "center" }}>
 							<BsChevronLeft /> Back to the match Page
 						</a>
 					</div>

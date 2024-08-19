@@ -1,7 +1,7 @@
 import { Beatmap, MappoolMod } from "./Beatmap";
 import { DoubleEliminationMatches } from "./DoubleElimMatches";
 import { Match } from "./Match";
-import { Player, PlayerLite, PlayerLitest } from "./Player";
+import { PlayerLite, PlayerLitest } from "./Player";
 import { Team } from "./Team";
 
 export interface TourneyLite {

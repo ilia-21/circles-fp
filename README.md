@@ -6,7 +6,7 @@
 </h1>
 <h3 align="center">The Pulse of <a href="https://osu.ppy.sh">osu!</a> Competitive Play</h5>
 <p align="center">
-  <a href="https://circlesfrontpage.iii.cl/">Demo</a> •
+  <a href="https://circlesfrontpage.iii.cl/" title="Warning: may be broken">Demo</a> •
   <a href="https://github.com/users/ilia-21/projects/1/views/2">Project plan</a> •
   <a href="https://discord.gg/WsXtQ9YC2d">Discord</a>
 </p>

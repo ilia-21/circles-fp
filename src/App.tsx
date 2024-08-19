@@ -38,7 +38,7 @@ function App() {
 	});
 	// react-query YIPPIE
 	let links = [
-		{ title: "Tournaments", location: "/#/tourneys" },
+		{ title: "Tournaments", location: "/#/tourneys/1" },
 		{ title: "Matches", location: "/#/matches" },
 		{ title: "Stats", location: "/#/stats" },
 	];
@@ -68,7 +68,7 @@ function App() {
 					<Route path="profile" element={<Profile />}>
 						<Route path=":uid" element={<Profile />} />
 					</Route>
-					<Route path="tourneys" element={<Tourneys />} />
+					<Route path="tourneys/:page" element={<Tourneys />} />
 					<Route path="tourney">
 						<Route path=":id" element={<Tourney page="info" />} />
 						<Route path=":id/info" element={<Tourney page="info" />} />

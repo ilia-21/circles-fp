@@ -60,7 +60,7 @@
 }
 
 .navBarLink:hover {
-	color: #575757;
+	color: var(--cfp-accent);
 }
 
 .selected {

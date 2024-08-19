@@ -1,6 +1,6 @@
 import DateConverter from "../../functions/DateConverter";
 import { Match } from "../../types/Match";
-import { Player } from "../../types/Player";
+import { Player, PlayerLite } from "../../types/Player";
 import { Team } from "../../types/Team";
 import PlayerCardSmall from "../mainPage/PlayerCardSmall";
 import TeamCardSmall from "../mainPage/TeamCardSmall";
@@ -25,7 +25,7 @@ const MatchSmall = ({ match, content }: Props) => {
 	let createContent = () => {
 		if (content == "score") {
 			return (
-				<Spoiler>
+				<Spoiler time={new Date(match.timestamp)}>
 					<p onClick={() => openMatchPage(id)}>{score ? `${score[0]} - ${score[1]}` : "? - ?"}</p>
 				</Spoiler>
 			);
@@ -61,11 +61,11 @@ const MatchSmall = ({ match, content }: Props) => {
 			);
 		}
 	};
-	const createLink = (who: Team | Player) => {
+	const createLink = (who: Team | PlayerLite) => {
 		if (match.type == "1v1") {
 			return (
-				<a href={`/#/profile/${(who as Player).id}`}>
-					<img src={(who as Player).avatar_url} alt="" />
+				<a href={`/#/profile/${(who as PlayerLite).id}`}>
+					<img src={(who as PlayerLite).avatar_url} alt="" />
 					<PlayerCardSmall player={who as Player} />
 				</a>
 			);

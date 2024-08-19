@@ -12,7 +12,7 @@ const TourneycardSmall = ({ tourney }: Props) => {
 	} else if (tourney.endedRecently) {
 		longLocalizedTimeString = "Ended";
 	} else {
-		longLocalizedTimeString = new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric" }).format(new Date(tourney.datestart + "00"));
+		longLocalizedTimeString = new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" }).format(new Date(tourney.datestart + "00"));
 	}
 	return (
 		<div className="tourneyCardSmall">

@@ -1,25 +1,13 @@
-import { useEffect, useState } from "react";
 import { UserSettings } from "../../types/Player";
 import loadSettings from "../../functions/loadSettings";
-
-const isEmpty = (obj: any) => {
-	if (!obj) {
-		return true;
-	} else {
-		return Object.keys(obj).length === 0;
-	}
-};
+import { useQuery } from "@tanstack/react-query";
 const SettingsLoader = () => {
-	const [userSettings, setUserSettings] = useState<UserSettings | null>(null);
+	const { data: userSettings, isLoading, error } = useQuery<UserSettings>({ queryKey: ["userSettings"], queryFn: () => loadSettings(), staleTime: 3600 });
 
-	useEffect(() => {
-		const fetchSettings = async () => {
-			const fetchedSettings: UserSettings = await loadSettings();
-			setUserSettings(fetchedSettings);
-		};
-		fetchSettings();
-	}, []);
-	if (!isEmpty(userSettings)) {
+	if (userSettings) {
+		console.log(userSettings);
+		//@ts-ignore
+		if (userSettings == 401) return <></>;
 		for (const clr of Object.keys((userSettings as any).colors)) {
 			if (clr != "advanced") {
 				const rootVariableName = clr

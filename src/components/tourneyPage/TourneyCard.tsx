@@ -8,6 +8,7 @@ interface Props {
 
 const TourneyCard = ({ tourney }: Props) => {
 	const generateMatches = (which: "upcoming" | "score") => {
+		console.log(tourney.matches.slice(0, 5));
 		const matchesToRender = tourney.matches.slice(0, 5).map((match) => {
 			if (match.result && which === "score") {
 				return <MatchSmall key={match.id} match={match} content="score" />;

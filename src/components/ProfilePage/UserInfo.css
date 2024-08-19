@@ -1,3 +1,13 @@
 .userDetails {
 	background-color: var(--cfp-bg-tertiary);
 }
+.profile-stats-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.profile-stats-tooltip-container {
+	background-color: var(--cfp-bg);
+	padding: 0.5em;
+	box-shadow: 0 0 1em #000000ff;
+}

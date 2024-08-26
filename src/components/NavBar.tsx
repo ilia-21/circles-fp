@@ -27,7 +27,12 @@ const NavBar = ({ selected, links }: Props) => {
 	};
 
 	const handleLogin = () => {
-		window.open(`${import.meta.env.VITE_API_URL}/login`, "Circles front page login", "height=800,width=450");
+		const authPopup = window.open(`${import.meta.env.VITE_API_URL}/login`, "Circles front page login", "toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,resizable=yes,height=800,width=450");
+		//refresh the page after login popup is closed (stackoverflow says it works only if the page is on the same domain, we'll see)
+		authPopup &&
+			(authPopup.onbeforeunload = function () {
+				window.location.reload();
+			});
 	};
 
 	const handleLogout = () => {

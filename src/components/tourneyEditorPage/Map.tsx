@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CiTrash } from "react-icons/ci";
 import { Beatmap, MappoolMod } from "../../types/Beatmap";
 import { mapsCount } from "./Mappool";
-import ModApplier from "../../functions/ModApplier";
+import { ModApplier } from "../../functions/ModUtils";
 import { ModType } from "../../types/Mod";
 
 interface Props {

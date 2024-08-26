@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import "./BeatMapCardMed.css";
 import { Beatmap } from "../../../types/Beatmap";
-import BeatmapMod from "../../universal/BeatmapMod";
 import Tooltip from "../../universal/Tooltip";
-import ModApplier from "../../../functions/ModApplier";
+import { getModColor, ModApplier } from "../../../functions/ModUtils";
 
 interface Props {
 	map: Beatmap;
@@ -27,10 +26,11 @@ const BeatMapCardMed = ({ map }: Props) => {
 	};
 
 	let beatmap = modifiedMap.beatmapset;
-
 	return (
 		<div className="BeatMapCardMed">
-			<h2 className="BeatMapSlot">{map.mod}</h2>
+			<h2 className="BeatMapSlot" style={{ background: getModColor(map.mod) }}>
+				{map.mod}
+			</h2>
 			<img src={beatmap.covers.list} alt="" />
 			<div className="BeatMapDataCont">
 				<a href={map.url}>
@@ -46,12 +46,9 @@ const BeatMapCardMed = ({ map }: Props) => {
 				</div>
 			</div>
 			<p className="BeatMapid" onClick={copyMapID}>
-				{copied ? "Copied!" : map.id}
-				<Tooltip content={"Click to copy"} />
+				{map.id}
+				<Tooltip content={copied ? "Copied!" : "Click to copy"} />
 			</p>
-			<div className="BeatMapModsCont">
-				<BeatmapMod mod={modifiedMap.mod} />
-			</div>
 		</div>
 	);
 };

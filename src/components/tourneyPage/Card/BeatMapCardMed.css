@@ -34,11 +34,6 @@
 	width: 20em;
 	max-width: 90%;
 }
-.BeatMapModsCont {
-	width: 10%;
-	display: flex;
-	align-items: center;
-}
 .BeatMapid {
 	color: var(--cfp-accent);
 	cursor: pointer;
@@ -47,6 +42,10 @@
 	font-size: 2em;
 	width: 10%;
 	text-align: center;
+	padding: 0.5em;
+	border-radius: 2.5em;
+	min-width: 2em;
+	color: var(--cfp-bg-secondary);
 }
 .BeatMapDataTitle {
 	color: var(--cfp-accent);

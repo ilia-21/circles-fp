@@ -6,4 +6,5 @@ export enum ModType {
 	FM = "FM",
 	TB = "TB",
 }
-export type Mod = "NM" | "HR" | "HD" | "DT";
+export type Mod = "NM" | "HR" | "HD" | "DT" | "FM" | "TB";
+export type BeatmapSlot = `${Mod}${number}` | "TB";

@@ -6,8 +6,22 @@ import { Tourney } from "../types/Tourney";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import BrowserFilters from "../components/tourneyBrowserPage/BrowserFilters";
-const fetchTourneys = async (page: string) => {
-	const response = await fetch(`${import.meta.env.VITE_API_URL}/tournaments/${page}`, {
+import { useSearchParams } from "react-router-dom";
+
+export type Filters = {
+	enabled: boolean;
+	year: string;
+};
+interface TourneyBrowserData {
+	data: Tourney[];
+	pages: number;
+}
+const fetchTourneys = async (page: string, filters: Filters) => {
+	let query = `${import.meta.env.VITE_API_URL}/tournaments/${page}`;
+	if (filters.enabled) {
+		filters.year !== "0000" && (query += `?year=${filters.year}`);
+	}
+	const response = await fetch(query, {
 		headers: {
 			"x-api-key": import.meta.env.VITE_API_KEY,
 		},
@@ -17,17 +31,18 @@ const fetchTourneys = async (page: string) => {
 		throw new Error("Network response was not ok");
 	}
 	const result = await response.json();
-	return result as Tourney[];
+	return result as TourneyBrowserData;
 };
 const Tourneys = () => {
-	const [searchOptions, setSearchOptions] = useState<{ type: "upcomingLive" | "archive"; year: string }>({
-		type: "upcomingLive",
-		year: "" + new Date().getFullYear(),
+	const [searchParams, setSearchParams] = useSearchParams();
+	const [filters, setFilters] = useState<Filters>({
+		enabled: searchParams.get("year") ? true : false,
+		year: searchParams.get("year") || "0000",
 	});
 	const { page } = useParams<{ page: string }>();
 	const { isLoading: loading, data: tourneyData } = useQuery({
-		queryKey: ["tourneysData", page],
-		queryFn: () => fetchTourneys(page as string),
+		queryKey: ["tourneysData", page, filters],
+		queryFn: () => fetchTourneys(page as string, filters),
 		retry: false,
 	});
 	if (loading) {
@@ -40,14 +55,38 @@ const Tourneys = () => {
 		);
 	}
 	const drawTourneys = () => {
+		console.log(tourneyData);
 		if (!tourneyData) return <></>;
-		return tourneyData.map((tourney) => <TourneyCardMed key={tourney.id} tourney={tourney} />);
+		if (!tourneyData.data) {
+			return (
+				<>
+					<h2>nothing found</h2>
+				</>
+			);
+		}
+		return tourneyData.data.map((tourney) => <TourneyCardMed key={tourney.id} tourney={tourney} />);
+	};
+	const drawPages = () => {
+		if (!tourneyData) return <></>;
+		let pageButtons = [];
+		for (let i = 1; i <= tourneyData.pages; i++) {
+			pageButtons.push(
+				<a href={`/#/tourneys/${i}`} style={{ textDecoration: `` + i == page ? "underline" : "none" }}>
+					{i}
+				</a>
+			);
+		}
+		return pageButtons;
 	};
 	return (
 		<div className="tourneyBrowser">
-			<div className="center">{tourneyData && drawTourneys()}</div>
+			<div className="center">
+				{tourneyData && drawTourneys()}
+				<div className="pagesSelector">{tourneyData && drawPages()}</div>
+			</div>
+
 			<div className="right">
-				<BrowserFilters setSearchOptions={setSearchOptions} searchOptions={searchOptions}></BrowserFilters>
+				<BrowserFilters setFilters={setFilters} filters={filters} setSearchParams={setSearchParams}></BrowserFilters>
 			</div>
 		</div>
 	);

@@ -62,12 +62,12 @@
 	gap: 1em;
 }
 .tourneyBrowser-Filters > * {
-	border-bottom: 1px solid #ffffff20;
 	width: 90%;
 	text-align: center;
 }
 .tourneyBrowser-Filters > h2 {
 	margin: 0;
+	color: var(--cfp-text);
 }
 .tourneyBrowser-Filter {
 	display: flex;
@@ -80,4 +80,11 @@
 }
 .tourneyBrowser-Filter > .selected {
 	color: var(--cfp-accent);
+}
+.pagesSelector {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1em;
 }

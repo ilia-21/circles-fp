@@ -7,6 +7,7 @@ const ConnectionCheck = () => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	const checkConnection = async () => {
+		console.log("Checking");
 		try {
 			const response = await fetch(`${import.meta.env.VITE_API_URL}/ping`, {
 				headers: {
@@ -31,7 +32,7 @@ const ConnectionCheck = () => {
 			setShowNoConnectionPopup(false);
 			setServerLockdown(null);
 		} catch (error) {
-			if ((error as Error).message.startsWith("TypeError: NetworkError")) setShowNoConnectionPopup(true);
+			if ((error as Error).message.includes("NetworkError")) setShowNoConnectionPopup(true);
 		} finally {
 			setIsLoading(false);
 		}

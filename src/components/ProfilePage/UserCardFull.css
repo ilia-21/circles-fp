@@ -21,7 +21,7 @@
 }
 .username {
 	margin: 0 0 0.2em 0;
-	font-size: min(2.4vw, 3em);
+	font-size: 3em;
 }
 .profileContainer {
 	display: flex;

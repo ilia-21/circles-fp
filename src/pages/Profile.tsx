@@ -38,7 +38,7 @@ const Profile = () => {
 		return (
 			<div className="profilePage">
 				<div className="profilePageThe2st">
-					<div>{randomLoadingMessage()}</div>
+					<div style={{ color: "var(--cfp-text)" }}>{randomLoadingMessage()}</div>
 				</div>
 			</div>
 		);

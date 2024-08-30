@@ -2,8 +2,8 @@ import { ColorResult, SketchPicker } from "react-color";
 import type { UserSettings } from "../../types/Player";
 import { useState, useRef, useEffect } from "react";
 import "./../../pages/Settings.css";
-import { defaultColors } from "../../pages/Settings";
 import HeaderButtons from "./HeaderButtons";
+import { GetDefaultSettings } from "../../functions/SettingsUtils";
 
 interface Props {
 	userSettings: UserSettings;
@@ -109,7 +109,7 @@ const Colors = ({ userSettings, setUserSettings, importSettings, exportSettings 
 		updateColors();
 	}, [userSettings.colors]);
 	const setDefaultColors = () => {
-		const updatedSettings = { ...userSettings, colors: defaultColors };
+		const updatedSettings = { ...userSettings, colors: GetDefaultSettings().colors };
 		setUserSettings(updatedSettings);
 		updateColors();
 		setFulldarkness(false);

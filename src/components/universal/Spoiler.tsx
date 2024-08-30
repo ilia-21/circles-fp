@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Tooltip from "./Tooltip";
 import { UserSettings } from "../../types/Player";
+import { getUserSettings } from "../../functions/SettingsUtils";
 interface Props {
 	children: any;
 	time: Date;
@@ -15,7 +16,7 @@ const Spoiler = ({ children, time }: Props) => {
 			}
 		}, 2000);
 	}, [hovering]);
-	const spoiler = (JSON.parse(localStorage.getItem("websiteSettings") as string) as UserSettings).other.spoilerTime * 3600;
+	const spoiler = getUserSettings().other.spoilerTime * 3600;
 	time.setSeconds(time.getSeconds() + spoiler);
 	if (time > new Date()) {
 		return (

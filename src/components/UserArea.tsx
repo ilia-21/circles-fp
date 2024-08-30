@@ -1,4 +1,4 @@
-import loadSettings from "../functions/loadSettings";
+import { loadSettings } from "../functions/SettingsUtils";
 import { UserSettings } from "../types/Player";
 import "./UserArea.css";
 import { useState, useEffect, useRef } from "react";

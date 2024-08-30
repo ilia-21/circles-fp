@@ -1,5 +1,5 @@
 import { UserSettings } from "../../types/Player";
-import loadSettings from "../../functions/loadSettings";
+import { loadSettings } from "../../functions/SettingsUtils";
 import { useQuery } from "@tanstack/react-query";
 const SettingsLoader = () => {
 	const { data: userSettings, isLoading, error } = useQuery<UserSettings>({ queryKey: ["userSettings"], queryFn: () => loadSettings(), staleTime: 3600 });

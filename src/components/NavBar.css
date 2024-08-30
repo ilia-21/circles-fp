@@ -39,6 +39,7 @@
 	display: flex;
 	align-items: center;
 	cursor: pointer;
+	justify-content: end;
 }
 .navBarLink:last-child:hover {
 	color: var(--cfp-text);

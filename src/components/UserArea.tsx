@@ -19,14 +19,19 @@ const UserArea = ({ avatar, name, userid, onLogout }: Props) => {
 	const [menuVisible, setMenuVisible] = useState(false);
 	const [settings, setSettings] = useState<UserSettings | null>(null);
 	const menuRef = useRef<HTMLDivElement>(null);
+	const dropdownRef = useRef<HTMLDivElement>(null);
 	setlocalId("" + userid);
 	const toggleMenu = () => {
 		setMenuVisible(!menuVisible);
 	};
 
-	const handleClickOutside = (event: MouseEvent) => {
+	const handleClick = (event: MouseEvent) => {
 		if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
 			setMenuVisible(false);
+		} else if (dropdownRef.current && dropdownRef.current.contains(event.target as Node)) {
+			setTimeout(() => {
+				setMenuVisible(false);
+			}, 100);
 		}
 	};
 
@@ -37,11 +42,11 @@ const UserArea = ({ avatar, name, userid, onLogout }: Props) => {
 	};
 
 	useEffect(() => {
-		document.addEventListener("mousedown", handleClickOutside);
+		document.addEventListener("mousedown", handleClick);
 		document.addEventListener("keydown", handleEscapeKey);
 
 		return () => {
-			document.removeEventListener("mousedown", handleClickOutside);
+			document.removeEventListener("mousedown", handleClick);
 			document.removeEventListener("keydown", handleEscapeKey);
 		};
 	}, []);
@@ -100,7 +105,9 @@ const UserArea = ({ avatar, name, userid, onLogout }: Props) => {
 				<img src={avatar} alt="User Avatar" />
 				<p>{name}</p>
 			</div>
-			<div className="userMenu">{menuVisible && drawMenu()}</div>
+			<div className="userMenu" ref={dropdownRef}>
+				{menuVisible && drawMenu()}
+			</div>
 		</div>
 	);
 };

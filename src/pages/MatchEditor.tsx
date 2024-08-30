@@ -181,6 +181,10 @@ const MatchEditor = () => {
 			//@ts-ignore
 			merged.data = { stage: matchData?.data?.stage };
 		}
+		if (identifier == "mp") {
+			//@ts-ignore
+			merged.data = { ...merged.data, mp: id };
+		}
 
 		if (score) merged.result = [+score[0], +score[1]];
 		toastId = toast.warning("Submitting...", { autoClose: false });

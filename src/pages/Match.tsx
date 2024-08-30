@@ -122,6 +122,11 @@ const Match = () => {
 
 	const drawEvents = () => {
 		const events = [];
+		if (matchData.extra == "noTourney" && matchData.data?.picks) {
+			for (let i = 0; i < matchData.data?.picks.length; i++) {
+				events.push(<MatchEvent key={genRanHex(4)} event={matchData.data?.picks[i]} first={matchData.first as PlayerLite} second={matchData.second as PlayerLite} next={matchData.data?.picks[i + 1]} />);
+			}
+		}
 		if (!(matchData.first as Team).title) {
 			//for some reason this thing always sets matchData.type to "1v1" and I don't know why
 			for (let i = 0; i < matchData.events.length; i++) {
@@ -142,13 +147,16 @@ const Match = () => {
 					elements.push(<p style={{ color: "var(--red)" }}>Warning! This match is not in the database, data maybe incorrect/not full</p>);
 					break;
 				case "noPickData":
-					elements.push(<p style={{ color: "var(--red)" }}>Warning! Tournament editor did not provide pick/ban data</p>);
+					elements.push(<p style={{ color: "var(--red)" }}>Warning! Tournament host did not provide pick/ban data</p>);
+					break;
+				case "noTourney":
+					elements.push(<p style={{ color: "var(--red)" }}>Warning! This match doesn't have a tournament attached to it, but contains info about picks and bans.</p>);
 					break;
 			}
 			if (user && IsEditor({ key: `${user.id}`, condition: "equals", value: tournamentData?.host.id }, user) && matchData.extra == "noPickData") {
 				elements.push(
 					<p style={{ color: "var(--red)" }}>
-						Oh wait, you are the tournament editor, maybe <a href={`/#/editor/match/${identifier}/${matchData.id}`}>provide some pick/ban data?</a>
+						Oh, wait. Looks like you have the permission to ehit this match, maybe <a href={`/#/editor/match/${identifier}/${matchData.id}`}>provide some pick/ban data?</a>
 					</p>
 				);
 			}

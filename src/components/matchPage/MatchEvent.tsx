@@ -76,7 +76,7 @@ const MatchEvent = ({ event, next, first, second }: Props) => {
 		const content = [event.type == "ban" ? "var(--red)" : "var(--green)", event.type == "ban" ? " banned " : " picked ", event.map];
 		if (event.type != "tb") {
 			return (
-				<div className={(next as MatchEventType).game ? "matchEvent prePick" : "matchEvent"}>
+				<div className={next && (next as MatchEventType).game ? "matchEvent prePick" : "matchEvent"}>
 					<div>
 						{event.who == "first" && (
 							<p style={{ color: content[0] }}>

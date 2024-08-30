@@ -1,3 +1,4 @@
+import MakeMoreReadable from "../../functions/MakeMoreReadable";
 import { MatchEvent as MatchEventType, PickEvent, Score } from "../../types/MatchEvent";
 import { PlayerLite } from "../../types/Player";
 import BeatmapMod from "../universal/BeatmapMod";
@@ -55,12 +56,12 @@ const MatchEvent = ({ event, next, first, second }: Props) => {
 				</a>
 				<div className="MatchScoresContainer">
 					<div className={firstScore?.score > secondScore?.score || !secondScore ? "MatchScoreContainer winner" : "MatchScoreContainer looser"}>
-						<p className="MatchScorePoints">{firstScore?.score}</p>
+						<p className="MatchScorePoints">{MakeMoreReadable(firstScore?.score)}</p>
 						{drawScoreDetails(firstScore)}
 					</div>
 					{secondScore ? (
 						<div className={secondScore?.score > firstScore?.score ? "MatchScoreContainer winner" : "MatchScoreContainer looser"}>
-							<p className="MatchScorePoints">{secondScore?.score}</p>
+							<p className="MatchScorePoints">{MakeMoreReadable(secondScore?.score)}</p>
 							{drawScoreDetails(secondScore)}
 						</div>
 					) : (

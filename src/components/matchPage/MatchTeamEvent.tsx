@@ -1,3 +1,4 @@
+import MakeMoreReadable from "../../functions/MakeMoreReadable";
 import { MatchEvent as MatchEventType, PickEvent, Score } from "../../types/MatchEvent";
 import { Team } from "../../types/Team";
 import BeatmapMod from "../universal/BeatmapMod";
@@ -74,7 +75,7 @@ const MatchTeamEvent = ({ event, next, first }: Props) => {
 							<p>{`{${s.statistics.count_300}/${s.statistics.count_100}/${s.statistics.count_50}/${s.statistics.count_miss}}`}</p>
 						</div>
 						<div className="matchGrid-item-score">
-							<p style={{ fontWeight: "bolder" }}>{s.score}</p>
+							<p style={{ fontWeight: "bolder" }}>{MakeMoreReadable(s.score)}</p>
 						</div>
 					</div>
 				);
@@ -101,13 +102,13 @@ const MatchTeamEvent = ({ event, next, first }: Props) => {
 				</a>
 				<div className="MatchScoresContainer">
 					<div className={firstTotal > secondTotal ? "MatchScoreContainer winner" : "MatchScoreContainer looser"}>
-						<p className="MatchScorePoints">{firstTotal}</p>
+						<p className="MatchScorePoints">{MakeMoreReadable(firstTotal)}</p>
 						<table>
 							<tbody>{drawScoreDetails(firstScores)}</tbody>
 						</table>
 					</div>
 					<div className={secondTotal > firstTotal ? "MatchScoreContainer winner" : "MatchScoreContainer looser"}>
-						<p className="MatchScorePoints">{secondTotal}</p>
+						<p className="MatchScorePoints">{MakeMoreReadable(secondTotal)}</p>
 						<table>
 							<tbody>{drawScoreDetails(secondScores)}</tbody>
 						</table>

@@ -240,6 +240,7 @@ export interface UserSettings {
 	profileButtons: string[];
 	other: {
 		spoilerTime: number;
+		separator: string;
 	};
 }
 export interface Me extends Player {

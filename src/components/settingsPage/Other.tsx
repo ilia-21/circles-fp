@@ -34,6 +34,11 @@ const OtherSettings = ({ userSettings, setUserSettings, importSettings, exportSe
 					<p>Mark matches, that happened this many hours ago as spoiler (0 to disable)</p>
 					<input type="text" value={userSettings.other.spoilerTime} name="spoilerTime" onChange={handleChange} className="minimalisticInput" />
 				</div>
+				<div>
+					<p>Separator for long numbers (By default: just space) </p>
+					<input type="text" maxLength={1} value={userSettings.other.separator} name="separator" onChange={handleChange} className="minimalisticInput" />
+					<p>Preview: 123{userSettings.other.separator}456</p>
+				</div>
 			</div>
 		</div>
 	);

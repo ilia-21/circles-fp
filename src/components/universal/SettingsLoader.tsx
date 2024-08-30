@@ -5,7 +5,6 @@ const SettingsLoader = () => {
 	const { data: userSettings, isLoading, error } = useQuery<UserSettings>({ queryKey: ["userSettings"], queryFn: () => loadSettings(), staleTime: 3600 });
 
 	if (userSettings) {
-		console.log(userSettings);
 		//@ts-ignore
 		if (userSettings == 401) return <></>;
 		for (const clr of Object.keys((userSettings as any).colors)) {

@@ -57,7 +57,6 @@ const Settings = () => {
 	useEffect(() => {
 		const fetchSettings = async () => {
 			const fetchedSettings = await loadSettings();
-			console.log(fetchedSettings);
 			if (fetchedSettings == 401) setUserError("401");
 			setUserSettings(fetchedSettings);
 		};
@@ -82,8 +81,6 @@ const Settings = () => {
 					try {
 						const importedSettings = JSON.parse(e.target?.result as string);
 						if (importedSettings[section]) {
-							console.log(section);
-
 							setUserSettings((prevSettings) => ({
 								...prevSettings!,
 								[section]: importedSettings[section],

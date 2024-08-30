@@ -55,7 +55,6 @@ const Tourneys = () => {
 		);
 	}
 	const drawTourneys = () => {
-		console.log(tourneyData);
 		if (!tourneyData) return <></>;
 		if (!tourneyData.data) {
 			return (

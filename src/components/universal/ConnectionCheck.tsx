@@ -7,7 +7,6 @@ const ConnectionCheck = () => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	const checkConnection = async () => {
-		console.log("Checking");
 		try {
 			const response = await fetch(`${import.meta.env.VITE_API_URL}/ping`, {
 				headers: {

@@ -227,7 +227,6 @@ let CheckTournament = async (send: boolean, id: string, tourneyData: Tourney, se
 	// Test 6
 	// Check if all finished matches have a mappool assigned
 	for (const match of allBracketMatches) {
-		console.log(match);
 		if (!tourneyData.data.pool.find((p) => p.title == match.tournamentRoundText) && match.state == "DONE") {
 			counter++;
 			foundIn.push(match.id);

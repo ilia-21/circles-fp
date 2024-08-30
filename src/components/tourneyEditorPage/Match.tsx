@@ -86,7 +86,6 @@ const Match: React.FC<Props> = React.memo(({ match, matchBracket, matchIndex, re
 					newTimestamp[1] = `${value}${getTimeZone()}`;
 				}
 				setTimestamp(newTimestamp);
-				console.log(newTimestamp);
 				const startTime = newTimestamp.join("");
 				if (new Date(startTime) instanceof Date && !isNaN(new Date(startTime).getTime())) {
 					const updatedMatch = { ...match, startTime: startTime };

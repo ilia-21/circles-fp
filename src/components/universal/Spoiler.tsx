@@ -17,7 +17,6 @@ const Spoiler = ({ children, time }: Props) => {
 	}, [hovering]);
 	const spoiler = (JSON.parse(localStorage.getItem("websiteSettings") as string) as UserSettings).other.spoilerTime * 3600;
 	time.setSeconds(time.getSeconds() + spoiler);
-	console.log(time, new Date());
 	if (time > new Date()) {
 		return (
 			<div

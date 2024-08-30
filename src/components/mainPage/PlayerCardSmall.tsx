@@ -42,9 +42,6 @@ const PlayerCardSmall = ({ player, height }: Props) => {
 		const role = player.cfp.roles[roleTitle];
 		return <Badge title={roleTitle} color={role[0]} icn={role[1]} description={role[2]} />;
 	}
-	if (!player.cover) {
-		console.log(player);
-	}
 	return (
 		<div className="playerCardSmall" ref={playerCardRef} style={position}>
 			<img src={player.cover.custom_url} alt="" />

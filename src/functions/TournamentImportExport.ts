@@ -82,7 +82,6 @@ const exp = async (tournament: Tourney) => {
 		}
 
 		// Log the mapping of old IDs to new IDs
-		console.log("ID Mapping:", ids);
 
 		// Then replace ids in nextMatchId and nextLooserMatchId
 		const replaceIdsInBracket = (bracket: any[]) => {
@@ -95,7 +94,6 @@ const exp = async (tournament: Tourney) => {
 		replaceIdsInBracket(tournament.data.bracket.lower);
 
 		// Log the updated bracket for verification
-		console.log("Updated Bracket:", tournament.data.bracket);
 
 		// Convert tournament data to JSON
 		const data = JSON.stringify({ WARNING: "DO NOT CHANGE ANYTHING IN THIS FILE", ...tournament }, null, 2);

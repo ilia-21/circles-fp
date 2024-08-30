@@ -173,7 +173,6 @@ const MatchEditor = () => {
 	}, [pickData, availableMaps, matchData]);
 	const submitMatch = async () => {
 		let merged = matchData as Match;
-		console.log(matchData);
 		//@ts-ignore
 		if (pickData?.length > 0) {
 			//@ts-ignore

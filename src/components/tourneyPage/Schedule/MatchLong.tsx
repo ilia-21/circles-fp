@@ -12,7 +12,6 @@ interface Props {
 
 const MatchLong = ({ match }: Props) => {
 	const drawParty = (who: Team | PlayerLite) => {
-		console.log(who.id);
 		if (match.type == "team") {
 			return (
 				<div className="MatchLongPlayerSmol">

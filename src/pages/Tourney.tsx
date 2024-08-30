@@ -31,7 +31,6 @@ const Tourney = ({ page }: Props) => {
 					},
 					credentials: "include",
 				});
-				console.log(response.status);
 				if (response.status === 410) {
 					setGone(true);
 				} else if (!response.ok) {

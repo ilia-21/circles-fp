@@ -18,7 +18,6 @@ const ReadableTooltip = (e: ComputedDatum<SunburstData>) => {
 	const firstWord = e.path[1] == "picked" ? e.data.name : e.path[1];
 	const secondWord = e.path[1] == "picked" ? "picked" : e.data.name;
 	const thirdWord = e.value == 1 ? "time" : "times"; // a little bit attention to small details
-	console.log(e);
 	return (
 		<div className="profile-stats-tooltip-container">
 			<p>

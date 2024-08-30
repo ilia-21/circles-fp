@@ -6,11 +6,9 @@ const FinalizeTournmaent = (tourneyData: Tourney) => {
 	const findId = (id: string) => {
 		return tourneyData.data.participants.find((p: TourneyParticipant) => (p.who as PlayerLite).username === id || (p.who as Team).title === id)?.who.id;
 	};
-	console.log("Finalizing...");
 	const updatedMatches = {
 		upper: tourneyData.data.bracket.upper.map((match) => {
 			if (match.participants[0] && !Number(match.participants[0].id)) {
-				console.log(match.participants[0].id);
 				const firstParticipantID = findId(match.participants[0].id);
 				if (!firstParticipantID) throw new Error("Id not found");
 				const firstParticipant = { ...match.participants[0], id: `` + firstParticipantID };
@@ -41,7 +39,6 @@ const FinalizeTournmaent = (tourneyData: Tourney) => {
 		}),
 	};
 	tourneyData.data.bracket = updatedMatches;
-	console.log(tourneyData);
 	return tourneyData;
 };
 export default FinalizeTournmaent;

@@ -17,6 +17,7 @@ export interface Match {
 	data?: MatchData;
 	date: string;
 	extra?: string;
+	osump: string;
 }
 interface MatchData {
 	stage: string;

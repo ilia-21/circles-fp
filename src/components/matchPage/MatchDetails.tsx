@@ -24,11 +24,11 @@ const MatchDetails = ({ match, tournament }: Props) => {
 		return (
 			<div className="matchDetails-links">
 				{tournament && tournament.data.stream && new Date(match.timestamp) > new Date(Date.now()) && <LinkButtonSmall color="#9146FF" icn="Twitch" text="Watch live" link={tournament.data.stream} />}
-				<LinkButtonSmall color="#FF66AA" icn="Osu" text="mp link" link={`https://osu.ppy.sh/community/matches/${match.id}`} />
+				<LinkButtonSmall color="#FF66AA" icn="Osu" text="Match link" link={`https://osu.ppy.sh/community/matches/${match.osump}`} />
 			</div>
 		);
 	};
-	if (!first.title) {
+	if (!(first as Team).title) {
 		return (
 			<>
 				<div className="contentSlim-section">{drawLinks()}</div>

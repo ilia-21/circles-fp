@@ -122,11 +122,7 @@ const Match = () => {
 
 	const drawEvents = () => {
 		const events = [];
-		if (matchData.extra == "noTourney" && matchData.data?.picks) {
-			for (let i = 0; i < matchData.data?.picks.length; i++) {
-				events.push(<MatchEvent key={genRanHex(4)} event={matchData.data?.picks[i]} first={matchData.first as PlayerLite} second={matchData.second as PlayerLite} next={matchData.data?.picks[i + 1]} />);
-			}
-		}
+
 		if (!(matchData.first as Team).title) {
 			//for some reason this thing always sets matchData.type to "1v1" and I don't know why
 			for (let i = 0; i < matchData.events.length; i++) {

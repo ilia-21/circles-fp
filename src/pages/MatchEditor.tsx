@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import { Match } from "../types/Match";
+import { Match, MatchDB } from "../types/Match";
 import { Tourney } from "../types/Tourney";
 import randomLoadingMessage from "../functions/loadingMessages";
 import ErrorPage from "./ErrorPage";
@@ -46,7 +46,26 @@ const fetchMatch = async (identifier: string, id: string) => {
 	const data = await response.json();
 	return { ...data, id };
 };
+const isMPValid = async (mp: string, matchdata: Match): Promise<boolean | String[]> => {
+	const response = await fetch(`${import.meta.env.VITE_API_URL}/util/check_mp?mp=${mp}`, {
+		headers: {
+			"x-api-key": import.meta.env.VITE_API_KEY,
+		},
+		credentials: "include",
+	});
 
+	if (response.status === 401) {
+		throw new Error("401: You need to log in");
+	}
+
+	if (!response.ok) {
+		throw new Error(`Error fetching data: ${response.statusText}`);
+	}
+
+	const data = (await response.json()) as { first: PlayerLite | Team; second: PlayerLite | Team };
+	if (data.first.id == matchdata.first.id && data.second.id == matchdata.second.id) return true;
+	return false;
+};
 const fetchTournament = async (tournamentId: string) => {
 	const response = await fetch(`${import.meta.env.VITE_API_URL}/tourney/${tournamentId}?raw=true`, {
 		headers: {
@@ -68,6 +87,7 @@ const MatchEditor = () => {
 	const { identifier } = useParams<{ identifier: string }>();
 	const [pickData, setPickData] = useState<PickEvent[] | null>(null);
 	const [score, setScore] = useState<string[] | null>(null);
+	const [mpLink, setMpLink] = useState<string | null>(null);
 	const [availableMaps, setAvailableMaps] = useState<string[] | null>(null);
 	const {
 		data: matchData,
@@ -94,6 +114,9 @@ const MatchEditor = () => {
 		if (matchData?.result) {
 			setScore([matchData.result[0], matchData.result[1]]);
 		}
+		if (matchData?.osump) {
+			setMpLink(matchData.osump);
+		}
 	}, [matchData]);
 	let toastId;
 	const drawParty = (which: "first" | "second") => {
@@ -101,10 +124,10 @@ const MatchEditor = () => {
 		if (!(matchData[which] as Team).logo) {
 			const party = matchData[which] as PlayerLite;
 			return (
-				<div className="matchDataCardBigPlayer">
+				<div style={{ textAlign: "center" }}>
 					<a href={`/#/profile/${party.id}`}>
 						<img src={party.avatar_url} alt="" />
-						<p>{party.username}</p>
+						<h1>{party.username}</h1>
 					</a>
 				</div>
 			);
@@ -211,6 +234,31 @@ const MatchEditor = () => {
 			console.error(error);
 		}
 	};
+	const handleMPChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const input = e.target.value;
+		const match = input.match(/^https:\/\/osu\.ppy\.sh\/community\/matches\/(\d+)$|^(\d+)$/);
+
+		if (!match) {
+			setMpLink(e.target.value);
+		} else {
+			const matchId = match[1] || match[2];
+			setMpLink(matchId);
+		}
+	};
+	const checkMPLink = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		const input = mpLink || "";
+		const match = input.match(/^https:\/\/osu\.ppy\.sh\/community\/matches\/(\d+)$|^(\d+)$/);
+
+		if (!match) {
+			toast.error("This does not look like a valid match link or ID");
+		} else {
+			const matchId = match[1] || match[2];
+			setMpLink(matchId);
+			if (!(await isMPValid(matchId, matchData))) {
+				toast.warn("Looks like you privded wrong mp: API responded with different players/teams than this match has");
+			}
+		}
+	};
 	if (tournamentLoading || matchLoading) {
 		return (
 			<div className="contentSlim">
@@ -241,6 +289,10 @@ const MatchEditor = () => {
 					{drawParty("first")}
 					{drawcontent()}
 					{drawParty("second")}
+				</div>
+				<div style={{ display: "flex", gap: "1em", justifyContent: "center" }}>
+					<p>Mp id or link (if match started/ended):</p>
+					<input type="text" value={mpLink || ""} name="mp" onChange={handleMPChange} onBlur={checkMPLink} className="minimalisticInput" style={{ width: "25em" }} />
 				</div>
 			</div>
 			<div className="content-section">

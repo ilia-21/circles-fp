@@ -54,6 +54,9 @@ const Footer = () => {
 					</p>
 				)}
 			</div>
+			<div>
+				<p>Not affiliated with osu!</p>
+			</div>
 		</div>
 	);
 };

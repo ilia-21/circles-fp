@@ -1,6 +1,6 @@
 const messages: [string, number][] = [
 	["You ended up in a strage place", 1],
-	["You shitmiseed", 1],
+	["You shitmissed", 1],
 	["Looks like the servers are taking break", 1],
 	["Looks like a hidden mod is enabled on this page", 1],
 	["You got a slider break", 1],

@@ -74,7 +74,7 @@ const Profile = () => {
 
 			<div className="profilePageThe2st">
 				<UserCardFull user={user} />
-				<UserInfo id={user.id} />
+				<UserInfo playerData={user} />
 			</div>
 		</div>
 	);

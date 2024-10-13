@@ -6,24 +6,25 @@ interface Props {
 	data: SunburstData;
 	keys: string[];
 	indexby: string;
+	type: "loss" | "ban";
 }
 const DoesItHaveChildrenWith0Value = (data: SunburstData) => {
-	//Because the chart breaks on 100% winrate or losrate
+	//Because the chart breaks on 100% winrate or lossrate
 	if (data.children && data.children.find((c) => c.value == 0)) return true;
 	return false;
 };
-const ReadableTooltip = (e: ComputedDatum<SunburstData>) => {
+const ReadableTooltip = (e: ComputedDatum<SunburstData>, type: "loss" | "ban") => {
 	const word = e.value == 1 ? "time" : "times"; // a little bit of attention to small details
 	return (
 		<div className="profile-stats-tooltip-container">
 			<p>
-				{e.id} lost {e.value} {word}
+				{e.id} {type == "loss" ? "lost" : "banned"} {e.value} {word}
 			</p>
 			<p>{e.formattedValue}</p>
 		</div>
 	);
 };
-const LossSunburst = ({ data, keys, indexby }: Props) => {
+const LossSunburst = ({ data, keys, indexby, type }: Props) => {
 	return (
 		<ResponsiveSunburst
 			data={data}
@@ -43,7 +44,7 @@ const LossSunburst = ({ data, keys, indexby }: Props) => {
 				modifiers: [["darker", 1.72]],
 			}}
 			theme={theme}
-			tooltip={ReadableTooltip}
+			tooltip={(e) => ReadableTooltip(e, type)}
 		/>
 	);
 };
